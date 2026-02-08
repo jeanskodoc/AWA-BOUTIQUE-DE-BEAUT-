@@ -1122,7 +1122,7 @@
         };
 
         // Variables globales
-        let beautyProducts = JSON.parse(localStorage.getItem('beautyProducts')) || [];
+        let beautyProducts = [];
         let beautyUserCoordinates = null;
         let beautyUserAddress = "";
         let currentCurrency = 'FCFA';
@@ -1131,9 +1131,29 @@
         // Initialisation
         document.addEventListener('DOMContentLoaded', function() {
             initializeEventListeners();
-            renderBeautyProducts();
             autoGeolocate();
+            
+            // Vérifier si des données sont déjà en local storage
+            loadProductsFromLocalStorage();
+            
+            // Écouter les changements de fichier
+            document.getElementById('beauty-import-catalog').addEventListener('change', function(e) {
+                if (e.target.files.length > 0) {
+                    handleImport();
+                }
+            });
         });
+
+        function loadProductsFromLocalStorage() {
+            const savedProducts = JSON.parse(localStorage.getItem('beautyProducts'));
+            if (savedProducts && savedProducts.length > 0) {
+                beautyProducts = savedProducts;
+                renderBeautyProducts();
+                showNotification('Catalogue chargé depuis la mémoire locale', 'success');
+            } else {
+                showNotification('Importez un catalogue pour voir les produits', 'info');
+            }
+        }
 
         function initializeEventListeners() {
             // Bouton retour
@@ -1173,7 +1193,7 @@
             
             // Boutons modal
             document.getElementById('beauty-esodi-modal-btn').addEventListener('click', function() {
-                window.open('https://jeanskodoc.github.io/-CONOMIE-/', '_blank');
+                window.open('https://jeanskodoc.github.io/Carte-virtuelle-/', '_blank');
                 showNotification('Redirection vers le portail de paiement...', 'success');
             });
             
@@ -1208,19 +1228,60 @@
             const reader = new FileReader();
             reader.onload = function(e) {
                 try {
-                    const importedProducts = JSON.parse(e.target.result);
-                    if (Array.isArray(importedProducts)) {
-                        beautyProducts = importedProducts;
-                        localStorage.setItem('beautyProducts', JSON.stringify(beautyProducts));
-                        renderBeautyProducts();
-                        showNotification('Catalogue importé avec succès!', 'success');
+                    const importedData = JSON.parse(e.target.result);
+                    let productsArray = [];
+                    
+                    // Gérer les différents formats du fichier exporté depuis l'admin
+                    if (Array.isArray(importedData)) {
+                        // Format simple: tableau de produits
+                        productsArray = importedData;
+                    } else if (importedData.products && Array.isArray(importedData.products)) {
+                        // Format avec métadonnées
+                        productsArray = importedData.products;
+                    } else if (importedData.categories && typeof importedData.categories === 'object') {
+                        // Format par catégories
+                        Object.values(importedData.categories).forEach(categoryProducts => {
+                            if (Array.isArray(categoryProducts)) {
+                                productsArray = productsArray.concat(categoryProducts);
+                            }
+                        });
                     } else {
-                        showNotification('Format de fichier invalide', 'error');
+                        throw new Error('Format de fichier non reconnu');
                     }
+                    
+                    // Valider les produits
+                    const validatedProducts = productsArray.filter(product => {
+                        return product && 
+                               product.id && 
+                               product.name && 
+                               product.price && 
+                               product.category && 
+                               product.stock !== undefined;
+                    });
+                    
+                    if (validatedProducts.length === 0) {
+                        showNotification('Aucun produit valide trouvé dans le fichier', 'error');
+                        return;
+                    }
+                    
+                    beautyProducts = validatedProducts;
+                    localStorage.setItem('beautyProducts', JSON.stringify(beautyProducts));
+                    
+                    renderBeautyProducts();
+                    showNotification(`${validatedProducts.length} produits importés avec succès!`, 'success');
+                    
+                    // Réinitialiser le champ fichier
+                    fileInput.value = '';
                 } catch (error) {
+                    console.error('Erreur d\'importation:', error);
                     showNotification('Erreur d\'importation: ' + error.message, 'error');
                 }
             };
+            
+            reader.onerror = function() {
+                showNotification('Erreur de lecture du fichier', 'error');
+            };
+            
             reader.readAsText(file);
         }
 
@@ -1312,6 +1373,9 @@
                         <i class="fas fa-palette" style="font-size: 48px; color: var(--primary-light); margin-bottom: 15px;"></i>
                         <h3 style="color: var(--secondary); margin-bottom: 10px;">Aucun produit disponible</h3>
                         <p style="color: var(--primary-light);">Importez un catalogue pour voir nos produits beauté</p>
+                        <button class="beauty-btn beauty-btn-primary" onclick="document.getElementById('beauty-import-catalog').click()" style="margin-top: 15px;">
+                            <i class="fas fa-upload"></i> Importer un catalogue
+                        </button>
                     </div>
                 `;
                 return;
@@ -1325,17 +1389,24 @@
                 const priceEuro = Math.round(product.price * EXCHANGE_RATES.EUR * 100) / 100;
                 const priceDollar = Math.round(product.price * EXCHANGE_RATES.USD * 100) / 100;
                 
+                // Image par défaut si non disponible
+                let imageContent = '';
+                if (product.image) {
+                    imageContent = `<img src="${product.image}" alt="${product.name}" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'140\'><rect width=\'200\' height=\'140\' fill=\'%23fce4ec\'/><text x=\'100\' y=\'70\' font-family=\'Arial\' font-size=\'14\' fill=\'%23e91e63\' text-anchor=\'middle\'>${product.name}</text></svg>'">`;
+                } else {
+                    imageContent = `
+                        <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: linear-gradient(45deg, #f48fb1, #e91e63);">
+                            <i class="fas fa-spa fa-2x" style="color: white;"></i>
+                        </div>
+                    `;
+                }
+                
                 return `
                     <div class="beauty-product-card category-${product.category}">
                         <span class="beauty-product-badge ${categoryBadgeClass}">${categoryText}</span>
-                        ${product.image ? 
-                            `<div class="beauty-product-image" onclick="showImageZoom('${product.image}')">
-                                <img src="${product.image}" alt="${product.name}">
-                            </div>` : 
-                            `<div class="beauty-product-image" style="background: linear-gradient(45deg, #f48fb1, #e91e63);">
-                                <i class="fas fa-spa fa-2x" style="color: white;"></i>
-                            </div>`
-                        }
+                        <div class="beauty-product-image" onclick="showImageZoom('${product.image || ''}')">
+                            ${imageContent}
+                        </div>
                         <div class="beauty-product-info">
                             <h3 class="beauty-product-title">${product.name}</h3>
                             <div class="beauty-product-price">
@@ -1349,11 +1420,11 @@
                                     <span class="price-dollar">$${priceDollar.toFixed(2)}</span>
                                 </div>
                             </div>
-                            <p class="beauty-product-description">${product.description}</p>
+                            <p class="beauty-product-description">${product.description || 'Description non disponible'}</p>
                             <div class="beauty-quantity-control">
                                 <button class="beauty-quantity-btn minus" onclick="updateQuantity(${product.id}, -1)">-</button>
                                 <input type="number" class="beauty-quantity-input" id="qty-${product.id}" 
-                                       value="0" min="0" max="${product.stock}" 
+                                       value="0" min="0" max="${product.stock || 0}" 
                                        onchange="updateQuantityInput(${product.id})">
                                 <button class="beauty-quantity-btn plus" onclick="updateQuantity(${product.id}, 1)">+</button>
                             </div>
@@ -1401,7 +1472,7 @@
             let value = parseInt(input.value) || 0;
             
             if (change > 0) {
-                const max = parseInt(input.getAttribute('max'));
+                const max = parseInt(input.getAttribute('max')) || 0;
                 if (value < max) value++;
             } else if (change < 0) {
                 if (value > 0) value--;
@@ -1414,7 +1485,7 @@
 
         window.updateQuantityInput = function(productId) {
             const input = document.getElementById(`qty-${productId}`);
-            const max = parseInt(input.getAttribute('max'));
+            const max = parseInt(input.getAttribute('max')) || 0;
             let value = parseInt(input.value) || 0;
             
             if (value > max) value = max;
@@ -1426,6 +1497,11 @@
         };
 
         window.showImageZoom = function(imageSrc) {
+            if (!imageSrc) {
+                showNotification('Image non disponible', 'info');
+                return;
+            }
+            
             document.getElementById('beauty-zoomed-image').src = imageSrc;
             document.getElementById('beauty-image-modal').style.display = 'flex';
         };
@@ -1438,7 +1514,7 @@
             let hasProducts = false;
             
             beautyProducts.forEach(product => {
-                const quantity = parseInt(document.getElementById(`qty-${product.id}`).value) || 0;
+                const quantity = parseInt(document.getElementById(`qty-${product.id}`)?.value) || 0;
                 if (quantity > 0) {
                     hasProducts = true;
                     const total = quantity * product.price;
@@ -1470,7 +1546,7 @@
             let subtotal = 0;
             
             beautyProducts.forEach(product => {
-                const quantity = parseInt(document.getElementById(`qty-${product.id}`).value) || 0;
+                const quantity = parseInt(document.getElementById(`qty-${product.id}`)?.value) || 0;
                 if (quantity > 0) {
                     totalItems += quantity;
                     subtotal += quantity * product.price;
@@ -1579,7 +1655,7 @@
             
             let total = 0;
             beautyProducts.forEach(product => {
-                const quantity = parseInt(document.getElementById(`qty-${product.id}`).value) || 0;
+                const quantity = parseInt(document.getElementById(`qty-${product.id}`)?.value) || 0;
                 if (quantity > 0) {
                     const itemTotal = quantity * product.price;
                     const itemEuro = Math.round(itemTotal * EXCHANGE_RATES.EUR * 100) / 100;
@@ -1615,6 +1691,18 @@
         function showNotification(message, type) {
             const notification = document.getElementById('beauty-notification');
             notification.textContent = message;
+            
+            // Définir la couleur en fonction du type
+            if (type === 'success') {
+                notification.style.background = 'linear-gradient(135deg, var(--success), #2e7d32)';
+            } else if (type === 'error') {
+                notification.style.background = 'linear-gradient(135deg, var(--danger), #d32f2f)';
+            } else if (type === 'info') {
+                notification.style.background = 'linear-gradient(135deg, var(--primary), var(--secondary))';
+            } else {
+                notification.style.background = 'linear-gradient(135deg, var(--warning), #f57c00)';
+            }
+            
             notification.className = `beauty-notification ${type}`;
             notification.classList.add('show');
             
