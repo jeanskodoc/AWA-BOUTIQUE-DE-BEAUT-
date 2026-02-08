@@ -25,7 +25,7 @@
             --card-bg: #ffffff;
             --shadow: 0 6px 20px rgba(156, 39, 176, 0.15);
             --shadow-hover: 0 12px 30px rgba(156, 39, 176, 0.25);
-            --radius-round: 50px;
+            --radius-round: 40px; /* Réduit de 50px */
             --radius: 14px;
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -53,9 +53,9 @@
             padding: 15px;
         }
         
-        /* Bouton retour rond */
+        /* Bouton retour réduit */
         .btn-retour {
-            padding: 12px 24px;
+            padding: 10px 20px; /* Réduit */
             background: linear-gradient(135deg, var(--beauty-light), #e1bee7);
             border: none;
             border-radius: var(--radius-round);
@@ -73,6 +73,7 @@
             overflow: hidden;
             z-index: 1;
             border: 2px solid var(--primary);
+            height: 42px; /* Hauteur fixe */
         }
         
         .btn-retour::before {
@@ -132,15 +133,15 @@
         }
         
         .logo {
-            width: 90px;
-            height: 90px;
+            width: 80px; /* Réduit de 90px */
+            height: 80px; /* Réduit de 90px */
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 36px;
+            font-size: 32px; /* Réduit de 36px */
             box-shadow: 0 10px 30px rgba(156, 39, 176, 0.4);
             overflow: hidden;
             border: 4px solid white;
@@ -161,7 +162,7 @@
         }
         
         .boutique-name {
-            font-size: 36px;
+            font-size: 32px; /* Réduit de 36px */
             font-weight: 700;
             background: linear-gradient(135deg, var(--luxury-purple), var(--primary));
             -webkit-background-clip: text;
@@ -171,7 +172,7 @@
         }
         
         .owner {
-            font-size: 16px;
+            font-size: 14px; /* Réduit de 16px */
             color: var(--secondary);
             margin-top: 5px;
             font-weight: 600;
@@ -180,9 +181,9 @@
         
         .admin-info {
             background: linear-gradient(135deg, rgba(156, 39, 176, 0.08), rgba(103, 58, 183, 0.08));
-            padding: 25px;
+            padding: 20px; /* Réduit de 25px */
             border-radius: 12px;
-            margin: 20px auto;
+            margin: 15px auto; /* Réduit de 20px */
             border-left: 5px solid var(--primary);
             width: 100%;
             max-width: 600px;
@@ -193,19 +194,20 @@
         .admin-details {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            font-size: 15px;
+            gap: 12px; /* Réduit de 15px */
+            font-size: 14px; /* Réduit de 15px */
         }
         
         .admin-detail {
             display: flex;
             align-items: center;
-            gap: 12px;
-            padding: 12px 18px;
+            gap: 10px; /* Réduit de 12px */
+            padding: 10px 15px; /* Réduit de 12px 18px */
             background: rgba(255, 255, 255, 0.9);
-            border-radius: var(--radius-round);
+            border-radius: 30px; /* Réduit de var(--radius-round) */
             transition: var(--transition);
             border: 1px solid rgba(156, 39, 176, 0.3);
+            height: 42px; /* Hauteur fixe */
         }
         
         .admin-detail:hover {
@@ -216,21 +218,21 @@
         
         .admin-detail i {
             color: var(--primary);
-            width: 18px;
-            font-size: 18px;
+            width: 16px; /* Réduit de 18px */
+            font-size: 16px; /* Réduit de 18px */
         }
         
-        /* Navigation */
+        /* Navigation - BOUTONS REDUITS */
         nav {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 12px;
-            margin-top: 25px;
+            gap: 10px; /* Réduit de 12px */
+            margin-top: 20px; /* Réduit de 25px */
         }
         
         .nav-btn {
-            padding: 16px 28px;
+            padding: 12px 20px; /* Réduit de 16px 28px */
             background: linear-gradient(135deg, var(--beauty-light), #e1bee7);
             border: 2px solid transparent;
             border-radius: var(--radius-round);
@@ -239,13 +241,13 @@
             transition: var(--transition);
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px; /* Réduit de 12px */
             text-decoration: none;
             color: var(--beauty-dark);
             box-shadow: var(--shadow);
-            font-size: 15px;
+            font-size: 14px; /* Réduit de 15px */
             text-align: center;
-            min-height: 52px;
+            min-height: 44px; /* Réduit de 52px */
             position: relative;
             overflow: hidden;
             z-index: 1;
@@ -305,11 +307,90 @@
             border-color: var(--formation);
         }
         
+        /* Style pour les nouveaux boutons d'accès - REDUITS */
+        .access-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px; /* Réduit de 15px */
+            margin: 20px 0; /* Réduit de 25px */
+            padding: 15px; /* Réduit de 20px */
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(243, 229, 245, 0.8));
+            border-radius: var(--radius);
+            border: 2px solid var(--luxury-gold);
+        }
+        
+        .access-btn {
+            padding: 12px 18px; /* Réduit de 15px 25px */
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            border: none;
+            border-radius: 35px; /* Réduit de var(--radius-round) */
+            cursor: pointer;
+            font-size: 14px; /* Réduit de 15px */
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px; /* Réduit de 12px */
+            color: white;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            text-decoration: none;
+            min-width: 160px; /* Réduit de 180px */
+            justify-content: center;
+            height: 44px; /* Hauteur fixe */
+        }
+        
+        .access-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--accent), var(--beauty-dark));
+            transition: 0.4s;
+            z-index: -1;
+            border-radius: 35px; /* Réduit de var(--radius-round) */
+        }
+        
+        .access-btn:hover::before {
+            left: 0;
+        }
+        
+        .access-btn:hover {
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: var(--shadow-hover);
+            color: white;
+        }
+        
+        .access-btn.admin {
+            background: linear-gradient(135deg, #d32f2f, #b71c1c);
+            border: 2px solid #d32f2f;
+        }
+        
+        .access-btn.client {
+            background: linear-gradient(135deg, #2196f3, #1976d2);
+            border: 2px solid #2196f3;
+        }
+        
+        .access-btn.tutoriels {
+            background: linear-gradient(135deg, #4caf50, #2e7d32);
+            border: 2px solid #4caf50;
+        }
+        
+        .access-btn.formations {
+            background: linear-gradient(135deg, #9c27b0, #7b1fa2);
+            border: 2px solid #9c27b0;
+        }
+        
         /* Hero Section */
         .hero {
             background: linear-gradient(135deg, var(--luxury-purple), var(--primary));
             color: white;
-            padding: 60px 40px;
+            padding: 50px 30px; /* Réduit de 60px 40px */
             border-radius: var(--radius);
             text-align: center;
             margin-bottom: 30px;
@@ -331,8 +412,8 @@
         }
         
         .hero h1 {
-            font-size: 42px;
-            margin-bottom: 25px;
+            font-size: 36px; /* Réduit de 42px */
+            margin-bottom: 20px; /* Réduit de 25px */
             font-weight: 700;
             position: relative;
             font-family: 'Playfair Display', serif;
@@ -340,9 +421,9 @@
         }
         
         .hero p {
-            font-size: 20px;
+            font-size: 18px; /* Réduit de 20px */
             max-width: 800px;
-            margin: 0 auto 40px;
+            margin: 0 auto 30px; /* Réduit de 40px */
             opacity: 0.95;
             line-height: 1.6;
             position: relative;
@@ -352,27 +433,27 @@
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 20px;
+            gap: 15px; /* Réduit de 20px */
             position: relative;
         }
         
         .cta-btn {
-            padding: 18px 36px;
+            padding: 14px 28px; /* Réduit de 18px 36px */
             background: white;
             color: var(--primary);
             border: 2px solid transparent;
             border-radius: var(--radius-round);
-            font-size: 17px;
+            font-size: 15px; /* Réduit de 17px */
             font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 15px;
+            gap: 12px; /* Réduit de 15px */
             text-decoration: none;
-            min-width: 200px;
-            min-height: 58px;
+            min-width: 180px; /* Réduit de 200px */
+            min-height: 50px; /* Réduit de 58px */
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             position: relative;
             overflow: hidden;
@@ -433,11 +514,11 @@
             border-color: var(--formation);
         }
         
-        /* Section Beauté - Nouvelle palette */
+        /* Section Beauté - BOUTONS REDUITS */
         .beauty-section {
             background: linear-gradient(135deg, #e1bee7, #ce93d8);
             color: white;
-            padding: 60px 40px;
+            padding: 50px 30px; /* Réduit de 60px 40px */
             border-radius: var(--radius);
             text-align: center;
             margin-bottom: 30px;
@@ -459,8 +540,8 @@
         }
         
         .beauty-section h2 {
-            margin-bottom: 25px;
-            font-size: 36px;
+            margin-bottom: 20px; /* Réduit de 25px */
+            font-size: 32px; /* Réduit de 36px */
             font-weight: 700;
             position: relative;
             font-family: 'Playfair Display', serif;
@@ -469,9 +550,9 @@
         }
         
         .beauty-section p {
-            font-size: 19px;
+            font-size: 17px; /* Réduit de 19px */
             max-width: 800px;
-            margin: 0 auto 40px;
+            margin: 0 auto 30px; /* Réduit de 40px */
             opacity: 0.9;
             position: relative;
             color: #4a148c;
@@ -479,15 +560,15 @@
         
         .beauty-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Réduit de 300px */
+            gap: 25px; /* Réduit de 30px */
+            margin-top: 30px; /* Réduit de 40px */
         }
         
         .beauty-card {
             background: rgba(255, 255, 255, 0.95);
             border-radius: var(--radius);
-            padding: 35px;
+            padding: 25px; /* Réduit de 35px */
             text-align: center;
             transition: var(--transition);
             border: 2px solid var(--primary);
@@ -504,16 +585,16 @@
         }
         
         .beauty-icon {
-            width: 80px;
-            height: 80px;
+            width: 70px; /* Réduit de 80px */
+            height: 70px; /* Réduit de 80px */
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 32px;
-            margin: 0 auto 30px;
+            font-size: 28px; /* Réduit de 32px */
+            margin: 0 auto 25px; /* Réduit de 30px */
             transition: var(--transition);
             box-shadow: 0 8px 20px rgba(156, 39, 176, 0.3);
         }
@@ -524,23 +605,23 @@
         }
         
         .beauty-card h3 {
-            margin-bottom: 20px;
-            font-size: 24px;
+            margin-bottom: 15px; /* Réduit de 20px */
+            font-size: 20px; /* Réduit de 24px */
             color: var(--luxury-purple);
         }
         
         .beauty-card p {
-            font-size: 16px;
+            font-size: 14px; /* Réduit de 16px */
             margin: 0;
             color: #6a1b9a;
             line-height: 1.6;
         }
         
-        /* Section Ongles - Nouvelle palette */
+        /* Section Ongles - BOUTONS REDUITS */
         .nails-section {
             background: linear-gradient(135deg, #ffcc80, #ffb74d);
             color: white;
-            padding: 60px 40px;
+            padding: 50px 30px; /* Réduit de 60px 40px */
             border-radius: var(--radius);
             text-align: center;
             margin-bottom: 30px;
@@ -551,8 +632,8 @@
         }
         
         .nails-section h2 {
-            margin-bottom: 25px;
-            font-size: 36px;
+            margin-bottom: 20px; /* Réduit de 25px */
+            font-size: 32px; /* Réduit de 36px */
             font-weight: 700;
             position: relative;
             font-family: 'Playfair Display', serif;
@@ -561,9 +642,9 @@
         }
         
         .nails-section p {
-            font-size: 19px;
+            font-size: 17px; /* Réduit de 19px */
             max-width: 800px;
-            margin: 0 auto 40px;
+            margin: 0 auto 30px; /* Réduit de 40px */
             opacity: 0.9;
             position: relative;
             color: #bf360c;
@@ -571,15 +652,15 @@
         
         .nails-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Réduit de 300px */
+            gap: 25px; /* Réduit de 30px */
+            margin-top: 30px; /* Réduit de 40px */
         }
         
         .nails-card {
             background: rgba(255, 255, 255, 0.95);
             border-radius: var(--radius);
-            padding: 35px;
+            padding: 25px; /* Réduit de 35px */
             text-align: center;
             transition: var(--transition);
             border: 2px solid var(--nail-color);
@@ -594,16 +675,16 @@
         }
         
         .nails-icon {
-            width: 80px;
-            height: 80px;
+            width: 70px; /* Réduit de 80px */
+            height: 70px; /* Réduit de 80px */
             background: linear-gradient(135deg, var(--nail-color), #ff5722);
             color: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 32px;
-            margin: 0 auto 30px;
+            font-size: 28px; /* Réduit de 32px */
+            margin: 0 auto 25px; /* Réduit de 30px */
             transition: var(--transition);
             box-shadow: 0 8px 20px rgba(255, 152, 0, 0.3);
         }
@@ -613,11 +694,11 @@
             background: linear-gradient(135deg, #ff5722, #d84315);
         }
         
-        /* Section FX Cinéma - Nouvelle palette */
+        /* Section FX Cinéma - BOUTONS REDUITS */
         .fx-section {
             background: linear-gradient(135deg, #ef9a9a, #e57373);
             color: white;
-            padding: 60px 40px;
+            padding: 50px 30px; /* Réduit de 60px 40px */
             border-radius: var(--radius);
             text-align: center;
             margin-bottom: 30px;
@@ -628,8 +709,8 @@
         }
         
         .fx-section h2 {
-            margin-bottom: 25px;
-            font-size: 36px;
+            margin-bottom: 20px; /* Réduit de 25px */
+            font-size: 32px; /* Réduit de 36px */
             font-weight: 700;
             position: relative;
             font-family: 'Playfair Display', serif;
@@ -638,9 +719,9 @@
         }
         
         .fx-section p {
-            font-size: 19px;
+            font-size: 17px; /* Réduit de 19px */
             max-width: 800px;
-            margin: 0 auto 40px;
+            margin: 0 auto 30px; /* Réduit de 40px */
             opacity: 0.9;
             position: relative;
             color: #b71c1c;
@@ -648,15 +729,15 @@
         
         .fx-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Réduit de 300px */
+            gap: 25px; /* Réduit de 30px */
+            margin-top: 30px; /* Réduit de 40px */
         }
         
         .fx-card {
             background: rgba(255, 255, 255, 0.95);
             border-radius: var(--radius);
-            padding: 35px;
+            padding: 25px; /* Réduit de 35px */
             text-align: center;
             transition: var(--transition);
             border: 2px solid var(--fx-color);
@@ -671,16 +752,16 @@
         }
         
         .fx-icon {
-            width: 80px;
-            height: 80px;
+            width: 70px; /* Réduit de 80px */
+            height: 70px; /* Réduit de 80px */
             background: linear-gradient(135deg, var(--fx-color), #d32f2f);
             color: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 32px;
-            margin: 0 auto 30px;
+            font-size: 28px; /* Réduit de 32px */
+            margin: 0 auto 25px; /* Réduit de 30px */
             transition: var(--transition);
             box-shadow: 0 8px 20px rgba(244, 67, 54, 0.3);
         }
@@ -694,7 +775,7 @@
         .payment-methods {
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(243, 229, 245, 0.9));
             border-radius: var(--radius);
-            padding: 60px 40px;
+            padding: 50px 30px; /* Réduit de 60px 40px */
             box-shadow: var(--shadow);
             margin-bottom: 30px;
             text-align: center;
@@ -703,16 +784,16 @@
         
         .payment-methods h2 {
             color: var(--luxury-purple);
-            margin-bottom: 40px;
-            font-size: 36px;
+            margin-bottom: 30px; /* Réduit de 40px */
+            font-size: 32px; /* Réduit de 36px */
             font-weight: 700;
             font-family: 'Playfair Display', serif;
         }
         
         .payment-cards {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 35px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Réduit de 300px */
+            gap: 25px; /* Réduit de 35px */
             max-width: 700px;
             margin: 0 auto;
         }
@@ -720,7 +801,7 @@
         .payment-card {
             background: white;
             border-radius: var(--radius);
-            padding: 40px;
+            padding: 30px; /* Réduit de 40px */
             transition: var(--transition);
             border: 2px solid var(--primary);
             position: relative;
@@ -735,14 +816,14 @@
         }
         
         .payment-icon {
-            width: 90px;
-            height: 90px;
+            width: 80px; /* Réduit de 90px */
+            height: 80px; /* Réduit de 90px */
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 40px;
-            margin: 0 auto 30px;
+            font-size: 36px; /* Réduit de 40px */
+            margin: 0 auto 25px; /* Réduit de 30px */
             box-shadow: 0 10px 25px rgba(0,0,0,0.15);
             transition: var(--transition);
         }
@@ -764,13 +845,13 @@
         }
         
         .payment-card h3 {
-            margin-bottom: 25px;
-            font-size: 26px;
+            margin-bottom: 20px; /* Réduit de 25px */
+            font-size: 22px; /* Réduit de 26px */
             color: var(--luxury-purple);
         }
         
         .payment-card p {
-            font-size: 16px;
+            font-size: 14px; /* Réduit de 16px */
             color: #6a1b9a;
             line-height: 1.6;
         }
@@ -779,7 +860,7 @@
         footer {
             background: linear-gradient(135deg, var(--luxury-purple), var(--secondary));
             color: white;
-            padding: 60px 40px;
+            padding: 50px 30px; /* Réduit de 60px 40px */
             border-radius: var(--radius);
             text-align: center;
             box-shadow: var(--shadow);
@@ -800,43 +881,43 @@
         }
         
         .contact-info {
-            margin-bottom: 30px;
+            margin-bottom: 25px; /* Réduit de 30px */
         }
         
         .contact-info h3 {
-            font-size: 28px;
-            margin-bottom: 25px;
+            font-size: 24px; /* Réduit de 28px */
+            margin-bottom: 20px; /* Réduit de 25px */
             font-weight: 600;
             font-family: 'Playfair Display', serif;
         }
         
         .contact-info p {
-            margin: 12px 0;
+            margin: 10px 0; /* Réduit de 12px */
             opacity: 0.9;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
-            font-size: 17px;
+            gap: 10px; /* Réduit de 12px */
+            font-size: 15px; /* Réduit de 17px */
         }
         
         .social-links {
             display: flex;
             justify-content: center;
-            gap: 25px;
-            margin-bottom: 30px;
+            gap: 20px; /* Réduit de 25px */
+            margin-bottom: 25px; /* Réduit de 30px */
         }
         
         .social-link {
-            width: 60px;
-            height: 60px;
+            width: 50px; /* Réduit de 60px */
+            height: 50px; /* Réduit de 60px */
             background: rgba(255, 255, 255, 0.15);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 24px;
+            font-size: 20px; /* Réduit de 24px */
             transition: var(--transition);
             text-decoration: none;
             position: relative;
@@ -868,29 +949,30 @@
             border-color: var(--accent);
         }
         
-        /* Logo upload */
+        /* Logo upload réduit */
         .logo-upload {
             text-align: center;
             margin: 15px 0;
         }
         
         .logo-upload-btn {
-            padding: 14px 28px;
+            padding: 12px 24px; /* Réduit de 14px 28px */
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
             border: 2px solid var(--luxury-gold);
             border-radius: var(--radius-round);
             cursor: pointer;
-            font-size: 15px;
+            font-size: 14px; /* Réduit de 15px */
             font-weight: 600;
             transition: var(--transition);
             display: inline-flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px; /* Réduit de 12px */
             box-shadow: var(--shadow);
             position: relative;
             overflow: hidden;
             z-index: 1;
+            height: 42px; /* Hauteur fixe */
         }
         
         .logo-upload-btn::before {
@@ -949,17 +1031,28 @@
         @media (max-width: 992px) {
             .hero h1, .beauty-section h2, .nails-section h2, 
             .fx-section h2, .payment-methods h2 {
-                font-size: 32px;
+                font-size: 28px; /* Réduit de 32px */
             }
             
             .hero p, .beauty-section p, .nails-section p, 
             .fx-section p {
-                font-size: 18px;
+                font-size: 16px; /* Réduit de 18px */
             }
             
             .beauty-grid, .nails-grid, .fx-grid, .payment-cards {
                 grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-                gap: 25px;
+                gap: 20px; /* Réduit de 25px */
+            }
+            
+            .access-buttons {
+                padding: 12px; /* Réduit de 15px */
+            }
+            
+            .access-btn {
+                min-width: 140px; /* Réduit de 160px */
+                padding: 10px 16px; /* Réduit de 14px 20px */
+                font-size: 13px; /* Réduit de 14px */
+                height: 40px; /* Hauteur fixe réduite */
             }
         }
         
@@ -969,17 +1062,17 @@
             }
             
             .boutique-name {
-                font-size: 28px;
+                font-size: 24px; /* Réduit de 28px */
             }
             
             .hero h1, .beauty-section h2, .nails-section h2, 
             .fx-section h2, .payment-methods h2 {
-                font-size: 28px;
+                font-size: 24px; /* Réduit de 28px */
             }
             
             .hero, .beauty-section, .nails-section, 
             .fx-section, .payment-methods, footer {
-                padding: 40px 25px;
+                padding: 30px 20px; /* Réduit de 40px 25px */
             }
             
             nav {
@@ -989,8 +1082,11 @@
             
             .nav-btn {
                 width: 100%;
-                max-width: 320px;
+                max-width: 280px; /* Réduit de 320px */
                 justify-content: center;
+                font-size: 13px; /* Réduit de 14px */
+                padding: 10px 16px; /* Réduit de 14px 24px */
+                min-height: 40px; /* Réduit de 44px */
             }
             
             .cta-buttons {
@@ -1000,92 +1096,114 @@
             
             .cta-btn {
                 width: 100%;
-                max-width: 300px;
-                padding: 16px 28px;
+                max-width: 280px; /* Réduit de 300px */
+                padding: 12px 20px; /* Réduit de 16px 28px */
+                min-height: 46px; /* Réduit de 50px */
+                font-size: 14px; /* Réduit de 15px */
             }
             
             .beauty-grid, .nails-grid, .fx-grid, .payment-cards {
                 grid-template-columns: 1fr;
-                gap: 20px;
+                gap: 15px; /* Réduit de 20px */
             }
             
             .logo-container {
                 flex-direction: column;
                 text-align: center;
-                gap: 20px;
+                gap: 15px; /* Réduit de 20px */
             }
             
             .beauty-card, .nails-card, .fx-card, .payment-card {
-                padding: 30px 25px;
+                padding: 20px 15px; /* Réduit de 30px 25px */
             }
             
             .admin-details {
                 grid-template-columns: 1fr;
             }
+            
+            .access-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .access-btn {
+                width: 100%;
+                max-width: 260px; /* Réduit de 300px */
+                justify-content: center;
+                font-size: 13px; /* Réduit de 14px */
+                padding: 10px 14px; /* Réduit de 12px 18px */
+                height: 38px; /* Hauteur fixe réduite */
+            }
         }
         
         @media (max-width: 480px) {
             .container {
-                padding: 10px;
+                padding: 8px; /* Réduit de 10px */
             }
             
             header, .hero, .beauty-section, .nails-section, 
             .fx-section, .payment-methods, footer {
-                padding: 30px 20px;
-                margin-bottom: 25px;
+                padding: 25px 15px; /* Réduit de 30px 20px */
+                margin-bottom: 20px; /* Réduit de 25px */
             }
             
             .boutique-name {
-                font-size: 24px;
+                font-size: 20px; /* Réduit de 24px */
             }
             
             .hero h1, .beauty-section h2, .nails-section h2, 
             .fx-section h2, .payment-methods h2 {
-                font-size: 24px;
+                font-size: 20px; /* Réduit de 24px */
             }
             
             .hero p, .beauty-section p, .nails-section p, .fx-section p {
-                font-size: 16px;
+                font-size: 14px; /* Réduit de 16px */
             }
             
             .logo {
-                width: 75px;
-                height: 75px;
-                font-size: 30px;
+                width: 65px; /* Réduit de 75px */
+                height: 65px; /* Réduit de 75px */
+                font-size: 24px; /* Réduit de 30px */
             }
             
             .admin-info {
-                padding: 20px;
+                padding: 15px; /* Réduit de 20px */
             }
             
             .admin-detail {
-                padding: 10px 15px;
-                font-size: 14px;
+                padding: 8px 12px; /* Réduit de 10px 15px */
+                font-size: 12px; /* Réduit de 14px */
+                height: 36px; /* Hauteur fixe réduite */
             }
             
             .contact-info p {
-                font-size: 15px;
+                font-size: 13px; /* Réduit de 15px */
                 flex-direction: column;
-                gap: 5px;
+                gap: 3px; /* Réduit de 5px */
             }
             
             .social-links {
-                gap: 15px;
+                gap: 10px; /* Réduit de 15px */
             }
             
             .social-link {
-                width: 50px;
-                height: 50px;
-                font-size: 20px;
+                width: 40px; /* Réduit de 50px */
+                height: 40px; /* Réduit de 50px */
+                font-size: 16px; /* Réduit de 20px */
             }
             
             footer p {
-                font-size: 14px;
+                font-size: 12px; /* Réduit de 14px */
             }
             
-            .nav-btn, .cta-btn {
-                font-size: 14px;
-                padding: 14px 24px;
+            .nav-btn, .cta-btn, .access-btn, .btn-retour, .logo-upload-btn {
+                font-size: 12px; /* Réduit de 14px */
+                padding: 8px 14px; /* Réduit de 14px 24px */
+                height: 36px; /* Hauteur fixe réduite */
+            }
+            
+            .access-btn {
+                max-width: 240px; /* Réduit */
             }
         }
         
@@ -1102,12 +1220,12 @@
             border: 0;
         }
         
-        button, .nav-btn, .cta-btn, .logo-upload-btn {
+        button, .nav-btn, .cta-btn, .logo-upload-btn, .access-btn {
             outline: none;
             cursor: pointer;
         }
         
-        button:focus, .nav-btn:focus, .cta-btn:focus, .logo-upload-btn:focus {
+        button:focus, .nav-btn:focus, .cta-btn:focus, .logo-upload-btn:focus, .access-btn:focus {
             box-shadow: 0 0 0 4px rgba(156, 39, 176, 0.5);
         }
         
@@ -1156,6 +1274,22 @@
                 <button class="logo-upload-btn" onclick="document.getElementById('logo-upload').click()">
                     <i class="fas fa-upload"></i> Changer le logo
                 </button>
+            </div>
+            
+            <!-- Section d'accès aux différentes pages -->
+            <div class="access-buttons">
+                <a href="admin.html" class="access-btn admin">
+                    <i class="fas fa-user-cog"></i> Espace Admin
+                </a>
+                <a href="client.html" class="access-btn client">
+                    <i class="fas fa-users"></i> Espace Client
+                </a>
+                <a href="tutoriels.html" class="access-btn tutoriels">
+                    <i class="fas fa-video"></i> Tutoriels Vidéos
+                </a>
+                <a href="formations.html" class="access-btn formations">
+                    <i class="fas fa-graduation-cap"></i> Formations
+                </a>
             </div>
             
             <!-- Informations de l'administrateur -->
@@ -1221,7 +1355,7 @@
             <h2 id="beauty-title">Maquillage & Soins Beauté</h2>
             <p>Une sélection exclusive de produits de maquillage professionnels, soins de la peau et accessoires pour artistes et passionnés.</p>
             
-            <a href="beauty.html" class="cta-btn" style="background: white; color: var(--primary); margin-bottom: 30px; border-color: var(--primary);">
+            <a href="beauty.html" class="cta-btn" style="background: white; color: var(--primary); margin-bottom: 25px; border-color: var(--primary);">
                 <i class="fas fa-paint-brush" aria-hidden="true"></i> Voir la Collection
             </a>
             
@@ -1257,7 +1391,7 @@
             <h2 id="nails-title">Art des Ongles</h2>
             <p>Découvrez nos produits et services pour des ongles parfaits : vernis professionnels, accessoires et formations techniques.</p>
             
-            <a href="nails.html" class="cta-btn" style="background: white; color: var(--nail-color); margin-bottom: 30px; border-color: var(--nail-color);">
+            <a href="nails.html" class="cta-btn" style="background: white; color: var(--nail-color); margin-bottom: 25px; border-color: var(--nail-color);">
                 <i class="fas fa-hand-sparkles" aria-hidden="true"></i> Découvrir
             </a>
             
@@ -1293,7 +1427,7 @@
             <h2 id="fx-title">Effets Spéciaux Cinéma</h2>
             <p>Formation professionnelle à la création de faux blessures, vieillissement et effets spéciaux pour films, séries et productions artistiques.</p>
             
-            <a href="fx.html" class="cta-btn" style="background: white; color: var(--fx-color); margin-bottom: 30px; border-color: var(--fx-color);">
+            <a href="fx.html" class="cta-btn" style="background: white; color: var(--fx-color); margin-bottom: 25px; border-color: var(--fx-color);">
                 <i class="fas fa-user-injured" aria-hidden="true"></i> Voir les Formations
             </a>
             
@@ -1335,7 +1469,7 @@
                     </div>
                     <h3>Stripe</h3>
                     <p>Paiements par carte bancaire sécurisés avec cryptage SSL</p>
-                    <p style="margin-top: 20px; font-weight: 600; color: var(--stripe);">Visa, Mastercard, American Express</p>
+                    <p style="margin-top: 15px; font-weight: 600; color: var(--stripe);">Visa, Mastercard, American Express</p>
                 </div>
                 
                 <div class="payment-card fade-in paypal">
@@ -1344,7 +1478,7 @@
                     </div>
                     <h3>PayPal</h3>
                     <p>Paiement en ligne sécurisé avec protection acheteur</p>
-                    <p style="margin-top: 20px; font-weight: 600; color: var(--paypal);">Paiement instantané et sécurisé</p>
+                    <p style="margin-top: 15px; font-weight: 600; color: var(--paypal);">Paiement instantané et sécurisé</p>
                 </div>
             </div>
         </section>
@@ -1374,8 +1508,8 @@
                 </a>
             </div>
             
-            <p style="margin-top: 30px; opacity: 0.9; font-size: 16px;">&copy; 2026 BeautyFX Pro - Maquillage Artistique & Effets Spéciaux Cinéma</p>
-            <p style="opacity: 0.8; font-size: 14px; margin-top: 15px;">Développé par ESODI</p>
+            <p style="margin-top: 20px; opacity: 0.9; font-size: 14px;">&copy; 2026 BeautyFX Pro - Maquillage Artistique & Effets Spéciaux Cinéma</p>
+            <p style="opacity: 0.8; font-size: 12px; margin-top: 10px;">Développé par ESODI</p>
         </footer>
     </div>
 
@@ -1445,9 +1579,9 @@
                 const notification = document.createElement('div');
                 notification.style.cssText = `
                     position: fixed;
-                    top: 20px;
-                    right: 20px;
-                    padding: 18px 32px;
+                    top: 15px;
+                    right: 15px;
+                    padding: 12px 20px;
                     background: ${type === 'success' ? 'var(--primary)' : 'var(--fx-color)'};
                     color: white;
                     border-radius: var(--radius-round);
@@ -1456,7 +1590,7 @@
                     box-shadow: var(--shadow-hover);
                     transition: all 0.3s ease;
                     transform: translateX(120%);
-                    font-size: 16px;
+                    font-size: 14px;
                     border: 2px solid var(--luxury-gold);
                 `;
                 notification.textContent = message;
@@ -1472,7 +1606,7 @@
             }
             
             // Effet de hover amélioré pour les boutons
-            document.querySelectorAll('.nav-btn, .cta-btn, .btn-retour').forEach(btn => {
+            document.querySelectorAll('.nav-btn, .cta-btn, .btn-retour, .access-btn').forEach(btn => {
                 btn.addEventListener('mouseenter', function() {
                     this.style.transform = 'translateY(-5px) scale(1.05)';
                 });
