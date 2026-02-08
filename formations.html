@@ -15,6 +15,7 @@
             --live: #FF0000;
             --whatsapp: #25D366;
             --success: #4caf50;
+            --payment: #ff9800;
             --light-pink: #fce4ec;
             --light-purple: #f3e5f5;
             --border-radius-round: 25px;
@@ -147,6 +148,10 @@
         
         .formation-btn.reservation {
             background: linear-gradient(135deg, var(--success), #2e7d32);
+        }
+        
+        .formation-btn.payment {
+            background: linear-gradient(135deg, var(--payment), #f57c00);
         }
         
         .formation-btn i {
@@ -284,6 +289,11 @@
             color: white;
         }
         
+        .modal-btn.payment {
+            background: linear-gradient(135deg, var(--payment), #f57c00);
+            color: white;
+        }
+        
         .modal-btn.cancel {
             background: var(--light-pink);
             color: var(--primary-dark);
@@ -291,6 +301,19 @@
         
         .modal-btn:hover {
             transform: translateY(-2px);
+        }
+        
+        /* Bouton Payer après réservation */
+        .payment-section {
+            margin: 20px 0;
+            text-align: center;
+            display: none;
+        }
+        
+        .payment-cta {
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: var(--primary-dark);
         }
         
         /* Informations */
@@ -460,6 +483,15 @@
                         <i class="fas fa-calendar-check"></i>
                         Réserver une Formation
                     </button>
+                    
+                    <!-- Bouton Paiement (caché par défaut) -->
+                    <div class="payment-section" id="payment-section">
+                        <p class="payment-cta">Votre réservation est en attente de paiement</p>
+                        <a href="payment.html" class="formation-btn payment" id="payment-btn">
+                            <i class="fas fa-credit-card"></i>
+                            Payer la Réservation
+                        </a>
+                    </div>
                 </div>
             </div>
             
@@ -601,10 +633,23 @@
                     const message = generateReservationMessage();
                     const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
                     
+                    // Ouvrir WhatsApp dans un nouvel onglet
                     window.open(whatsappUrl, '_blank');
+                    
+                    // Fermer le modal
                     document.getElementById('reservation-modal').style.display = 'none';
+                    
+                    // Afficher le bouton de paiement
+                    document.getElementById('payment-section').style.display = 'block';
+                    
+                    // Réinitialiser le formulaire
                     resetForm();
-                    showMessage("Formulaire envoyé !", "success");
+                    
+                    // Afficher notification
+                    showMessage("Formulaire envoyé ! Vous allez être redirigé vers WhatsApp.", "success");
+                    
+                    // Sauvegarder les données localement (optionnel)
+                    saveReservationData();
                 }
             });
 
@@ -667,23 +712,23 @@
                 'personnalisee': 'Formation Personnalisée'
             };
 
-            let reservationText = `📋 *NOUVELLE DEMANDE DE FORMATION* 📋\n\n`;
-            reservationText += `👤 *Informations du client:*\n`;
-            reservationText += `📛 Nom: ${nom}\n`;
-            reservationText += `📱 Téléphone: ${telephone}\n`;
-            if (email) reservationText += `📧 Email: ${email}\n`;
+            let reservationText = `📋 *NOUVELLE DEMANDE DE FORMATION - BEAUTÉ PRO* 📋\n\n`;
+            reservationText += `👤 *INFORMATIONS CLIENT:*\n`;
+            reservationText += `📛 *Nom:* ${nom}\n`;
+            reservationText += `📱 *Téléphone:* ${telephone}\n`;
+            if (email) reservationText += `📧 *Email:* ${email}\n`;
             
-            reservationText += `\n🎓 *Formation souhaitée:*\n`;
-            reservationText += `📚 Type: ${formationNames[formation] || formation}\n`;
-            if (date) reservationText += `📅 Date souhaitée: ${formatDate(date)}\n`;
+            reservationText += `\n🎓 *FORMATION SOUHAITÉE:*\n`;
+            reservationText += `📚 *Type:* ${formationNames[formation] || formation}\n`;
+            if (date) reservationText += `📅 *Date souhaitée:* ${formatDate(date)}\n`;
             
             if (message) {
-                reservationText += `\n💬 *Message additionnel:*\n`;
+                reservationText += `\n💬 *MESSAGE ADDITIONNEL:*\n`;
                 reservationText += `${message}\n`;
             }
             
-            reservationText += `\n⏰ *Date de la demande:* ${new Date().toLocaleDateString('fr-FR')} à ${new Date().toLocaleTimeString('fr-FR')}\n\n`;
-            reservationText += `Merci de me recontacter pour confirmer la réservation !`;
+            reservationText += `\n⏰ *Date de la demande:* ${new Date().toLocaleDateString('fr-FR')} à ${new Date().toLocaleTimeString('fr-FR', {hour: '2-digit', minute:'2-digit'})}\n\n`;
+            reservationText += `_Merci de recontacter ce client pour confirmer la réservation et organiser le paiement._`;
 
             return reservationText;
         }
@@ -691,52 +736,99 @@
         function formatDate(dateString) {
             if (!dateString) return '';
             const date = new Date(dateString);
-            return date.toLocaleDateString('fr-FR');
+            return date.toLocaleDateString('fr-FR', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
         }
 
         function resetForm() {
             document.getElementById('reservation-form').reset();
         }
 
+        function saveReservationData() {
+            // Sauvegarder les données localement pour pré-remplir le formulaire de paiement
+            const reservationData = {
+                nom: document.getElementById('nom').value,
+                telephone: document.getElementById('telephone').value,
+                email: document.getElementById('email').value,
+                formation: document.getElementById('formation').value,
+                date: document.getElementById('date').value,
+                timestamp: new Date().toISOString()
+            };
+            
+            localStorage.setItem('beauteProReservation', JSON.stringify(reservationData));
+        }
+
         function showMessage(message, type) {
+            // Supprimer les notifications existantes
+            const existingNotifications = document.querySelectorAll('.notification');
+            existingNotifications.forEach(notification => notification.remove());
+            
             // Créer une notification temporaire
             const notification = document.createElement('div');
+            notification.className = 'notification';
             notification.style.cssText = `
                 position: fixed;
                 top: 20px;
                 right: 20px;
                 left: 20px;
-                padding: 15px;
+                max-width: 400px;
+                margin: 0 auto;
+                padding: 15px 20px;
                 border-radius: 12px;
                 color: white;
                 font-weight: 600;
                 text-align: center;
                 z-index: 2000;
-                animation: slideIn 0.3s ease;
-                background: ${type === 'success' ? '#4CAF50' : '#F44336'};
-                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+                animation: slideIn 0.4s ease-out;
+                background: ${type === 'success' ? 'linear-gradient(135deg, #4CAF50, #2E7D32)' : 'linear-gradient(135deg, #F44336, #C62828)'};
+                box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+                border: 1px solid ${type === 'success' ? 'rgba(76, 175, 80, 0.3)' : 'rgba(244, 67, 54, 0.3)'};
             `;
             
-            notification.textContent = message;
+            notification.innerHTML = `
+                <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}" style="margin-right: 8px;"></i>
+                ${message}
+            `;
+            
             document.body.appendChild(notification);
             
             setTimeout(() => {
-                notification.style.animation = 'slideOut 0.3s ease';
-                setTimeout(() => notification.remove(), 300);
-            }, 3000);
+                notification.style.animation = 'slideOut 0.4s ease-in';
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 400);
+            }, 4000);
             
-            // Ajouter l'animation CSS
+            // Ajouter l'animation CSS si elle n'existe pas déjà
             if (!document.querySelector('#notification-styles')) {
                 const style = document.createElement('style');
                 style.id = 'notification-styles';
                 style.textContent = `
                     @keyframes slideIn {
-                        from { transform: translateX(100%); opacity: 0; }
-                        to { transform: translateX(0); opacity: 1; }
+                        from { 
+                            transform: translateY(-100px); 
+                            opacity: 0; 
+                        }
+                        to { 
+                            transform: translateY(0); 
+                            opacity: 1; 
+                        }
                     }
                     @keyframes slideOut {
-                        from { transform: translateX(0); opacity: 1; }
-                        to { transform: translateX(100%); opacity: 0; }
+                        from { 
+                            transform: translateY(0); 
+                            opacity: 1; 
+                        }
+                        to { 
+                            transform: translateY(-100px); 
+                            opacity: 0; 
+                        }
                     }
                 `;
                 document.head.appendChild(style);
