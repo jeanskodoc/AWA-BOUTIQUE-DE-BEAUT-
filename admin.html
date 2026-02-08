@@ -729,6 +729,115 @@
             font-size: 13px;
         }
 
+        /* Modal de visualisation du catalogue */
+        .beauty-catalog-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(233, 30, 99, 0.95);
+            z-index: 1002;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .beauty-catalog-modal-content {
+            background: white;
+            width: 90%;
+            max-width: 900px;
+            max-height: 90vh;
+            border-radius: 20px;
+            padding: 25px;
+            overflow-y: auto;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .catalog-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--light-pink);
+        }
+
+        .catalog-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+            padding: 15px;
+            background: var(--light-pink);
+            border-radius: 10px;
+        }
+
+        .catalog-product-item {
+            background: white;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        /* Onglets de catégories */
+        .category-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding: 10px;
+            background: var(--light-pink);
+            border-radius: 10px;
+        }
+
+        .category-tab {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 20px;
+            background: white;
+            color: var(--secondary);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .category-tab:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .category-tab.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+
+        /* Section catégories */
+        .category-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .category-section h3 {
+            color: var(--secondary);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light-pink);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             body {
@@ -763,6 +872,10 @@
             
             .beauty-actions-bar {
                 flex-direction: row;
+                justify-content: center;
+            }
+            
+            .category-tabs {
                 justify-content: center;
             }
         }
@@ -916,9 +1029,19 @@
             color: #5d4037;
         }
 
-        .category-beaute {
+        .category-soins {
             background: linear-gradient(135deg, #80deea, #00bcd4);
             color: white;
+        }
+
+        .category-accessoires {
+            background: linear-gradient(135deg, #aed581, #689f38);
+            color: white;
+        }
+
+        .category-formation {
+            background: linear-gradient(135deg, #ffcc80, #ff8f00);
+            color: #5d4037;
         }
 
         /* Effets spéciaux */
@@ -1033,7 +1156,7 @@
                     <i class="fas fa-crown beauty-glow"></i>
                     <div>
                         <h1>Administration Beauté</h1>
-                        <p class="beauty-subtitle">Gestion produits & services de beauté</p>
+                        <p class="beauty-subtitle">Gestion catalogue produits par catégories</p>
                     </div>
                 </div>
                 
@@ -1046,6 +1169,12 @@
                     </button>
                     <button class="beauty-btn-round" id="beautyStatsBtn" title="Statistiques">
                         <i class="fas fa-chart-line"></i>
+                    </button>
+                    <button class="beauty-btn-round" id="beautyViewCatalogBtn" title="Voir catalogue complet">
+                        <i class="fas fa-book-open"></i>
+                    </button>
+                    <button class="beauty-btn-round" id="beautyExportAllBtn" title="Exporter tout">
+                        <i class="fas fa-file-export"></i>
                     </button>
                     <button class="beauty-btn-round" id="beautyLogoutBtn" title="Déconnexion">
                         <i class="fas fa-sign-out-alt"></i>
@@ -1101,20 +1230,28 @@
                 <section class="beauty-import-section">
                     <div class="beauty-import-header">
                         <i class="fas fa-file-import"></i>
-                        <h3>Gestion Catalogue</h3>
+                        <h3>Gestion Catalogue par Catégories</h3>
                     </div>
-                    <p class="beauty-mb-15">Importez/exportez votre catalogue produits beauté</p>
-                    <div class="beauty-d-flex beauty-align-center" style="gap: 10px;">
+                    <p class="beauty-mb-15">Gérez votre catalogue par catégories et exportez en JSON</p>
+                    
+                    <div class="category-tabs" id="categoryTabs">
+                        <!-- Onglets dynamiques -->
+                    </div>
+                    
+                    <div class="beauty-d-flex beauty-align-center" style="gap: 10px; margin-top: 15px;">
                         <input type="file" 
                                id="beautyCatalogFile" 
                                accept=".json" 
                                class="beauty-form-control"
                                style="flex: 1;">
-                        <button id="beautyImportBtn" class="beauty-icon-btn beauty-btn-primary">
+                        <button id="beautyImportBtn" class="beauty-icon-btn beauty-btn-primary" title="Importer catalogue">
                             <i class="fas fa-upload"></i>
                         </button>
-                        <button id="beautyExportBtn" class="beauty-icon-btn beauty-btn-success">
+                        <button id="beautyExportCategoryBtn" class="beauty-icon-btn beauty-btn-accent" title="Exporter catégorie">
                             <i class="fas fa-download"></i>
+                        </button>
+                        <button id="beautyExportAllCategoriesBtn" class="beauty-btn beauty-btn-success" style="padding: 10px 15px;">
+                            <i class="fas fa-file-export"></i> Exporter Tout
                         </button>
                     </div>
                 </section>
@@ -1211,16 +1348,16 @@
                     </div>
                 </section>
 
-                <!-- Liste des produits beauté -->
+                <!-- Affichage par catégories -->
                 <section class="beauty-products-section">
                     <div class="beauty-section-header">
                         <i class="fas fa-palette"></i>
-                        <h3>Catalogue Beauté</h3>
+                        <h3>Catalogue par Catégories</h3>
                         <span id="beautyProductsCount" class="beauty-btn-round-sm beauty-btn-accent" style="margin-left: auto;">0</span>
                     </div>
                     
-                    <div id="beautyProductsList" class="beauty-products-grid">
-                        <!-- Produits dynamiques -->
+                    <div id="beautyProductsByCategory">
+                        <!-- Produits organisés par catégories -->
                     </div>
                     
                     <div id="beautyEmptyProducts" class="beauty-empty-state beauty-d-none">
@@ -1249,6 +1386,42 @@
         </div>
     </div>
 
+    <!-- Modal de visualisation du catalogue -->
+    <div id="beautyCatalogModal" class="beauty-catalog-modal">
+        <div class="beauty-catalog-modal-content">
+            <div class="catalog-header">
+                <h3 style="color: var(--secondary);">
+                    <i class="fas fa-book"></i> Catalogue Complet
+                </h3>
+                <button class="beauty-btn-round-sm beauty-btn-danger" id="beautyCloseCatalogModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="catalog-info-grid" id="catalogInfoContainer">
+                <!-- Informations du catalogue -->
+            </div>
+            
+            <div id="catalogJsonContent" style="display: none;">
+                <div style="background: #f5f5f5; padding: 15px; border-radius: 10px; margin-bottom: 15px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                        <h4 style="color: var(--secondary);">
+                            <i class="fas fa-code"></i> Données JSON du Catalogue
+                        </h4>
+                        <button id="copyCatalogJsonBtn" class="beauty-btn beauty-btn-primary" style="padding: 5px 10px; font-size: 12px;">
+                            <i class="fas fa-copy"></i> Copier JSON
+                        </button>
+                    </div>
+                    <pre id="catalogJsonData" style="background: #2d2d2d; color: #f8f8f2; padding: 15px; border-radius: 5px; overflow-x: auto; font-size: 12px; max-height: 300px; overflow-y: auto;"></pre>
+                </div>
+            </div>
+            
+            <div id="catalogProductsList">
+                <!-- Liste complète des produits -->
+            </div>
+        </div>
+    </div>
+
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script>
@@ -1266,6 +1439,17 @@
         let beautyAuthenticated = localStorage.getItem('beautyAuthenticated') === 'true';
         let beautyEditingProductId = null;
         let beautyCurrentImageData = '';
+        let currentCategory = 'all';
+
+        // Définition des catégories
+        const beautyCategories = [
+            { id: 'maquillage', name: 'Maquillage', icon: 'fas fa-paint-brush', color: 'var(--primary)' },
+            { id: 'ongles', name: 'Ongles Gel', icon: 'fas fa-hand-sparkles', color: 'var(--secondary)' },
+            { id: 'effets', name: 'Effets Spéciaux', icon: 'fas fa-magic', color: 'var(--warning)' },
+            { id: 'soins', name: 'Soins Visage', icon: 'fas fa-spa', color: '#00bcd4' },
+            { id: 'accessoires', name: 'Accessoires', icon: 'fas fa-tshirt', color: '#689f38' },
+            { id: 'formation', name: 'Formation', icon: 'fas fa-graduation-cap', color: '#ff8f00' }
+        ];
 
         // Initialisation beauté
         document.addEventListener('DOMContentLoaded', function() {
@@ -1277,6 +1461,7 @@
             
             initializeBeautyEventListeners();
             loadBeautyProducts();
+            updateCategoryTabs();
             updateBeautyStats();
         });
 
@@ -1297,6 +1482,7 @@
             document.getElementById('beautyLogoutBtn').addEventListener('click', handleBeautyLogout);
             document.getElementById('beautyRefreshBtn').addEventListener('click', () => {
                 loadBeautyProducts();
+                updateCategoryTabs();
                 updateBeautyStats();
                 toastr.success('Catalogue actualisé');
             });
@@ -1304,6 +1490,12 @@
                 updateBeautyStats();
                 toastr.info('Statistiques mises à jour');
             });
+            document.getElementById('beautyExportAllBtn').addEventListener('click', exportAllCategories);
+            
+            // Boutons catalogue
+            document.getElementById('beautyViewCatalogBtn').addEventListener('click', showBeautyCatalog);
+            document.getElementById('beautyExportCategoryBtn').addEventListener('click', exportCurrentCategory);
+            document.getElementById('beautyExportAllCategoriesBtn').addEventListener('click', exportAllCategories);
 
             // Gestion produits
             document.getElementById('beautySaveProductBtn').addEventListener('click', saveBeautyProduct);
@@ -1312,7 +1504,6 @@
 
             // Import/Export
             document.getElementById('beautyImportBtn').addEventListener('click', importBeautyCatalog);
-            document.getElementById('beautyExportBtn').addEventListener('click', exportBeautyCatalog);
 
             // Gestion images
             document.getElementById('beautyProductImage').addEventListener('change', handleBeautyImage);
@@ -1329,6 +1520,19 @@
                     document.getElementById('beautyImageModal').style.display = 'none';
                 }
             });
+
+            // Modal catalogue
+            document.getElementById('beautyCloseCatalogModal').addEventListener('click', () => {
+                document.getElementById('beautyCatalogModal').style.display = 'none';
+            });
+            document.getElementById('beautyCatalogModal').addEventListener('click', (e) => {
+                if (e.target === document.getElementById('beautyCatalogModal')) {
+                    document.getElementById('beautyCatalogModal').style.display = 'none';
+                }
+            });
+            
+            // Copie JSON
+            document.getElementById('copyCatalogJsonBtn')?.addEventListener('click', copyCatalogJson);
 
             // Drag and drop beauté
             const beautyUploadArea = document.getElementById('beautyImageUploadArea');
@@ -1433,6 +1637,7 @@
             saveBeautyProducts();
             clearBeautyForm();
             loadBeautyProducts();
+            updateCategoryTabs();
             updateBeautyStats();
         }
 
@@ -1509,6 +1714,7 @@
                 beautyProducts = beautyProducts.filter(p => p.id !== id);
                 saveBeautyProducts();
                 loadBeautyProducts();
+                updateCategoryTabs();
                 updateBeautyStats();
                 toastr.success('Produit supprimé');
             }
@@ -1518,13 +1724,51 @@
             localStorage.setItem('beautyProducts', JSON.stringify(beautyProducts));
         }
 
+        // Gestion des catégories
+        function updateCategoryTabs() {
+            const container = document.getElementById('categoryTabs');
+            const categories = beautyCategories;
+            
+            container.innerHTML = `
+                <button class="category-tab ${currentCategory === 'all' ? 'active' : ''}" 
+                        onclick="filterProductsByCategory('all')">
+                    <i class="fas fa-th"></i> Tous
+                    <span class="beauty-btn-round-sm" style="margin-left: 5px; font-size: 10px; background: var(--primary); color: white; width: 20px; height: 20px;">
+                        ${beautyProducts.length}
+                    </span>
+                </button>
+            `;
+            
+            categories.forEach(category => {
+                const productsInCategory = beautyProducts.filter(p => p.category === category.id);
+                if (productsInCategory.length > 0 || currentCategory === category.id) {
+                    container.innerHTML += `
+                        <button class="category-tab ${currentCategory === category.id ? 'active' : ''}" 
+                                onclick="filterProductsByCategory('${category.id}')"
+                                style="border-left: 3px solid ${category.color}">
+                            <i class="${category.icon}"></i> ${category.name}
+                            <span class="beauty-btn-round-sm" style="margin-left: 5px; font-size: 10px; background: ${category.color}; color: white; width: 20px; height: 20px;">
+                                ${productsInCategory.length}
+                            </span>
+                        </button>
+                    `;
+                }
+            });
+        }
+
+        function filterProductsByCategory(category) {
+            currentCategory = category;
+            updateCategoryTabs();
+            loadBeautyProducts();
+        }
+
         // Import/Export beauté
         function importBeautyCatalog() {
             const fileInput = document.getElementById('beautyCatalogFile');
             const file = fileInput.files[0];
             
             if (!file) {
-                toastr.error('Sélectionnez un fichier');
+                toastr.error('Sélectionnez un fichier JSON');
                 return;
             }
             
@@ -1532,48 +1776,262 @@
             reader.onload = function(e) {
                 try {
                     const imported = JSON.parse(e.target.result);
-                    if (!Array.isArray(imported)) throw new Error('Format invalide');
+                    let productsToImport = [];
                     
-                    const existingIds = beautyProducts.map(p => p.id);
-                    const newProducts = imported.filter(p => !existingIds.includes(p.id));
+                    // Gestion des différents formats
+                    if (Array.isArray(imported)) {
+                        // Format simple : tableau de produits
+                        productsToImport = imported;
+                    } else if (imported.products && Array.isArray(imported.products)) {
+                        // Format avec métadonnées
+                        productsToImport = imported.products;
+                    } else if (imported.categories && typeof imported.categories === 'object') {
+                        // Format par catégories
+                        productsToImport = [];
+                        Object.values(imported.categories).forEach(categoryProducts => {
+                            if (Array.isArray(categoryProducts)) {
+                                productsToImport = productsToImport.concat(categoryProducts);
+                            }
+                        });
+                    } else {
+                        throw new Error('Format de fichier non reconnu');
+                    }
                     
-                    beautyProducts = [...beautyProducts, ...newProducts];
+                    if (!confirm(`Importer ${productsToImport.length} produits ? Les produits existants seront remplacés.`)) {
+                        return;
+                    }
+                    
+                    beautyProducts = productsToImport;
                     saveBeautyProducts();
                     loadBeautyProducts();
+                    updateCategoryTabs();
                     updateBeautyStats();
                     
-                    toastr.success(`${newProducts.length} produits importés`);
+                    toastr.success(`${productsToImport.length} produits importés avec succès !`);
                     fileInput.value = '';
                 } catch (error) {
-                    toastr.error('Erreur importation');
+                    toastr.error('Erreur importation : ' + error.message);
                 }
             };
             
             reader.readAsText(file);
         }
 
-        function exportBeautyCatalog() {
+        function exportCurrentCategory() {
+            let productsToExport = [];
+            let categoryName = 'Tous les produits';
+            
+            if (currentCategory === 'all') {
+                productsToExport = beautyProducts;
+                categoryName = 'Tous les produits';
+            } else {
+                productsToExport = beautyProducts.filter(p => p.category === currentCategory);
+                const category = beautyCategories.find(c => c.id === currentCategory);
+                categoryName = category ? category.name : currentCategory;
+            }
+            
+            if (productsToExport.length === 0) {
+                toastr.error(`Aucun produit dans la catégorie ${categoryName}`);
+                return;
+            }
+            
+            const catalogData = {
+                meta: {
+                    exportedAt: new Date().toISOString(),
+                    version: '1.0',
+                    category: currentCategory,
+                    categoryName: categoryName,
+                    totalProducts: productsToExport.length,
+                    salonInfo: {
+                        name: 'Beauté Pro',
+                        manager: 'Awa make mua',
+                        whatsapp: '+33756950190',
+                        email: 'bintou179@live.fr',
+                        address: '4 rue mazagran Marseille 13001, France'
+                    }
+                },
+                products: productsToExport
+            };
+            
+            exportJsonFile(catalogData, `catalogue_${currentCategory}_${new Date().toISOString().split('T')[0]}.json`);
+            toastr.success(`${productsToExport.length} produits exportés (${categoryName})`);
+        }
+
+        function exportAllCategories() {
             if (beautyProducts.length === 0) {
                 toastr.error('Aucun produit à exporter');
                 return;
             }
             
-            const dataStr = JSON.stringify(beautyProducts, null, 2);
+            // Créer un catalogue organisé par catégories
+            const catalogByCategories = {
+                maquillage: [],
+                ongles: [],
+                effets: [],
+                soins: [],
+                accessoires: [],
+                formation: []
+            };
+            
+            // Organiser les produits par catégorie
+            beautyProducts.forEach(product => {
+                if (catalogByCategories[product.category]) {
+                    catalogByCategories[product.category].push(product);
+                }
+            });
+            
+            const catalogData = {
+                meta: {
+                    exportedAt: new Date().toISOString(),
+                    version: '1.0',
+                    totalProducts: beautyProducts.length,
+                    categories: Object.keys(catalogByCategories).filter(cat => catalogByCategories[cat].length > 0),
+                    salonInfo: {
+                        name: 'Beauté Pro',
+                        manager: 'Awa make mua',
+                        whatsapp: '+33756950190',
+                        email: 'bintou179@live.fr',
+                        address: '4 rue mazagran Marseille 13001, France'
+                    },
+                    statistics: {
+                        totalValue: beautyProducts.reduce((sum, p) => sum + (p.price * p.stock), 0),
+                        totalStock: beautyProducts.reduce((sum, p) => sum + p.stock, 0)
+                    }
+                },
+                categories: catalogByCategories,
+                products: beautyProducts // Version plate pour compatibilité
+            };
+            
+            exportJsonFile(catalogData, `catalogue_complet_beaute_${new Date().toISOString().split('T')[0]}.json`);
+            toastr.success(`Catalogue complet exporté (${beautyProducts.length} produits)`);
+        }
+
+        function exportJsonFile(data, filename) {
+            const dataStr = JSON.stringify(data, null, 2);
             const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
             
             const link = document.createElement('a');
             link.setAttribute('href', dataUri);
-            link.setAttribute('download', `catalogue_beaute_${new Date().toISOString().split('T')[0]}.json`);
+            link.setAttribute('download', filename);
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
-            
-            toastr.success('Catalogue exporté');
         }
 
         function saveBeautyCatalog() {
             saveBeautyProducts();
-            toastr.success('Catalogue sauvegardé');
+            toastr.success('Catalogue sauvegardé localement');
+        }
+
+        // Visualisation du catalogue
+        function showBeautyCatalog() {
+            if (beautyProducts.length === 0) {
+                toastr.error('Aucun produit dans le catalogue');
+                return;
+            }
+            
+            document.getElementById('beautyCatalogModal').style.display = 'flex';
+            document.getElementById('catalogJsonContent').style.display = 'none';
+            
+            // Calcul des statistiques
+            const totalProducts = beautyProducts.length;
+            const totalValue = beautyProducts.reduce((sum, p) => sum + (p.price * p.stock), 0);
+            const totalStock = beautyProducts.reduce((sum, p) => sum + p.stock, 0);
+            const categories = [...new Set(beautyProducts.map(p => p.category))];
+            
+            // Statistiques par catégorie
+            let categoryStats = '';
+            categories.forEach(category => {
+                const categoryProducts = beautyProducts.filter(p => p.category === category);
+                const categoryValue = categoryProducts.reduce((sum, p) => sum + (p.price * p.stock), 0);
+                const categoryStock = categoryProducts.reduce((sum, p) => sum + p.stock, 0);
+                const categoryInfo = beautyCategories.find(c => c.id === category);
+                
+                categoryStats += `
+                    <div style="background: white; padding: 10px; border-radius: 8px; border-left: 4px solid ${categoryInfo ? categoryInfo.color : 'var(--primary)'}">
+                        <div style="color: var(--secondary); font-weight: 600; margin-bottom: 5px;">
+                            <i class="${categoryInfo ? categoryInfo.icon : 'fas fa-folder'}"></i> ${categoryInfo ? categoryInfo.name : category}
+                        </div>
+                        <div style="font-size: 14px;">
+                            <span>${categoryProducts.length} produits</span><br>
+                            <span>${categoryValue.toLocaleString()} FCFA</span><br>
+                            <span>${categoryStock} unités</span>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            // Mise à jour des informations
+            document.getElementById('catalogInfoContainer').innerHTML = `
+                <div style="background: white; padding: 10px; border-radius: 8px; grid-column: 1 / -1; text-align: center;">
+                    <div style="color: var(--secondary); font-weight: 600; margin-bottom: 5px;">
+                        <i class="fas fa-chart-bar"></i> Vue d'ensemble
+                    </div>
+                    <div style="font-size: 18px; font-weight: 700; color: var(--primary);">
+                        ${totalProducts} produits • ${totalValue.toLocaleString()} FCFA
+                    </div>
+                </div>
+                ${categoryStats}
+            `;
+            
+            // Affichage des produits par catégorie
+            let catalogHTML = '<h4 style="color: var(--secondary); margin: 20px 0 10px;"><i class="fas fa-list"></i> Produits par Catégorie</h4>';
+            
+            // Grouper par catégorie
+            const productsByCategory = {};
+            beautyProducts.forEach(product => {
+                if (!productsByCategory[product.category]) {
+                    productsByCategory[product.category] = [];
+                }
+                productsByCategory[product.category].push(product);
+            });
+            
+            // Afficher chaque catégorie
+            Object.keys(productsByCategory).forEach(category => {
+                const products = productsByCategory[category];
+                const categoryInfo = beautyCategories.find(c => c.id === category);
+                const categoryName = categoryInfo ? categoryInfo.name : category;
+                const categoryClass = `category-${category}`;
+                
+                catalogHTML += `
+                    <div style="margin-bottom: 20px;">
+                        <div class="${categoryClass}" style="display: inline-block; padding: 5px 15px; border-radius: 20px; margin-bottom: 10px; color: white;">
+                            <i class="${categoryInfo ? categoryInfo.icon : 'fas fa-folder'}"></i> ${categoryName} (${products.length} produits)
+                        </div>
+                `;
+                
+                products.forEach(product => {
+                    catalogHTML += `
+                        <div class="catalog-product-item">
+                            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 5px;">
+                                <div style="flex: 1;">
+                                    <h5 style="color: var(--secondary); margin-bottom: 5px;">${product.name}</h5>
+                                    <div style="display: flex; gap: 15px; font-size: 12px;">
+                                        <span><i class="fas fa-tag"></i> ${product.price.toLocaleString()} FCFA</span>
+                                        <span><i class="fas fa-box"></i> ${product.stock} unités</span>
+                                        <span><i class="fas fa-calendar"></i> ${new Date(product.dateAdded).toLocaleDateString('fr-FR')}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <p style="font-size: 13px; color: #666; margin-bottom: 0;">${product.description}</p>
+                        </div>
+                    `;
+                });
+                
+                catalogHTML += `</div>`;
+            });
+            
+            document.getElementById('catalogProductsList').innerHTML = catalogHTML;
+        }
+
+        function copyCatalogJson() {
+            const jsonText = document.getElementById('catalogJsonData').textContent;
+            navigator.clipboard.writeText(jsonText).then(() => {
+                toastr.success('JSON copié dans le presse-papier !');
+            }).catch(err => {
+                console.error('Erreur lors de la copie : ', err);
+                toastr.error('Erreur lors de la copie');
+            });
         }
 
         // Gestion images beauté
@@ -1617,11 +2075,12 @@
             document.getElementById('beautyAuthModal').style.display = 'none';
             document.getElementById('beautyAdminInterface').classList.remove('beauty-d-none');
             loadBeautyProducts();
+            updateCategoryTabs();
             updateBeautyStats();
         }
 
         function loadBeautyProducts() {
-            const container = document.getElementById('beautyProductsList');
+            const container = document.getElementById('beautyProductsByCategory');
             const emptyState = document.getElementById('beautyEmptyProducts');
             const countElement = document.getElementById('beautyProductsCount');
             
@@ -1635,66 +2094,100 @@
             emptyState.classList.add('beauty-d-none');
             countElement.textContent = beautyProducts.length;
             
-            // Trier par catégorie
-            const sortedProducts = [...beautyProducts].sort((a, b) => {
-                const categoryOrder = ['maquillage', 'ongles', 'effets', 'soins', 'accessoires', 'formation'];
-                return categoryOrder.indexOf(a.category) - categoryOrder.indexOf(b.category);
+            // Filtrer par catégorie si nécessaire
+            let filteredProducts = beautyProducts;
+            if (currentCategory !== 'all') {
+                filteredProducts = beautyProducts.filter(p => p.category === currentCategory);
+            }
+            
+            // Organiser par catégories
+            const productsByCategory = {};
+            filteredProducts.forEach(product => {
+                if (!productsByCategory[product.category]) {
+                    productsByCategory[product.category] = [];
+                }
+                productsByCategory[product.category].push(product);
             });
             
-            container.innerHTML = sortedProducts.map(product => {
-                const categoryClass = `category-${product.category}`;
-                const categoryText = getCategoryText(product.category);
-                
-                return `
-                <div class="beauty-product-card beauty-slide-up">
-                    <span class="beauty-product-badge ${categoryClass}">${categoryText}</span>
-                    ${product.image ? `
-                        <img src="${product.image}" 
-                             alt="${product.name}" 
-                             class="beauty-product-image"
-                             onclick="showBeautyImageModal('${product.image}')">
-                    ` : `
-                        <div style="height: 180px; background: linear-gradient(135deg, #f48fb1, #e91e63); display: flex; align-items: center; justify-content: center; color: white;">
-                            <i class="fas fa-spa fa-2x"></i>
-                        </div>
-                    `}
-                    <div class="beauty-product-content">
-                        <h3 class="beauty-product-title">${product.name}</h3>
-                        <div class="beauty-product-details">
-                            <div class="beauty-product-detail">
-                                <i class="fas fa-tag"></i>
-                                <span>${product.price.toLocaleString()} FCFA</span>
+            // Générer l'HTML par catégories
+            let html = '';
+            
+            if (currentCategory === 'all') {
+                // Afficher toutes les catégories
+                beautyCategories.forEach(category => {
+                    const productsInCategory = productsByCategory[category.id] || [];
+                    if (productsInCategory.length > 0) {
+                        html += createCategorySection(category, productsInCategory);
+                    }
+                });
+            } else {
+                // Afficher seulement la catégorie sélectionnée
+                const category = beautyCategories.find(c => c.id === currentCategory);
+                if (category && filteredProducts.length > 0) {
+                    html += createCategorySection(category, filteredProducts);
+                }
+            }
+            
+            container.innerHTML = html;
+        }
+
+        function createCategorySection(category, products) {
+            const categoryClass = `category-${category.id}`;
+            
+            return `
+                <div class="category-section beauty-slide-up">
+                    <h3 style="color: ${category.color};">
+                        <i class="${category.icon}"></i> ${category.name}
+                        <span class="beauty-category-badge ${categoryClass}" style="margin-left: 10px; font-size: 12px;">
+                            ${products.length} produit${products.length > 1 ? 's' : ''}
+                        </span>
+                    </h3>
+                    <div class="beauty-products-grid">
+                        ${products.map(product => `
+                            <div class="beauty-product-card">
+                                <span class="beauty-product-badge ${categoryClass}">${category.name}</span>
+                                ${product.image ? `
+                                    <img src="${product.image}" 
+                                         alt="${product.name}" 
+                                         class="beauty-product-image"
+                                         onclick="showBeautyImageModal('${product.image}')">
+                                ` : `
+                                    <div style="height: 180px; background: linear-gradient(135deg, ${category.color}, ${category.color}99); display: flex; align-items: center; justify-content: center; color: white;">
+                                        <i class="${category.icon} fa-2x"></i>
+                                    </div>
+                                `}
+                                <div class="beauty-product-content">
+                                    <h3 class="beauty-product-title">${product.name}</h3>
+                                    <div class="beauty-product-details">
+                                        <div class="beauty-product-detail">
+                                            <i class="fas fa-tag"></i>
+                                            <span>${product.price.toLocaleString()} FCFA</span>
+                                        </div>
+                                        <div class="beauty-product-detail">
+                                            <i class="fas fa-box"></i>
+                                            <span>${product.stock} unités</span>
+                                        </div>
+                                    </div>
+                                    <p class="beauty-product-description">${product.description}</p>
+                                    <div class="beauty-product-actions">
+                                        <button class="beauty-icon-btn beauty-btn-primary" onclick="editBeautyProduct(${product.id})" title="Modifier">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="beauty-icon-btn beauty-btn-danger" onclick="deleteBeautyProduct(${product.id})" title="Supprimer">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="beauty-product-detail">
-                                <i class="fas fa-box"></i>
-                                <span>${product.stock} unités</span>
-                            </div>
-                        </div>
-                        <p class="beauty-product-description">${product.description}</p>
-                        <div class="beauty-product-actions">
-                            <button class="beauty-icon-btn beauty-btn-primary" onclick="editBeautyProduct(${product.id})" title="Modifier">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="beauty-icon-btn beauty-btn-danger" onclick="deleteBeautyProduct(${product.id})" title="Supprimer">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </div>
+                        `).join('')}
                     </div>
                 </div>
-                `;
-            }).join('');
+            `;
         }
 
         function getCategoryText(category) {
-            const categories = {
-                'maquillage': 'Maquillage',
-                'ongles': 'Ongles Gel',
-                'effets': 'Effets Spéciaux',
-                'soins': 'Soins Visage',
-                'accessoires': 'Accessoires',
-                'formation': 'Formation'
-            };
-            return categories[category] || category;
+            const categoryObj = beautyCategories.find(c => c.id === category);
+            return categoryObj ? categoryObj.name : category;
         }
 
         function updateBeautyStats() {
@@ -1708,7 +2201,7 @@
                 <div class="beauty-stat-card">
                     <i class="fas fa-palette" style="color: var(--primary);"></i>
                     <div class="beauty-stat-value">${totalProducts}</div>
-                    <div class="beauty-stat-label">Produits Beauté</div>
+                    <div class="beauty-stat-label">Produits Total</div>
                 </div>
                 <div class="beauty-stat-card">
                     <i class="fas fa-gem" style="color: var(--accent);"></i>
@@ -1732,6 +2225,11 @@
         window.editBeautyProduct = editBeautyProduct;
         window.deleteBeautyProduct = deleteBeautyProduct;
         window.showBeautyImageModal = showBeautyImageModal;
+        window.showBeautyCatalog = showBeautyCatalog;
+        window.filterProductsByCategory = filterProductsByCategory;
+        window.exportCurrentCategory = exportCurrentCategory;
+        window.exportAllCategories = exportAllCategories;
+        window.copyCatalogJson = copyCatalogJson;
     </script>
 </body>
 </html>
