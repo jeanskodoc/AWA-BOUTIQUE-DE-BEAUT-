@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#e91e63">
+    <title>Réseaux Sociaux - Beauté Pro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #e91e63;
+            --primary-light: #f48fb1;
+            --primary-dark: #c2185b;
+            --secondary: #7b1fa2;
+            --youtube: #FF0000;
+            --tiktok: #000000;
+            --instagram: #E4405F;
+            --light-pink: #fce4ec;
+            --light-purple: #f3e5f5;
+            --border-radius-round: 25px;
+            --box-shadow-hover: 0 6px 20px rgba(233, 30, 99, 0.2);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #fce4ec 0%, #f3e5f5 100%);
+            color: #5d4037;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+        }
+        
+        .social-container {
+            width: 100%;
+            max-width: 320px;
+            background: white;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(233, 30, 99, 0.15);
+            border: 1px solid #f8bbd9;
+        }
+        
+        .social-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 20px 15px;
+            text-align: center;
+        }
+        
+        .social-title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+        
+        .social-title h1 {
+            font-size: 20px;
+            font-weight: 600;
+        }
+        
+        .social-title i {
+            font-size: 22px;
+        }
+        
+        .social-subtitle {
+            font-size: 13px;
+            opacity: 0.9;
+        }
+        
+        .social-content {
+            padding: 25px 20px;
+            text-align: center;
+        }
+        
+        .social-welcome {
+            color: var(--secondary);
+            margin-bottom: 25px;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        /* Boutons Réseaux Sociaux - COMPACTS */
+        .social-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 25px 0;
+        }
+        
+        .social-btn {
+            width: 100%;
+            padding: 14px 20px;
+            border: none;
+            border-radius: var(--border-radius-round);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 12px;
+            transition: var(--transition);
+            text-decoration: none;
+            color: white;
+            max-width: 280px;
+            margin: 0 auto;
+        }
+        
+        .social-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--box-shadow-hover);
+        }
+        
+        .social-btn:active {
+            transform: translateY(-1px);
+        }
+        
+        .social-btn.youtube {
+            background: linear-gradient(135deg, var(--youtube), #CC0000);
+        }
+        
+        .social-btn.tiktok {
+            background: linear-gradient(135deg, var(--tiktok), #333333);
+        }
+        
+        .social-btn.instagram {
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+        }
+        
+        .social-btn i {
+            font-size: 18px;
+            width: 24px;
+            text-align: center;
+        }
+        
+        .social-instruction {
+            color: #666;
+            font-size: 13px;
+            margin-top: 20px;
+            line-height: 1.4;
+        }
+        
+        .social-footer {
+            text-align: center;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--secondary), var(--primary-dark));
+            color: white;
+            font-size: 12px;
+        }
+        
+        /* Bouton retour - PLUS PETIT */
+        .social-retour {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(233, 30, 99, 0.2);
+            color: var(--primary);
+            border: 2px solid rgba(233, 30, 99, 0.3);
+            cursor: pointer;
+            font-size: 15px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+        
+        .social-retour:hover {
+            background: rgba(233, 30, 99, 0.3);
+            transform: translateY(-2px) scale(1.05);
+        }
+        
+        /* Version mobile */
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            .social-container {
+                max-width: 100%;
+            }
+            
+            .social-btn {
+                padding: 12px 18px;
+                font-size: 13px;
+                max-width: 260px;
+            }
+            
+            .social-btn i {
+                font-size: 16px;
+                width: 22px;
+            }
+            
+            .social-retour {
+                top: 10px;
+                left: 10px;
+                width: 36px;
+                height: 36px;
+                font-size: 14px;
+            }
+            
+            .social-title h1 {
+                font-size: 18px;
+            }
+            
+            .social-title i {
+                font-size: 20px;
+            }
+        }
+        
+        /* Version très petits écrans */
+        @media (max-width: 360px) {
+            .social-btn {
+                padding: 10px 16px;
+                font-size: 12px;
+                max-width: 240px;
+                gap: 10px;
+            }
+            
+            .social-btn i {
+                font-size: 15px;
+                width: 20px;
+            }
+            
+            .social-content {
+                padding: 20px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Bouton Retour -->
+    <button class="social-retour" onclick="history.back()" title="Retour">
+        <i class="fas fa-arrow-left"></i>
+    </button>
+
+    <div class="social-container">
+        <header class="social-header">
+            <div class="social-title">
+                <i class="fas fa-share-alt"></i>
+                <h1>Réseaux Sociaux</h1>
+            </div>
+            <p class="social-subtitle">Suivez-nous</p>
+        </header>
+        
+        <main class="social-content">
+            <p class="social-welcome">
+                Tutoriels, astuces et nouveautés beauté
+            </p>
+            
+            <div class="social-buttons">
+                <!-- YouTube -->
+                <a href="https://youtube.com" class="social-btn youtube" target="_blank">
+                    <i class="fab fa-youtube"></i>
+                    YouTube
+                </a>
+                
+                <!-- TikTok -->
+                <a href="https://tiktok.com" class="social-btn tiktok" target="_blank">
+                    <i class="fab fa-tiktok"></i>
+                    TikTok
+                </a>
+                
+                <!-- Instagram -->
+                <a href="https://instagram.com" class="social-btn instagram" target="_blank">
+                    <i class="fab fa-instagram"></i>
+                    Instagram
+                </a>
+            </div>
+            
+            <p class="social-instruction">
+                Cliquez pour accéder
+            </p>
+        </main>
+        
+        <footer class="social-footer">
+            <p>© 2024 Beauté Pro</p>
+            <p style="margin-top: 5px; font-size: 11px; opacity: 0.8;">
+                <i class="fas fa-heart"></i>
+                Votre beauté, notre passion
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Bouton retour
+            document.querySelector('.social-retour').addEventListener('click', function() {
+                history.back();
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1737 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta name="theme-color" content="#e91e63">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="description" content="Administration Beauté - Maquillage, Ongles, Effets Spéciaux">
+    <title>Beauté Admin - Maquillage & Ongles Gel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <style>
+        /* Variables CSS Beauté */
+        :root {
+            --primary: #e91e63;
+            --primary-light: #f48fb1;
+            --primary-dark: #c2185b;
+            --secondary: #7b1fa2;
+            --secondary-light: #ba68c8;
+            --accent: #ff4081;
+            --gold: #ffd700;
+            --pink: #ff80ab;
+            --purple: #9c27b0;
+            --light-pink: #fce4ec;
+            --light-purple: #f3e5f5;
+            --success: #4caf50;
+            --warning: #ff9800;
+            --danger: #f44336;
+            --light: #fff5f8;
+            --dark: #880e4f;
+            --border-radius: 12px;
+            --border-radius-round: 50px;
+            --box-shadow: 0 4px 20px rgba(233, 30, 99, 0.1);
+            --box-shadow-hover: 0 8px 30px rgba(233, 30, 99, 0.2);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Reset et styles de base */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #fce4ec 0%, #f3e5f5 100%);
+            min-height: 100vh;
+            padding: 15px;
+            color: #5d4037;
+        }
+
+        /* Conteneur principal beauté */
+        .beauty-admin-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(233, 30, 99, 0.15);
+            border: 1px solid #f8bbd9;
+        }
+
+        /* Header beauté */
+        .beauty-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 20px 25px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .beauty-header:before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            transform: rotate(15deg);
+        }
+
+        .beauty-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .beauty-title h1 {
+            font-size: 26px;
+            font-weight: 600;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .beauty-subtitle {
+            color: rgba(255,255,255,0.9);
+            font-size: 14px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Boutons ronds compacts */
+        .beauty-btn-round {
+            width: 45px;
+            height: 45px;
+            min-width: 45px;
+            padding: 0;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+            cursor: pointer;
+            font-size: 16px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .beauty-btn-round:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-3px) scale(1.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .beauty-btn-round-sm {
+            width: 40px;
+            height: 40px;
+            min-width: 40px;
+            font-size: 14px;
+        }
+
+        .beauty-btn-round-lg {
+            width: 50px;
+            height: 50px;
+            min-width: 50px;
+            font-size: 18px;
+        }
+
+        /* Barre d'actions beauté */
+        .beauty-actions-bar {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Section d'informations admin */
+        .beauty-info-card {
+            background: linear-gradient(135deg, var(--light-pink), var(--light-purple));
+            margin: 20px;
+            padding: 20px;
+            border-radius: 15px;
+            border-left: 5px solid var(--accent);
+            box-shadow: var(--box-shadow);
+        }
+
+        .beauty-info-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            color: var(--secondary);
+        }
+
+        .beauty-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .info-item-beauty {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(233, 30, 99, 0.1);
+            transition: var(--transition);
+        }
+
+        .info-item-beauty:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(233, 30, 99, 0.15);
+        }
+
+        .info-item-beauty i {
+            color: var(--primary);
+            font-size: 16px;
+            width: 20px;
+            background: linear-gradient(135deg, var(--primary-light), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Contenu principal */
+        .beauty-content {
+            padding: 0 25px 25px;
+        }
+
+        /* Section d'importation beauté */
+        .beauty-import-section {
+            background: linear-gradient(135deg, #fce4ec, #f8bbd9);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            border: 2px dashed var(--primary-light);
+        }
+
+        .beauty-import-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+            color: var(--primary-dark);
+        }
+
+        /* Formulaire produit beauté */
+        .beauty-product-form {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: var(--box-shadow);
+            margin-bottom: 25px;
+            border: 1px solid #f0f0f0;
+        }
+
+        .beauty-section-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--light-pink);
+            color: var(--secondary);
+        }
+
+        .beauty-section-header i {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .beauty-form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .beauty-form-group {
+            margin-bottom: 15px;
+        }
+
+        .beauty-form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: var(--secondary);
+            font-size: 13px;
+        }
+
+        .beauty-form-group label.required:after {
+            content: " *";
+            color: var(--danger);
+        }
+
+        .beauty-form-control {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #f0f0f0;
+            border-radius: 10px;
+            font-size: 14px;
+            transition: var(--transition);
+            background: #fafafa;
+        }
+
+        .beauty-form-control:focus {
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(233, 30, 99, 0.1);
+            outline: none;
+        }
+
+        .beauty-form-full {
+            grid-column: 1 / -1;
+        }
+
+        /* Preview d'image beauté */
+        .beauty-image-upload {
+            border: 2px dashed #f8bbd9;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            background: #fff9fc;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .beauty-image-upload:hover {
+            border-color: var(--primary);
+            background: #fce4ec;
+        }
+
+        .beauty-image-preview {
+            max-width: 180px;
+            max-height: 180px;
+            margin: 0 auto;
+            display: none;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .beauty-image-preview img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+
+        /* Boutons d'action beauté */
+        .beauty-action-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 25px;
+        }
+
+        .beauty-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: var(--border-radius-round);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            min-width: auto;
+            justify-content: center;
+        }
+
+        .beauty-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--box-shadow-hover);
+        }
+
+        .beauty-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .beauty-btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+        }
+
+        .beauty-btn-success {
+            background: linear-gradient(135deg, var(--success), #388e3c);
+            color: white;
+        }
+
+        .beauty-btn-warning {
+            background: linear-gradient(135deg, var(--warning), #f57c00);
+            color: white;
+        }
+
+        .beauty-btn-danger {
+            background: linear-gradient(135deg, var(--danger), #d32f2f);
+            color: white;
+        }
+
+        .beauty-btn-secondary {
+            background: linear-gradient(135deg, var(--secondary), var(--secondary-light));
+            color: white;
+        }
+
+        .beauty-btn-accent {
+            background: linear-gradient(135deg, var(--accent), var(--pink));
+            color: white;
+        }
+
+        .beauty-btn-light {
+            background: var(--light-pink);
+            color: var(--primary-dark);
+        }
+
+        /* Boutons icon seulement */
+        .beauty-icon-btn {
+            width: 40px;
+            height: 40px;
+            padding: 0;
+            border-radius: 50%;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 14px;
+        }
+
+        .beauty-icon-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Liste des produits beauté */
+        .beauty-products-section {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: var(--box-shadow);
+        }
+
+        .beauty-products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .beauty-product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 3px 15px rgba(233, 30, 99, 0.08);
+            transition: var(--transition);
+            border: 1px solid #f0f0f0;
+            position: relative;
+        }
+
+        .beauty-product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--box-shadow-hover);
+        }
+
+        .beauty-product-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            z-index: 2;
+        }
+
+        .beauty-product-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .beauty-product-image:hover {
+            opacity: 0.9;
+            transform: scale(1.02);
+        }
+
+        .beauty-product-content {
+            padding: 15px;
+        }
+
+        .beauty-product-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--secondary);
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .beauty-product-details {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 10px;
+        }
+
+        .beauty-product-detail {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: #795548;
+        }
+
+        .beauty-product-detail i {
+            color: var(--primary);
+            width: 14px;
+            font-size: 13px;
+        }
+
+        .beauty-product-description {
+            font-size: 13px;
+            color: #8d6e63;
+            line-height: 1.4;
+            margin-bottom: 12px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .beauty-product-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        /* Modal d'authentification beauté */
+        .beauty-auth-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(233, 30, 99, 0.9);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .beauty-auth-card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            animation: beautySlideIn 0.3s ease;
+            border: 2px solid var(--primary-light);
+        }
+
+        @keyframes beautySlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .beauty-auth-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .beauty-auth-logo {
+            font-size: 42px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+        }
+
+        .beauty-auth-title {
+            font-size: 22px;
+            color: var(--secondary);
+            font-weight: 600;
+        }
+
+        .beauty-auth-subtitle {
+            color: var(--primary);
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        .beauty-input-group {
+            margin-bottom: 15px;
+        }
+
+        .beauty-input-with-icon {
+            position: relative;
+        }
+
+        .beauty-input-with-icon i {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-light);
+        }
+
+        .beauty-auth-input {
+            width: 100%;
+            padding: 12px 12px 12px 40px;
+            border: 2px solid #f0f0f0;
+            border-radius: 10px;
+            font-size: 14px;
+            transition: var(--transition);
+            background: #fafafa;
+        }
+
+        .beauty-auth-input:focus {
+            border-color: var(--primary);
+            background: white;
+            outline: none;
+        }
+
+        .beauty-password-toggle {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: var(--primary-light);
+        }
+
+        .beauty-auth-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        /* Modal de zoom d'image beauté */
+        .beauty-image-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(233, 30, 99, 0.95);
+            z-index: 1001;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .beauty-image-modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+        }
+
+        .beauty-image-modal-content img {
+            max-width: 100%;
+            max-height: 80vh;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .beauty-close-modal {
+            position: absolute;
+            top: -35px;
+            right: 0;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            background: rgba(255,255,255,0.2);
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .beauty-close-modal:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.1);
+        }
+
+        /* Statistiques beauté */
+        .beauty-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .beauty-stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: var(--box-shadow);
+            border-top: 4px solid var(--primary);
+            transition: var(--transition);
+        }
+
+        .beauty-stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--box-shadow-hover);
+        }
+
+        .beauty-stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--secondary);
+            margin: 8px 0;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .beauty-stat-label {
+            color: var(--primary-dark);
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        /* Footer beauté */
+        .beauty-footer {
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, var(--secondary), var(--primary-dark));
+            color: white;
+            font-size: 13px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .beauty-admin-container {
+                border-radius: 15px;
+            }
+            
+            .beauty-header,
+            .beauty-content {
+                padding: 15px;
+            }
+            
+            .beauty-form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .beauty-products-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .beauty-action-buttons {
+                flex-direction: column;
+            }
+            
+            .beauty-btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .beauty-actions-bar {
+                flex-direction: row;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .beauty-title h1 {
+                font-size: 20px;
+            }
+            
+            .beauty-product-form,
+            .beauty-products-section {
+                padding: 15px;
+            }
+            
+            .beauty-stat-card {
+                padding: 15px;
+            }
+            
+            .beauty-stat-value {
+                font-size: 24px;
+            }
+            
+            .beauty-btn-round {
+                width: 40px;
+                height: 40px;
+                min-width: 40px;
+            }
+        }
+
+        /* Animations beauté */
+        .beauty-fade-in {
+            animation: beautyFadeIn 0.5s ease;
+        }
+
+        @keyframes beautyFadeIn {
+            from { 
+                opacity: 0; 
+                transform: translateY(20px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+
+        .beauty-slide-up {
+            animation: beautySlideUp 0.4s ease;
+        }
+
+        @keyframes beautySlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Utilitaires beauté */
+        .beauty-loading {
+            position: relative;
+            pointer-events: none;
+        }
+
+        .beauty-loading:after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 18px;
+            height: 18px;
+            margin: -9px 0 0 -9px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: beautySpin 1s linear infinite;
+        }
+
+        @keyframes beautySpin {
+            to { transform: rotate(360deg); }
+        }
+
+        .beauty-empty-state {
+            text-align: center;
+            padding: 40px 15px;
+            color: var(--primary-dark);
+        }
+
+        .beauty-empty-state i {
+            font-size: 42px;
+            color: var(--primary-light);
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, var(--primary-light), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .beauty-text-center {
+            text-align: center;
+        }
+
+        .beauty-mb-15 {
+            margin-bottom: 15px;
+        }
+
+        .beauty-mt-15 {
+            margin-top: 15px;
+        }
+
+        .beauty-d-none {
+            display: none !important;
+        }
+
+        .beauty-d-flex {
+            display: flex;
+        }
+
+        .beauty-align-center {
+            align-items: center;
+        }
+
+        .beauty-justify-between {
+            justify-content: space-between;
+        }
+
+        /* Catégories beauté */
+        .beauty-category-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+
+        .category-maquillage {
+            background: linear-gradient(135deg, #f48fb1, #e91e63);
+            color: white;
+        }
+
+        .category-ongles {
+            background: linear-gradient(135deg, #ba68c8, #9c27b0);
+            color: white;
+        }
+
+        .category-effets {
+            background: linear-gradient(135deg, #ffd740, #ff9800);
+            color: #5d4037;
+        }
+
+        .category-beaute {
+            background: linear-gradient(135deg, #80deea, #00bcd4);
+            color: white;
+        }
+
+        /* Effets spéciaux */
+        .beauty-glow {
+            animation: beautyGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes beautyGlow {
+            from {
+                box-shadow: 0 0 10px rgba(233, 30, 99, 0.3);
+            }
+            to {
+                box-shadow: 0 0 20px rgba(233, 30, 99, 0.6);
+            }
+        }
+
+        /* Marquee pour promotions */
+        .beauty-marquee {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            padding: 8px;
+            overflow: hidden;
+            white-space: nowrap;
+            margin-bottom: 20px;
+            border-radius: 10px;
+        }
+
+        .beauty-marquee span {
+            display: inline-block;
+            padding-left: 100%;
+            animation: beautyMarquee 20s linear infinite;
+        }
+
+        @keyframes beautyMarquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Modal d'authentification -->
+    <div id="beautyAuthModal" class="beauty-auth-modal">
+        <div class="beauty-auth-card">
+            <div class="beauty-auth-header">
+                <div class="beauty-auth-logo">
+                    <i class="fas fa-spa"></i>
+                </div>
+                <h2 class="beauty-auth-title">Espace Beauté Pro</h2>
+                <p class="beauty-auth-subtitle">Maquillage • Ongles Gel • Effets Spéciaux</p>
+            </div>
+            
+            <div class="beauty-auth-form">
+                <div class="beauty-input-group">
+                    <div class="beauty-input-with-icon">
+                        <i class="fas fa-user"></i>
+                        <input type="text" 
+                               id="beautyUsername" 
+                               class="beauty-auth-input" 
+                               placeholder="Identifiant"
+                               required>
+                    </div>
+                </div>
+                
+                <div class="beauty-input-group">
+                    <div class="beauty-input-with-icon">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" 
+                               id="beautyPassword" 
+                               class="beauty-auth-input" 
+                               placeholder="Mot de passe"
+                               required>
+                        <span class="beauty-password-toggle" id="beautyTogglePassword">
+                            <i class="fas fa-eye"></i>
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="beauty-auth-buttons">
+                    <button id="beautyLoginBtn" class="beauty-btn beauty-btn-primary">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Connexion
+                    </button>
+                    <button id="beautyCancelBtn" class="beauty-btn beauty-btn-light">
+                        <i class="fas fa-times"></i>
+                        Annuler
+                    </button>
+                </div>
+                
+                <div class="beauty-text-center beauty-mt-15">
+                    <small style="color: var(--primary-dark);">
+                        <i class="fas fa-info-circle"></i>
+                        Admin : admin / admin123
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Interface principale -->
+    <div id="beautyAdminInterface" class="beauty-d-none">
+        <div class="beauty-admin-container">
+            <!-- Marquee promotionnel -->
+            <div class="beauty-marquee">
+                <span>
+                    <i class="fas fa-star"></i> BEAUTÉ PRO • Maquillage Professionnel • Ongles Gel • Effets Spéciaux • Formation Experts 
+                    <i class="fas fa-heart"></i>
+                </span>
+            </div>
+
+            <header class="beauty-header">
+                <div class="beauty-title">
+                    <i class="fas fa-crown beauty-glow"></i>
+                    <div>
+                        <h1>Administration Beauté</h1>
+                        <p class="beauty-subtitle">Gestion produits & services de beauté</p>
+                    </div>
+                </div>
+                
+                <div class="beauty-actions-bar">
+                    <button class="beauty-btn-round" id="beautyViewStoreBtn" title="Voir boutique">
+                        <i class="fas fa-store"></i>
+                    </button>
+                    <button class="beauty-btn-round" id="beautyRefreshBtn" title="Actualiser">
+                        <i class="fas fa-sync-alt"></i>
+                    </button>
+                    <button class="beauty-btn-round" id="beautyStatsBtn" title="Statistiques">
+                        <i class="fas fa-chart-line"></i>
+                    </button>
+                    <button class="beauty-btn-round" id="beautyLogoutBtn" title="Déconnexion">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Carte d'informations -->
+            <div class="beauty-info-card">
+                <div class="beauty-info-header">
+                    <i class="fas fa-user-shield"></i>
+                    <h3>Informations Gérante</h3>
+                </div>
+                <div class="beauty-info-grid">
+                    <div class="info-item-beauty">
+                        <i class="fas fa-user-tie"></i>
+                        <div>
+                            <strong>Gérante:</strong><br>
+                            <small>KOLA Maniwah Essohouna</small>
+                        </div>
+                    </div>
+                    <div class="info-item-beauty">
+                        <i class="fab fa-whatsapp"></i>
+                        <div>
+                            <strong>WhatsApp:</strong><br>
+                            <small>+228 92 87 16 05</small>
+                        </div>
+                    </div>
+                    <div class="info-item-beauty">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <strong>Email:</strong><br>
+                            <small>agbelenko.kossi@gmail.com</small>
+                        </div>
+                    </div>
+                    <div class="info-item-beauty">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <strong>Salon:</strong><br>
+                            <small>KARA, Togo</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <main class="beauty-content">
+                <!-- Statistiques -->
+                <div class="beauty-stats-grid" id="beautyStatsContainer">
+                    <!-- Stats dynamiques -->
+                </div>
+
+                <!-- Section import/export -->
+                <section class="beauty-import-section">
+                    <div class="beauty-import-header">
+                        <i class="fas fa-file-import"></i>
+                        <h3>Gestion Catalogue</h3>
+                    </div>
+                    <p class="beauty-mb-15">Importez/exportez votre catalogue produits beauté</p>
+                    <div class="beauty-d-flex beauty-align-center" style="gap: 10px;">
+                        <input type="file" 
+                               id="beautyCatalogFile" 
+                               accept=".json" 
+                               class="beauty-form-control"
+                               style="flex: 1;">
+                        <button id="beautyImportBtn" class="beauty-icon-btn beauty-btn-primary">
+                            <i class="fas fa-upload"></i>
+                        </button>
+                        <button id="beautyExportBtn" class="beauty-icon-btn beauty-btn-success">
+                            <i class="fas fa-download"></i>
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Formulaire produit beauté -->
+                <section class="beauty-product-form">
+                    <div class="beauty-section-header">
+                        <i class="fas fa-plus-circle"></i>
+                        <h3 id="beautyFormTitle">Nouveau Produit Beauté</h3>
+                    </div>
+                    
+                    <div class="beauty-form-grid">
+                        <div class="beauty-form-group">
+                            <label for="beautyProductName" class="required">Nom du produit</label>
+                            <input type="text" 
+                                   id="beautyProductName" 
+                                   class="beauty-form-control" 
+                                   placeholder="Ex: Palette Maquillage Pro"
+                                   required>
+                        </div>
+                        
+                        <div class="beauty-form-group">
+                            <label for="beautyProductPrice" class="required">Prix (FCFA)</label>
+                            <input type="number" 
+                                   id="beautyProductPrice" 
+                                   class="beauty-form-control" 
+                                   placeholder="Ex: 25000"
+                                   min="0"
+                                   required>
+                        </div>
+                        
+                        <div class="beauty-form-group">
+                            <label for="beautyProductCategory" class="required">Catégorie</label>
+                            <select id="beautyProductCategory" class="beauty-form-control" required>
+                                <option value="">Choisir catégorie</option>
+                                <option value="maquillage">Maquillage</option>
+                                <option value="ongles">Ongles Gel</option>
+                                <option value="effets">Effets Spéciaux</option>
+                                <option value="soins">Soins Visage</option>
+                                <option value="accessoires">Accessoires</option>
+                                <option value="formation">Formation</option>
+                            </select>
+                        </div>
+                        
+                        <div class="beauty-form-group">
+                            <label for="beautyProductStock" class="required">Stock</label>
+                            <input type="number" 
+                                   id="beautyProductStock" 
+                                   class="beauty-form-control" 
+                                   placeholder="Ex: 50"
+                                   min="0"
+                                   required>
+                        </div>
+                        
+                        <div class="beauty-form-group beauty-form-full">
+                            <label for="beautyProductDescription" class="required">Description</label>
+                            <textarea id="beautyProductDescription" 
+                                      class="beauty-form-control" 
+                                      rows="3"
+                                      placeholder="Description détaillée..."
+                                      required></textarea>
+                        </div>
+                        
+                        <div class="beauty-form-group beauty-form-full">
+                            <label for="beautyProductImage">Image produit</label>
+                            <div class="beauty-image-upload" id="beautyImageUploadArea">
+                                <input type="file" 
+                                       id="beautyProductImage" 
+                                       accept="image/*" 
+                                       style="display: none;">
+                                <div id="beautyImagePreview" class="beauty-image-preview"></div>
+                                <div id="beautyUploadPrompt">
+                                    <i class="fas fa-camera" style="color: var(--primary-light); font-size: 24px; margin-bottom: 10px;"></i>
+                                    <p style="color: var(--primary-dark); font-size: 13px;">Cliquez pour ajouter une image</p>
+                                    <small style="color: var(--primary-light);">JPG, PNG (Max 5MB)</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="beauty-action-buttons">
+                        <button id="beautySaveProductBtn" class="beauty-btn beauty-btn-primary">
+                            <i class="fas fa-check"></i>
+                            <span id="beautySaveButtonText">Ajouter</span>
+                        </button>
+                        <button id="beautyClearFormBtn" class="beauty-btn beauty-btn-light">
+                            <i class="fas fa-eraser"></i>
+                            Effacer
+                        </button>
+                        <button id="beautySaveCatalogBtn" class="beauty-btn beauty-btn-success">
+                            <i class="fas fa-save"></i>
+                            Sauvegarder
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Liste des produits beauté -->
+                <section class="beauty-products-section">
+                    <div class="beauty-section-header">
+                        <i class="fas fa-palette"></i>
+                        <h3>Catalogue Beauté</h3>
+                        <span id="beautyProductsCount" class="beauty-btn-round-sm beauty-btn-accent" style="margin-left: auto;">0</span>
+                    </div>
+                    
+                    <div id="beautyProductsList" class="beauty-products-grid">
+                        <!-- Produits dynamiques -->
+                    </div>
+                    
+                    <div id="beautyEmptyProducts" class="beauty-empty-state beauty-d-none">
+                        <i class="fas fa-paint-brush"></i>
+                        <h3 style="color: var(--primary-dark);">Aucun produit</h3>
+                        <p style="color: var(--primary-light);">Ajoutez votre premier produit beauté !</p>
+                    </div>
+                </section>
+            </main>
+
+            <footer class="beauty-footer">
+                <p>© 2024 Beauté Pro - Maquillage & Ongles Gel | KARA, Togo</p>
+                <p style="margin-top: 8px; font-size: 11px; opacity: 0.8;">
+                    <i class="fas fa-heart"></i>
+                    Créé avec passion pour la beauté
+                </p>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Modal zoom image -->
+    <div id="beautyImageModal" class="beauty-image-modal">
+        <div class="beauty-image-modal-content">
+            <span class="beauty-close-modal" id="beautyCloseImageModal">&times;</span>
+            <img id="beautyModalImage" src="" alt="Produit beauté">
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script>
+        // Configuration toastr beauté
+        toastr.options = {
+            "closeButton": true,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "timeOut": "3000",
+            "extendedTimeOut": "1000"
+        };
+
+        // Variables beauté
+        let beautyProducts = JSON.parse(localStorage.getItem('beautyProducts')) || [];
+        let beautyAuthenticated = localStorage.getItem('beautyAuthenticated') === 'true';
+        let beautyEditingProductId = null;
+        let beautyCurrentImageData = '';
+
+        // Initialisation beauté
+        document.addEventListener('DOMContentLoaded', function() {
+            if (beautyAuthenticated) {
+                showBeautyAdminInterface();
+            } else {
+                showBeautyAuthModal();
+            }
+            
+            initializeBeautyEventListeners();
+            loadBeautyProducts();
+            updateBeautyStats();
+        });
+
+        // Gestionnaires d'événements beauté
+        function initializeBeautyEventListeners() {
+            // Authentification
+            document.getElementById('beautyLoginBtn').addEventListener('click', handleBeautyLogin);
+            document.getElementById('beautyCancelBtn').addEventListener('click', handleBeautyCancel);
+            document.getElementById('beautyTogglePassword').addEventListener('click', toggleBeautyPassword);
+            document.getElementById('beautyPassword').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') handleBeautyLogin();
+            });
+
+            // Navigation
+            document.getElementById('beautyViewStoreBtn').addEventListener('click', () => {
+                window.location.href = 'client.html';
+            });
+            document.getElementById('beautyLogoutBtn').addEventListener('click', handleBeautyLogout);
+            document.getElementById('beautyRefreshBtn').addEventListener('click', () => {
+                loadBeautyProducts();
+                updateBeautyStats();
+                toastr.success('Catalogue actualisé');
+            });
+            document.getElementById('beautyStatsBtn').addEventListener('click', () => {
+                updateBeautyStats();
+                toastr.info('Statistiques mises à jour');
+            });
+
+            // Gestion produits
+            document.getElementById('beautySaveProductBtn').addEventListener('click', saveBeautyProduct);
+            document.getElementById('beautyClearFormBtn').addEventListener('click', clearBeautyForm);
+            document.getElementById('beautySaveCatalogBtn').addEventListener('click', saveBeautyCatalog);
+
+            // Import/Export
+            document.getElementById('beautyImportBtn').addEventListener('click', importBeautyCatalog);
+            document.getElementById('beautyExportBtn').addEventListener('click', exportBeautyCatalog);
+
+            // Gestion images
+            document.getElementById('beautyProductImage').addEventListener('change', handleBeautyImage);
+            document.getElementById('beautyImageUploadArea').addEventListener('click', () => {
+                document.getElementById('beautyProductImage').click();
+            });
+
+            // Modal image
+            document.getElementById('beautyCloseImageModal').addEventListener('click', () => {
+                document.getElementById('beautyImageModal').style.display = 'none';
+            });
+            document.getElementById('beautyImageModal').addEventListener('click', (e) => {
+                if (e.target === document.getElementById('beautyImageModal')) {
+                    document.getElementById('beautyImageModal').style.display = 'none';
+                }
+            });
+
+            // Drag and drop beauté
+            const beautyUploadArea = document.getElementById('beautyImageUploadArea');
+            beautyUploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                beautyUploadArea.style.borderColor = 'var(--primary)';
+                beautyUploadArea.style.background = '#fce4ec';
+            });
+
+            beautyUploadArea.addEventListener('dragleave', () => {
+                beautyUploadArea.style.borderColor = '#f8bbd9';
+                beautyUploadArea.style.background = '#fff9fc';
+            });
+
+            beautyUploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                beautyUploadArea.style.borderColor = '#f8bbd9';
+                beautyUploadArea.style.background = '#fff9fc';
+                
+                if (e.dataTransfer.files.length) {
+                    document.getElementById('beautyProductImage').files = e.dataTransfer.files;
+                    handleBeautyImage({ target: document.getElementById('beautyProductImage') });
+                }
+            });
+        }
+
+        // Authentification beauté
+        function handleBeautyLogin() {
+            const username = document.getElementById('beautyUsername').value.trim();
+            const password = document.getElementById('beautyPassword').value.trim();
+            
+            if (!username || !password) {
+                toastr.error('Identifiants requis');
+                return;
+            }
+            
+            if (username === 'admin' && password === 'admin123') {
+                beautyAuthenticated = true;
+                localStorage.setItem('beautyAuthenticated', 'true');
+                showBeautyAdminInterface();
+                toastr.success('Bienvenue dans votre espace beauté !');
+            } else {
+                toastr.error('Accès refusé');
+            }
+        }
+
+        function handleBeautyCancel() {
+            window.location.href = 'index.html';
+        }
+
+        function handleBeautyLogout() {
+            if (confirm('Déconnexion de votre espace beauté ?')) {
+                beautyAuthenticated = false;
+                localStorage.removeItem('beautyAuthenticated');
+                showBeautyAuthModal();
+                clearBeautyForm();
+                toastr.success('À bientôt !');
+            }
+        }
+
+        function toggleBeautyPassword() {
+            const passwordInput = document.getElementById('beautyPassword');
+            const toggleIcon = document.getElementById('beautyTogglePassword').querySelector('i');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.className = 'fas fa-eye-slash';
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.className = 'fas fa-eye';
+            }
+        }
+
+        // Gestion produits beauté
+        function saveBeautyProduct() {
+            if (!validateBeautyForm()) return;
+            
+            const product = {
+                id: beautyEditingProductId || Date.now(),
+                name: document.getElementById('beautyProductName').value.trim(),
+                price: parseInt(document.getElementById('beautyProductPrice').value),
+                category: document.getElementById('beautyProductCategory').value,
+                stock: parseInt(document.getElementById('beautyProductStock').value),
+                description: document.getElementById('beautyProductDescription').value.trim(),
+                image: beautyCurrentImageData,
+                dateAdded: beautyEditingProductId ? 
+                    (beautyProducts.find(p => p.id === beautyEditingProductId)?.dateAdded || new Date().toISOString()) : 
+                    new Date().toISOString()
+            };
+            
+            if (beautyEditingProductId) {
+                const index = beautyProducts.findIndex(p => p.id === beautyEditingProductId);
+                if (index !== -1) {
+                    beautyProducts[index] = product;
+                    toastr.success('Produit modifié');
+                }
+            } else {
+                beautyProducts.push(product);
+                toastr.success('Produit ajouté !');
+            }
+            
+            saveBeautyProducts();
+            clearBeautyForm();
+            loadBeautyProducts();
+            updateBeautyStats();
+        }
+
+        function validateBeautyForm() {
+            const fields = ['beautyProductName', 'beautyProductPrice', 'beautyProductCategory', 'beautyProductStock', 'beautyProductDescription'];
+            const labels = ['Nom', 'Prix', 'Catégorie', 'Stock', 'Description'];
+            
+            for (let i = 0; i < fields.length; i++) {
+                const value = document.getElementById(fields[i]).value.trim();
+                if (!value) {
+                    toastr.error(`${labels[i]} requis`);
+                    return false;
+                }
+            }
+            
+            const price = parseInt(document.getElementById('beautyProductPrice').value);
+            const stock = parseInt(document.getElementById('beautyProductStock').value);
+            
+            if (price <= 0) {
+                toastr.error('Prix invalide');
+                return false;
+            }
+            
+            if (stock < 0) {
+                toastr.error('Stock invalide');
+                return false;
+            }
+            
+            return true;
+        }
+
+        function clearBeautyForm() {
+            document.getElementById('beautyProductName').value = '';
+            document.getElementById('beautyProductPrice').value = '';
+            document.getElementById('beautyProductCategory').value = '';
+            document.getElementById('beautyProductStock').value = '';
+            document.getElementById('beautyProductDescription').value = '';
+            document.getElementById('beautyProductImage').value = '';
+            document.getElementById('beautyImagePreview').innerHTML = '';
+            document.getElementById('beautyImagePreview').style.display = 'none';
+            document.getElementById('beautyUploadPrompt').style.display = 'block';
+            document.getElementById('beautyFormTitle').textContent = 'Nouveau Produit Beauté';
+            document.getElementById('beautySaveButtonText').textContent = 'Ajouter';
+            beautyEditingProductId = null;
+            beautyCurrentImageData = '';
+        }
+
+        function editBeautyProduct(id) {
+            const product = beautyProducts.find(p => p.id === id);
+            if (!product) return;
+            
+            document.getElementById('beautyProductName').value = product.name;
+            document.getElementById('beautyProductPrice').value = product.price;
+            document.getElementById('beautyProductCategory').value = product.category;
+            document.getElementById('beautyProductStock').value = product.stock;
+            document.getElementById('beautyProductDescription').value = product.description;
+            
+            if (product.image) {
+                document.getElementById('beautyImagePreview').innerHTML = `<img src="${product.image}" alt="Preview">`;
+                document.getElementById('beautyImagePreview').style.display = 'block';
+                document.getElementById('beautyUploadPrompt').style.display = 'none';
+                beautyCurrentImageData = product.image;
+            }
+            
+            beautyEditingProductId = id;
+            document.getElementById('beautyFormTitle').textContent = 'Modifier Produit';
+            document.getElementById('beautySaveButtonText').textContent = 'Mettre à jour';
+            
+            document.querySelector('.beauty-product-form').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function deleteBeautyProduct(id) {
+            if (confirm('Supprimer ce produit beauté ?')) {
+                beautyProducts = beautyProducts.filter(p => p.id !== id);
+                saveBeautyProducts();
+                loadBeautyProducts();
+                updateBeautyStats();
+                toastr.success('Produit supprimé');
+            }
+        }
+
+        function saveBeautyProducts() {
+            localStorage.setItem('beautyProducts', JSON.stringify(beautyProducts));
+        }
+
+        // Import/Export beauté
+        function importBeautyCatalog() {
+            const fileInput = document.getElementById('beautyCatalogFile');
+            const file = fileInput.files[0];
+            
+            if (!file) {
+                toastr.error('Sélectionnez un fichier');
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const imported = JSON.parse(e.target.result);
+                    if (!Array.isArray(imported)) throw new Error('Format invalide');
+                    
+                    const existingIds = beautyProducts.map(p => p.id);
+                    const newProducts = imported.filter(p => !existingIds.includes(p.id));
+                    
+                    beautyProducts = [...beautyProducts, ...newProducts];
+                    saveBeautyProducts();
+                    loadBeautyProducts();
+                    updateBeautyStats();
+                    
+                    toastr.success(`${newProducts.length} produits importés`);
+                    fileInput.value = '';
+                } catch (error) {
+                    toastr.error('Erreur importation');
+                }
+            };
+            
+            reader.readAsText(file);
+        }
+
+        function exportBeautyCatalog() {
+            if (beautyProducts.length === 0) {
+                toastr.error('Aucun produit à exporter');
+                return;
+            }
+            
+            const dataStr = JSON.stringify(beautyProducts, null, 2);
+            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+            
+            const link = document.createElement('a');
+            link.setAttribute('href', dataUri);
+            link.setAttribute('download', `catalogue_beaute_${new Date().toISOString().split('T')[0]}.json`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            toastr.success('Catalogue exporté');
+        }
+
+        function saveBeautyCatalog() {
+            saveBeautyProducts();
+            toastr.success('Catalogue sauvegardé');
+        }
+
+        // Gestion images beauté
+        function handleBeautyImage(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            if (file.size > 5 * 1024 * 1024) {
+                toastr.error('Image trop volumineuse (max 5MB)');
+                return;
+            }
+            
+            if (!file.type.match('image.*')) {
+                toastr.error('Format image invalide');
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                beautyCurrentImageData = e.target.result;
+                document.getElementById('beautyImagePreview').innerHTML = `<img src="${beautyCurrentImageData}" alt="Preview">`;
+                document.getElementById('beautyImagePreview').style.display = 'block';
+                document.getElementById('beautyUploadPrompt').style.display = 'none';
+            };
+            
+            reader.readAsDataURL(file);
+        }
+
+        function showBeautyImageModal(imageSrc) {
+            document.getElementById('beautyModalImage').src = imageSrc;
+            document.getElementById('beautyImageModal').style.display = 'flex';
+        }
+
+        // Affichage
+        function showBeautyAuthModal() {
+            document.getElementById('beautyAuthModal').style.display = 'flex';
+            document.getElementById('beautyAdminInterface').classList.add('beauty-d-none');
+        }
+
+        function showBeautyAdminInterface() {
+            document.getElementById('beautyAuthModal').style.display = 'none';
+            document.getElementById('beautyAdminInterface').classList.remove('beauty-d-none');
+            loadBeautyProducts();
+            updateBeautyStats();
+        }
+
+        function loadBeautyProducts() {
+            const container = document.getElementById('beautyProductsList');
+            const emptyState = document.getElementById('beautyEmptyProducts');
+            const countElement = document.getElementById('beautyProductsCount');
+            
+            if (beautyProducts.length === 0) {
+                container.innerHTML = '';
+                emptyState.classList.remove('beauty-d-none');
+                countElement.textContent = '0';
+                return;
+            }
+            
+            emptyState.classList.add('beauty-d-none');
+            countElement.textContent = beautyProducts.length;
+            
+            // Trier par catégorie
+            const sortedProducts = [...beautyProducts].sort((a, b) => {
+                const categoryOrder = ['maquillage', 'ongles', 'effets', 'soins', 'accessoires', 'formation'];
+                return categoryOrder.indexOf(a.category) - categoryOrder.indexOf(b.category);
+            });
+            
+            container.innerHTML = sortedProducts.map(product => {
+                const categoryClass = `category-${product.category}`;
+                const categoryText = getCategoryText(product.category);
+                
+                return `
+                <div class="beauty-product-card beauty-slide-up">
+                    <span class="beauty-product-badge ${categoryClass}">${categoryText}</span>
+                    ${product.image ? `
+                        <img src="${product.image}" 
+                             alt="${product.name}" 
+                             class="beauty-product-image"
+                             onclick="showBeautyImageModal('${product.image}')">
+                    ` : `
+                        <div style="height: 180px; background: linear-gradient(135deg, #f48fb1, #e91e63); display: flex; align-items: center; justify-content: center; color: white;">
+                            <i class="fas fa-spa fa-2x"></i>
+                        </div>
+                    `}
+                    <div class="beauty-product-content">
+                        <h3 class="beauty-product-title">${product.name}</h3>
+                        <div class="beauty-product-details">
+                            <div class="beauty-product-detail">
+                                <i class="fas fa-tag"></i>
+                                <span>${product.price.toLocaleString()} FCFA</span>
+                            </div>
+                            <div class="beauty-product-detail">
+                                <i class="fas fa-box"></i>
+                                <span>${product.stock} unités</span>
+                            </div>
+                        </div>
+                        <p class="beauty-product-description">${product.description}</p>
+                        <div class="beauty-product-actions">
+                            <button class="beauty-icon-btn beauty-btn-primary" onclick="editBeautyProduct(${product.id})" title="Modifier">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="beauty-icon-btn beauty-btn-danger" onclick="deleteBeautyProduct(${product.id})" title="Supprimer">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                `;
+            }).join('');
+        }
+
+        function getCategoryText(category) {
+            const categories = {
+                'maquillage': 'Maquillage',
+                'ongles': 'Ongles Gel',
+                'effets': 'Effets Spéciaux',
+                'soins': 'Soins Visage',
+                'accessoires': 'Accessoires',
+                'formation': 'Formation'
+            };
+            return categories[category] || category;
+        }
+
+        function updateBeautyStats() {
+            const container = document.getElementById('beautyStatsContainer');
+            const totalProducts = beautyProducts.length;
+            const totalValue = beautyProducts.reduce((sum, p) => sum + (p.price * p.stock), 0);
+            const totalStock = beautyProducts.reduce((sum, p) => sum + p.stock, 0);
+            const categories = [...new Set(beautyProducts.map(p => p.category))];
+            
+            container.innerHTML = `
+                <div class="beauty-stat-card">
+                    <i class="fas fa-palette" style="color: var(--primary);"></i>
+                    <div class="beauty-stat-value">${totalProducts}</div>
+                    <div class="beauty-stat-label">Produits Beauté</div>
+                </div>
+                <div class="beauty-stat-card">
+                    <i class="fas fa-gem" style="color: var(--accent);"></i>
+                    <div class="beauty-stat-value">${totalValue.toLocaleString()}</div>
+                    <div class="beauty-stat-label">Valeur Totale</div>
+                </div>
+                <div class="beauty-stat-card">
+                    <i class="fas fa-boxes" style="color: var(--secondary);"></i>
+                    <div class="beauty-stat-value">${totalStock}</div>
+                    <div class="beauty-stat-label">Stock Total</div>
+                </div>
+                <div class="beauty-stat-card">
+                    <i class="fas fa-tags" style="color: var(--purple);"></i>
+                    <div class="beauty-stat-value">${categories.length}</div>
+                    <div class="beauty-stat-label">Catégories</div>
+                </div>
+            `;
+        }
+
+        // Fonctions globales
+        window.editBeautyProduct = editBeautyProduct;
+        window.deleteBeautyProduct = deleteBeautyProduct;
+        window.showBeautyImageModal = showBeautyImageModal;
+    </script>
+</body>
+</html>

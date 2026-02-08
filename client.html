@@ -1,0 +1,1627 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#e91e63">
+    <title>Beauté Pro - Maquillage, Ongles Gel, Effets Spéciaux</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <style>
+        :root {
+            --primary: #e91e63;
+            --primary-light: #f48fb1;
+            --primary-dark: #c2185b;
+            --secondary: #7b1fa2;
+            --secondary-light: #ba68c8;
+            --accent: #ff4081;
+            --pink: #ff80ab;
+            --purple: #9c27b0;
+            --light-pink: #fce4ec;
+            --light-purple: #f3e5f5;
+            --gold: #ffd700;
+            --silver: #c0c0c0;
+            --success: #4caf50;
+            --warning: #ff9800;
+            --danger: #f44336;
+            --whatsapp: #25D366;
+            --esodi: #9c27b0;
+            --euro: #0057B7;
+            --dollar: #85BB65;
+            --light: #fff5f8;
+            --dark: #880e4f;
+            --border-radius: 15px;
+            --border-radius-round: 50px;
+            --box-shadow: 0 4px 20px rgba(233, 30, 99, 0.1);
+            --box-shadow-hover: 0 8px 30px rgba(233, 30, 99, 0.2);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #fce4ec 0%, #f3e5f5 100%);
+            color: #5d4037;
+            line-height: 1.6;
+            padding: 15px;
+            font-size: 16px;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        .beauty-container {
+            max-width: 100%;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(233, 30, 99, 0.15);
+            border: 1px solid #f8bbd9;
+        }
+        
+        .beauty-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 20px 15px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .beauty-title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .beauty-title h1 {
+            font-size: 24px;
+            font-weight: 600;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .beauty-subtitle {
+            font-size: 14px;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .beauty-btn-round {
+            width: 45px;
+            height: 45px;
+            min-width: 45px;
+            padding: 0;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+            cursor: pointer;
+            font-size: 16px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .beauty-btn-round:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-3px) scale(1.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .beauty-retour {
+            position: absolute;
+            left: 15px;
+            top: 20px;
+            z-index: 2;
+        }
+        
+        .beauty-info-card {
+            background: linear-gradient(135deg, var(--light-pink), var(--light-purple));
+            padding: 20px;
+            margin: 20px;
+            border-radius: 15px;
+            border-left: 5px solid var(--accent);
+            box-shadow: var(--box-shadow);
+        }
+        
+        .beauty-info-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            color: var(--secondary);
+        }
+        
+        .beauty-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+        }
+        
+        .beauty-info-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(233, 30, 99, 0.1);
+            transition: var(--transition);
+        }
+        
+        .beauty-info-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(233, 30, 99, 0.15);
+        }
+        
+        .beauty-info-item i {
+            color: var(--primary);
+            font-size: 16px;
+            width: 20px;
+        }
+        
+        .beauty-content {
+            padding: 15px;
+        }
+        
+        .beauty-section {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--light-pink);
+        }
+        
+        .beauty-section-title {
+            color: var(--secondary);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 18px;
+        }
+        
+        .beauty-form-group {
+            margin-bottom: 15px;
+        }
+        
+        .beauty-label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: var(--secondary);
+            font-size: 14px;
+        }
+        
+        .beauty-input, .beauty-select, .beauty-textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #f0f0f0;
+            border-radius: 10px;
+            font-size: 14px;
+            transition: var(--transition);
+            background: #fafafa;
+        }
+        
+        .beauty-input:focus, .beauty-select:focus, .beauty-textarea:focus {
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(233, 30, 99, 0.1);
+            outline: none;
+        }
+        
+        /* Catégories beauté */
+        .beauty-categories {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 8px;
+            margin-bottom: 15px;
+            overflow-x: auto;
+            padding-bottom: 5px;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        
+        .beauty-categories::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .beauty-category-btn {
+            padding: 10px 15px;
+            background: var(--light-pink);
+            border: none;
+            border-radius: var(--border-radius-round);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            white-space: nowrap;
+            font-size: 13px;
+            color: var(--primary-dark);
+            border: 2px solid transparent;
+        }
+        
+        .beauty-category-btn.active {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            border-color: var(--primary);
+            box-shadow: var(--box-shadow);
+        }
+        
+        /* Grille de produits beauté */
+        .beauty-product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .beauty-product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 3px 15px rgba(233, 30, 99, 0.08);
+            transition: var(--transition);
+            border: 2px solid transparent;
+            position: relative;
+        }
+        
+        .beauty-product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--box-shadow-hover);
+            border-color: var(--primary);
+        }
+        
+        .beauty-product-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            z-index: 2;
+        }
+        
+        .beauty-product-image {
+            height: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-size: cover;
+            background-position: center;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .beauty-product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+        
+        .beauty-product-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        .beauty-product-info {
+            padding: 12px;
+        }
+        
+        .beauty-product-title {
+            font-weight: 600;
+            font-size: 15px;
+            margin-bottom: 6px;
+            color: var(--dark);
+            line-height: 1.3;
+        }
+        
+        .beauty-product-price {
+            font-weight: 700;
+            font-size: 16px;
+            margin-bottom: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        
+        .price-fcfa {
+            color: var(--primary);
+        }
+        
+        .price-other {
+            color: #666;
+            font-size: 12px;
+            display: flex;
+            gap: 8px;
+        }
+        
+        .price-euro {
+            color: var(--euro);
+        }
+        
+        .price-dollar {
+            color: var(--dollar);
+        }
+        
+        .beauty-product-description {
+            color: #8d6e63;
+            font-size: 12px;
+            margin-bottom: 12px;
+            height: 36px;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+        
+        /* Contrôle quantité */
+        .beauty-quantity-control {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 8px;
+        }
+        
+        .beauty-quantity-btn {
+            background: var(--light-pink);
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            color: var(--primary-dark);
+        }
+        
+        .beauty-quantity-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: scale(1.1);
+        }
+        
+        .beauty-quantity-input {
+            width: 40px;
+            text-align: center;
+            margin: 0 8px;
+            font-weight: bold;
+            padding: 6px;
+            border: 1px solid #f0f0f0;
+            border-radius: 8px;
+            background: white;
+            font-size: 14px;
+        }
+        
+        /* Section produits sélectionnés */
+        .beauty-selected-products {
+            background: linear-gradient(135deg, #fce4ec, #f8bbd9);
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+            display: none;
+            border: 2px solid var(--primary-light);
+        }
+        
+        .beauty-selected-list {
+            margin-top: 10px;
+        }
+        
+        .beauty-selected-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(233, 30, 99, 0.2);
+            font-size: 14px;
+        }
+        
+        .beauty-selected-item:last-child {
+            border-bottom: none;
+        }
+        
+        .beauty-selected-name {
+            font-weight: 600;
+            color: var(--secondary);
+        }
+        
+        .beauty-selected-price {
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        /* Récapitulatif */
+        .beauty-summary {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+            box-shadow: var(--box-shadow);
+            border: 1px solid #f0f0f0;
+        }
+        
+        .beauty-summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px dashed #f0f0f0;
+            font-size: 14px;
+        }
+        
+        .beauty-summary-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--dark);
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px solid #f0f0f0;
+        }
+        
+        /* Informations de paiement */
+        .beauty-payment-info {
+            background: #fff8e1;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            border-left: 4px solid var(--warning);
+            font-size: 13px;
+        }
+        
+        /* Boutons d'action */
+        .beauty-action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 20px;
+        }
+        
+        .beauty-btn {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: var(--border-radius-round);
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: var(--transition);
+        }
+        
+        .beauty-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--box-shadow-hover);
+        }
+        
+        .beauty-btn:active {
+            transform: translateY(-1px);
+        }
+        
+        .beauty-btn-whatsapp {
+            background: linear-gradient(135deg, var(--whatsapp), #128C7E);
+            color: white;
+        }
+        
+        .beauty-btn-esodi {
+            background: linear-gradient(135deg, var(--esodi), var(--secondary));
+            color: white;
+        }
+        
+        .beauty-btn-location {
+            background: linear-gradient(135deg, var(--warning), #f57c00);
+            color: white;
+            padding: 14px;
+            border-radius: var(--border-radius-round);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 10px;
+            width: 100%;
+            font-size: 14px;
+            border: none;
+            transition: var(--transition);
+        }
+        
+        .beauty-btn-location:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
+        }
+        
+        /* Section localisation */
+        .beauty-location-section {
+            margin-top: 15px;
+            padding: 15px;
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            border-radius: 15px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .beauty-location-details {
+            margin-top: 12px;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+            font-size: 13px;
+            display: none;
+        }
+        
+        .beauty-location-loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            display: none;
+        }
+        
+        .beauty-location-loading i {
+            margin-right: 8px;
+            animation: beautySpin 1s linear infinite;
+        }
+        
+        /* Modal de paiement ESODI */
+        .beauty-payment-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(233, 30, 99, 0.95);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .beauty-modal-content {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: beautySlideIn 0.3s ease;
+            border: 2px solid var(--primary-light);
+        }
+        
+        @keyframes beautySlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        .beauty-modal-header {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .beauty-modal-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 20px;
+        }
+        
+        .beauty-modal-btn {
+            padding: 14px;
+            border: none;
+            border-radius: var(--border-radius-round);
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: var(--transition);
+        }
+        
+        .beauty-modal-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .beauty-modal-btn-esodi {
+            background: linear-gradient(135deg, var(--esodi), var(--secondary));
+            color: white;
+        }
+        
+        .beauty-modal-btn-cancel {
+            background: var(--light-pink);
+            color: var(--primary-dark);
+        }
+        
+        /* Étapes de paiement */
+        .beauty-payment-steps {
+            text-align: left;
+            margin-top: 15px;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 10px;
+            font-size: 13px;
+        }
+        
+        /* Section importation */
+        .beauty-import-section {
+            margin-top: 15px;
+            padding: 15px;
+            background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+            border-radius: 15px;
+            border: 2px dashed #4caf50;
+        }
+        
+        .beauty-import-btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: var(--border-radius-round);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            background: linear-gradient(135deg, var(--success), #2e7d32);
+            color: white;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: var(--transition);
+        }
+        
+        /* Notification */
+        .beauty-notification {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            left: 15px;
+            padding: 12px 15px;
+            border-radius: 10px;
+            color: white;
+            font-weight: 600;
+            z-index: 2000;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: var(--transition);
+            text-align: center;
+            font-size: 14px;
+        }
+        
+        .beauty-notification.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Modal de zoom d'image */
+        .beauty-image-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(233, 30, 99, 0.95);
+            z-index: 3000;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+        }
+        
+        .beauty-image-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+        }
+        
+        .beauty-image-close {
+            position: absolute;
+            top: -35px;
+            right: 0;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            background: rgba(255,255,255,0.2);
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+        
+        /* Footer */
+        .beauty-footer {
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, var(--secondary), var(--primary-dark));
+            color: white;
+            font-size: 13px;
+        }
+        
+        /* Checkbox */
+        .beauty-checkbox-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        
+        .beauty-checkbox-container input {
+            width: auto;
+            margin-right: 8px;
+            transform: scale(1.2);
+        }
+        
+        /* Loading spinner */
+        @keyframes beautySpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Scrollable */
+        .beauty-scrollable {
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        /* Responsive */
+        @media (min-width: 768px) {
+            .beauty-product-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+            
+            .beauty-info-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .beauty-action-buttons {
+                flex-direction: row;
+            }
+            
+            .beauty-btn {
+                width: 48%;
+            }
+        }
+        
+        /* Taux de change */
+        .currency-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .currency-btn {
+            padding: 8px 15px;
+            border: 2px solid var(--primary-light);
+            border-radius: var(--border-radius-round);
+            background: white;
+            color: var(--primary);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .currency-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .currency-display {
+            display: flex;
+            gap: 15px;
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="beauty-container">
+        <header class="beauty-header">
+            <button class="beauty-btn-round beauty-retour" onclick="history.back()" title="Retour">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            
+            <div class="beauty-title">
+                <i class="fas fa-spa"></i>
+                <h1>Beauté Pro Shop</h1>
+            </div>
+            <p class="beauty-subtitle">Maquillage • Ongles Gel • Effets Spéciaux</p>
+        </header>
+        
+        <!-- Informations de la gérante -->
+        <div class="beauty-info-card">
+            <div class="beauty-info-header">
+                <i class="fas fa-user-shield"></i>
+                <h3>Contact Gérante</h3>
+            </div>
+            <div class="beauty-info-grid">
+                <div class="beauty-info-item">
+                    <i class="fas fa-user-tie"></i>
+                    <div>
+                        <strong>Gérante:</strong><br>
+                        <small>KOLA Maniwah Essohouna</small>
+                    </div>
+                </div>
+                <div class="beauty-info-item">
+                    <i class="fab fa-whatsapp"></i>
+                    <div>
+                        <strong>WhatsApp:</strong><br>
+                        <small>+228 92 87 16 05</small>
+                    </div>
+                </div>
+                <div class="beauty-info-item">
+                    <i class="fas fa-envelope"></i>
+                    <div>
+                        <strong>Email:</strong><br>
+                        <small>agbelenko.kossi@gmail.com</small>
+                    </div>
+                </div>
+                <div class="beauty-info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div>
+                        <strong>Salon:</strong><br>
+                        <small>KARA, Togo</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <main class="beauty-content">
+            <!-- Section d'importation -->
+            <div class="beauty-import-section">
+                <h3 class="beauty-section-title"><i class="fas fa-file-import"></i> Catalogue Beauté</h3>
+                <p>Importez un fichier catalogue (.json) pour voir nos produits disponibles.</p>
+                <div class="beauty-form-group">
+                    <input type="file" id="beauty-import-catalog" accept=".json" class="beauty-input">
+                </div>
+                <button class="beauty-import-btn" id="beauty-import-btn">
+                    <i class="fas fa-upload"></i> Importer Catalogue
+                </button>
+            </div>
+            
+            <!-- Informations client -->
+            <div class="beauty-section">
+                <h2 class="beauty-section-title"><i class="fas fa-user"></i> Vos Informations</h2>
+                <div class="beauty-form-group">
+                    <label for="beauty-nom" class="beauty-label">Nom et Prénom *</label>
+                    <input type="text" id="beauty-nom" class="beauty-input" placeholder="Votre nom complet" required>
+                </div>
+                
+                <div class="beauty-form-group">
+                    <label for="beauty-whatsapp" class="beauty-label">Numéro WhatsApp *</label>
+                    <input type="tel" id="beauty-whatsapp" class="beauty-input" placeholder="Votre numéro WhatsApp" required>
+                </div>
+                
+                <div class="beauty-form-group">
+                    <label for="beauty-adresse" class="beauty-label">Adresse de Livraison *</label>
+                    <textarea id="beauty-adresse" class="beauty-textarea" rows="2" placeholder="Votre adresse pour la livraison" required></textarea>
+                </div>
+                
+                <!-- Localisation -->
+                <div class="beauty-location-section">
+                    <h3 class="beauty-section-title"><i class="fas fa-map-marker-alt"></i> Localisation</h3>
+                    <p>Pour une livraison précise, géolocalisez-vous automatiquement</p>
+                    <button class="beauty-btn-location" id="beauty-get-location">
+                        <i class="fas fa-location-arrow"></i> Géolocaliser automatiquement
+                    </button>
+                    
+                    <div id="beauty-location-loading" class="beauty-location-loading">
+                        <i class="fas fa-spinner"></i> Localisation en cours...
+                    </div>
+                    
+                    <div id="beauty-location-details" class="beauty-location-details">
+                        <p><strong>📍 Adresse détectée:</strong> <span id="beauty-detected-address"></span></p>
+                        <p><strong>📌 Coordonnées GPS:</strong> <span id="beauty-coordinates"></span></p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sélection des produits -->
+            <div class="beauty-section">
+                <h2 class="beauty-section-title"><i class="fas fa-palette"></i> Produits Beauté</h2>
+                
+                <!-- Sélecteur de devise -->
+                <div class="currency-selector">
+                    <button class="currency-btn active" data-currency="FCFA">FCFA</button>
+                    <button class="currency-btn" data-currency="EUR">€ Euro</button>
+                    <button class="currency-btn" data-currency="USD">$ Dollar US</button>
+                </div>
+                
+                <p>Choisissez une catégorie :</p>
+                
+                <div class="beauty-categories beauty-scrollable">
+                    <button class="beauty-category-btn active" data-category="all">Tous</button>
+                    <button class="beauty-category-btn" data-category="maquillage">Maquillage</button>
+                    <button class="beauty-category-btn" data-category="ongles">Ongles Gel</button>
+                    <button class="beauty-category-btn" data-category="effets">Effets Spéciaux</button>
+                    <button class="beauty-category-btn" data-category="soins">Soins Visage</button>
+                    <button class="beauty-category-btn" data-category="accessoires">Accessoires</button>
+                </div>
+                
+                <div class="beauty-product-grid" id="beauty-product-grid">
+                    <!-- Produits chargés dynamiquement -->
+                </div>
+            </div>
+            
+            <!-- Produits sélectionnés -->
+            <div class="beauty-selected-products" id="beauty-selected-products">
+                <h3 class="beauty-section-title"><i class="fas fa-check-circle"></i> Votre Sélection</h3>
+                <div id="beauty-selected-list" class="beauty-selected-list">
+                    <!-- Produits sélectionnés -->
+                </div>
+            </div>
+            
+            <!-- Récapitulatif -->
+            <div class="beauty-section">
+                <h2 class="beauty-section-title"><i class="fas fa-file-invoice"></i> Récapitulatif</h2>
+                
+                <!-- Sélecteur de devise pour le total -->
+                <div class="currency-selector" style="margin-bottom: 20px;">
+                    <button class="currency-btn active" data-total-currency="FCFA">Voir total en FCFA</button>
+                    <button class="currency-btn" data-total-currency="EUR">Voir total en €</button>
+                    <button class="currency-btn" data-total-currency="USD">Voir total en $</button>
+                </div>
+                
+                <div class="beauty-summary">
+                    <div class="beauty-summary-item">
+                        <span>Articles sélectionnés:</span>
+                        <span id="beauty-articles-count">0</span>
+                    </div>
+                    <div class="beauty-summary-item">
+                        <span>Sous-total:</span>
+                        <span id="beauty-subtotal">0 <span class="beauty-currency">FCFA</span></span>
+                    </div>
+                    <div class="beauty-summary-item">
+                        <span>Frais de livraison:</span>
+                        <span id="beauty-delivery">2 000 <span class="beauty-currency">FCFA</span></span>
+                    </div>
+                    <div class="beauty-summary-total">
+                        <span>Total:</span>
+                        <span id="beauty-total">2 000 <span class="beauty-currency">FCFA</span></span>
+                    </div>
+                </div>
+                
+                <div class="beauty-payment-info">
+                    <p><strong>Option de paiement:</strong></p>
+                    <ul>
+                        <li><strong>Carte ESODI:</strong> Effectuez un virement via le lien sécurisé <strong>https://jeanskodoc.github.io/Carte-virtuelle-/</strong></li>
+                    </ul>
+                    <p style="margin-top: 10px; font-size: 12px;">Votre commande sera traitée dès réception du paiement.</p>
+                </div>
+            </div>
+            
+            <!-- Envoi commande -->
+            <div class="beauty-section">
+                <h2 class="beauty-section-title"><i class="fas fa-paper-plane"></i> Finaliser Commande</h2>
+                <div class="beauty-checkbox-container">
+                    <input type="checkbox" id="beauty-confirm-location">
+                    <label for="beauty-confirm-location">J'autorise l'utilisation de ma position pour la livraison</label>
+                </div>
+                <div class="beauty-checkbox-container">
+                    <input type="checkbox" id="beauty-confirm" required>
+                    <label for="beauty-confirm">Je confirme que les informations sont correctes</label>
+                </div>
+                
+                <div class="beauty-action-buttons">
+                    <button class="beauty-btn beauty-btn-whatsapp" id="beauty-whatsapp-btn">
+                        <i class="fab fa-whatsapp"></i> Envoyer par WhatsApp
+                    </button>
+                    
+                    <button class="beauty-btn beauty-btn-esodi" id="beauty-esodi-btn">
+                        <i class="fas fa-gem"></i> Payer avec ESODI
+                    </button>
+                </div>
+            </div>
+        </main>
+        
+        <footer class="beauty-footer">
+            <p>© 2024 Beauté Pro - Service Client: 92 87 16 05 | Livraison sous 24-48h</p>
+            <p style="margin-top: 8px; font-size: 11px; opacity: 0.8;">
+                <i class="fas fa-heart"></i>
+                Votre beauté, notre passion
+            </p>
+        </footer>
+    </div>
+
+    <!-- Modal de Paiement ESODI -->
+    <div class="beauty-payment-modal" id="beauty-payment-modal">
+        <div class="beauty-modal-content">
+            <div class="beauty-modal-header">
+                <i class="fas fa-gem"></i> Paiement par Carte ESODI
+            </div>
+            
+            <p style="font-size: 18px; margin: 15px 0;">
+                Montant à payer: <strong id="beauty-modal-amount" style="color: var(--primary);">0 FCFA</strong>
+            </p>
+            
+            <div class="currency-display" style="justify-content: center; margin-bottom: 15px;">
+                <span id="modal-euro" style="color: var(--euro);"></span>
+                <span id="modal-dollar" style="color: var(--dollar);"></span>
+            </div>
+            
+            <div class="beauty-payment-steps">
+                <p><strong>Instructions de paiement:</strong></p>
+                <ol>
+                    <li>Cliquez sur "Accéder au Portail ESODI" ci-dessous</li>
+                    <li>Vous serez redirigé vers le portail de paiement sécurisé</li>
+                    <li>Suivez les instructions pour effectuer votre paiement</li>
+                    <li>Une fois le paiement effectué, revenez sur cette page</li>
+                    <li>Cliquez sur "Envoyer par WhatsApp" pour confirmer</li>
+                </ol>
+            </div>
+            
+            <div class="beauty-modal-buttons">
+                <button class="beauty-modal-btn beauty-modal-btn-esodi" id="beauty-esodi-modal-btn">
+                    <i class="fas fa-external-link-alt"></i> Accéder au Portail ESODI
+                </button>
+                
+                <button class="beauty-modal-btn beauty-modal-btn-cancel" id="beauty-cancel-btn">
+                    <i class="fas fa-times"></i> Annuler
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de zoom d'image -->
+    <div class="beauty-image-modal" id="beauty-image-modal">
+        <div class="beauty-image-content">
+            <span class="beauty-image-close" id="beauty-image-close">&times;</span>
+            <img id="beauty-zoomed-image" src="" alt="Produit beauté">
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div id="beauty-notification" class="beauty-notification"></div>
+
+    <script>
+        // Taux de change approximatifs (à mettre à jour régulièrement)
+        const EXCHANGE_RATES = {
+            EUR: 0.00152, // 1 FCFA = 0.00152 EUR
+            USD: 0.00165  // 1 FCFA = 0.00165 USD
+        };
+
+        // Variables globales
+        let beautyProducts = JSON.parse(localStorage.getItem('beautyProducts')) || [];
+        let beautyUserCoordinates = null;
+        let beautyUserAddress = "";
+        let currentCurrency = 'FCFA';
+        let currentTotalCurrency = 'FCFA';
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeEventListeners();
+            renderBeautyProducts();
+            autoGeolocate();
+        });
+
+        function initializeEventListeners() {
+            // Bouton retour
+            document.querySelector('.beauty-retour').addEventListener('click', function() {
+                history.back();
+            });
+
+            // Importation catalogue
+            document.getElementById('beauty-import-btn').addEventListener('click', handleImport);
+            
+            // Géolocalisation
+            document.getElementById('beauty-get-location').addEventListener('click', handleGeolocation);
+            
+            // Boutons devise produit
+            document.querySelectorAll('.currency-btn[data-currency]').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.currency-btn[data-currency]').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentCurrency = this.getAttribute('data-currency');
+                    renderBeautyProducts();
+                });
+            });
+            
+            // Boutons devise total
+            document.querySelectorAll('.currency-btn[data-total-currency]').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.currency-btn[data-total-currency]').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentTotalCurrency = this.getAttribute('data-total-currency');
+                    updateBeautyOrderSummary();
+                });
+            });
+            
+            // Boutons d'action
+            document.getElementById('beauty-whatsapp-btn').addEventListener('click', handleWhatsApp);
+            document.getElementById('beauty-esodi-btn').addEventListener('click', handleEsodi);
+            
+            // Boutons modal
+            document.getElementById('beauty-esodi-modal-btn').addEventListener('click', function() {
+                window.open('https://jeanskodoc.github.io/-CONOMIE-/', '_blank');
+                showNotification('Redirection vers le portail de paiement...', 'success');
+            });
+            
+            document.getElementById('beauty-cancel-btn').addEventListener('click', function() {
+                document.getElementById('beauty-payment-modal').style.display = 'none';
+            });
+            
+            // Fermeture modals
+            document.getElementById('beauty-image-close').addEventListener('click', function() {
+                document.getElementById('beauty-image-modal').style.display = 'none';
+            });
+            
+            window.addEventListener('click', function(event) {
+                if (event.target === document.getElementById('beauty-payment-modal')) {
+                    document.getElementById('beauty-payment-modal').style.display = 'none';
+                }
+                if (event.target === document.getElementById('beauty-image-modal')) {
+                    document.getElementById('beauty-image-modal').style.display = 'none';
+                }
+            });
+        }
+
+        function handleImport() {
+            const fileInput = document.getElementById('beauty-import-catalog');
+            const file = fileInput.files[0];
+            
+            if (!file) {
+                showNotification('Veuillez sélectionner un fichier', 'error');
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const importedProducts = JSON.parse(e.target.result);
+                    if (Array.isArray(importedProducts)) {
+                        beautyProducts = importedProducts;
+                        localStorage.setItem('beautyProducts', JSON.stringify(beautyProducts));
+                        renderBeautyProducts();
+                        showNotification('Catalogue importé avec succès!', 'success');
+                    } else {
+                        showNotification('Format de fichier invalide', 'error');
+                    }
+                } catch (error) {
+                    showNotification('Erreur d\'importation: ' + error.message, 'error');
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        function autoGeolocate() {
+            if (navigator.geolocation) {
+                document.getElementById('beauty-location-loading').style.display = 'flex';
+                
+                navigator.geolocation.getCurrentPosition(
+                    function(position) {
+                        const lat = position.coords.latitude;
+                        const lng = position.coords.longitude;
+                        
+                        beautyUserCoordinates = { lat, lng };
+                        updateAddressFromCoordinates(lat, lng);
+                        
+                        document.getElementById('beauty-location-details').style.display = 'block';
+                        document.getElementById('beauty-location-loading').style.display = 'none';
+                        
+                        document.getElementById('beauty-coordinates').textContent = 
+                            `${lat.toFixed(6)}, ${lng.toFixed(6)}`;
+                    },
+                    function(error) {
+                        document.getElementById('beauty-location-loading').style.display = 'none';
+                        console.log('Géolocalisation automatique échouée:', error.message);
+                    },
+                    { enableHighAccuracy: true, timeout: 10000 }
+                );
+            }
+        }
+
+        function handleGeolocation() {
+            if (!navigator.geolocation) {
+                showNotification('Géolocalisation non supportée', 'error');
+                return;
+            }
+            
+            document.getElementById('beauty-location-loading').style.display = 'flex';
+            
+            navigator.geolocation.getCurrentPosition(
+                function(position) {
+                    const lat = position.coords.latitude;
+                    const lng = position.coords.longitude;
+                    
+                    beautyUserCoordinates = { lat, lng };
+                    updateAddressFromCoordinates(lat, lng);
+                    
+                    document.getElementById('beauty-location-details').style.display = 'block';
+                    document.getElementById('beauty-location-loading').style.display = 'none';
+                    
+                    document.getElementById('beauty-coordinates').textContent = 
+                        `${lat.toFixed(6)}, ${lng.toFixed(6)}`;
+                    
+                    showNotification('Position obtenue avec succès!', 'success');
+                },
+                function(error) {
+                    document.getElementById('beauty-location-loading').style.display = 'none';
+                    showNotification('Erreur de géolocalisation', 'error');
+                },
+                { enableHighAccuracy: true, timeout: 10000 }
+            );
+        }
+
+        function updateAddressFromCoordinates(lat, lng) {
+            fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data && data.display_name) {
+                        beautyUserAddress = data.display_name;
+                        document.getElementById('beauty-detected-address').textContent = beautyUserAddress;
+                        
+                        // Remplir automatiquement le champ adresse
+                        const addressField = document.getElementById('beauty-adresse');
+                        if (addressField && !addressField.value.trim()) {
+                            addressField.value = beautyUserAddress;
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error('Erreur géocodage:', error);
+                });
+        }
+
+        function renderBeautyProducts() {
+            const grid = document.getElementById('beauty-product-grid');
+            
+            if (beautyProducts.length === 0) {
+                grid.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 30px;">
+                        <i class="fas fa-palette" style="font-size: 48px; color: var(--primary-light); margin-bottom: 15px;"></i>
+                        <h3 style="color: var(--secondary); margin-bottom: 10px;">Aucun produit disponible</h3>
+                        <p style="color: var(--primary-light);">Importez un catalogue pour voir nos produits beauté</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            grid.innerHTML = beautyProducts.map(product => {
+                const categoryText = getCategoryText(product.category);
+                const categoryBadgeClass = `category-${product.category}-badge`;
+                
+                // Conversion devise
+                const priceEuro = Math.round(product.price * EXCHANGE_RATES.EUR * 100) / 100;
+                const priceDollar = Math.round(product.price * EXCHANGE_RATES.USD * 100) / 100;
+                
+                return `
+                    <div class="beauty-product-card category-${product.category}">
+                        <span class="beauty-product-badge ${categoryBadgeClass}">${categoryText}</span>
+                        ${product.image ? 
+                            `<div class="beauty-product-image" onclick="showImageZoom('${product.image}')">
+                                <img src="${product.image}" alt="${product.name}">
+                            </div>` : 
+                            `<div class="beauty-product-image" style="background: linear-gradient(45deg, #f48fb1, #e91e63);">
+                                <i class="fas fa-spa fa-2x" style="color: white;"></i>
+                            </div>`
+                        }
+                        <div class="beauty-product-info">
+                            <h3 class="beauty-product-title">${product.name}</h3>
+                            <div class="beauty-product-price">
+                                <span class="price-fcfa">
+                                    ${currentCurrency === 'FCFA' ? product.price.toLocaleString() + ' FCFA' : 
+                                      currentCurrency === 'EUR' ? '€' + priceEuro.toFixed(2) :
+                                      '$' + priceDollar.toFixed(2)}
+                                </span>
+                                <div class="price-other">
+                                    <span class="price-euro">€${priceEuro.toFixed(2)}</span>
+                                    <span class="price-dollar">$${priceDollar.toFixed(2)}</span>
+                                </div>
+                            </div>
+                            <p class="beauty-product-description">${product.description}</p>
+                            <div class="beauty-quantity-control">
+                                <button class="beauty-quantity-btn minus" onclick="updateQuantity(${product.id}, -1)">-</button>
+                                <input type="number" class="beauty-quantity-input" id="qty-${product.id}" 
+                                       value="0" min="0" max="${product.stock}" 
+                                       onchange="updateQuantityInput(${product.id})">
+                                <button class="beauty-quantity-btn plus" onclick="updateQuantity(${product.id}, 1)">+</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            // Filtrer par catégorie
+            document.querySelectorAll('.beauty-category-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.beauty-category-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const category = this.getAttribute('data-category');
+                    
+                    document.querySelectorAll('.beauty-product-card').forEach(card => {
+                        if (category === 'all' || card.classList.contains(`category-${category}`)) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+            
+            updateBeautyOrderSummary();
+        }
+
+        function getCategoryText(category) {
+            const categories = {
+                'maquillage': 'Maquillage',
+                'ongles': 'Ongles Gel',
+                'effets': 'Effets Spéciaux',
+                'soins': 'Soins Visage',
+                'accessoires': 'Accessoires',
+                'formation': 'Formation'
+            };
+            return categories[category] || category;
+        }
+
+        // Fonctions globales pour les boutons
+        window.updateQuantity = function(productId, change) {
+            const input = document.getElementById(`qty-${productId}`);
+            let value = parseInt(input.value) || 0;
+            
+            if (change > 0) {
+                const max = parseInt(input.getAttribute('max'));
+                if (value < max) value++;
+            } else if (change < 0) {
+                if (value > 0) value--;
+            }
+            
+            input.value = value;
+            updateBeautyOrderSummary();
+            updateSelectedProducts();
+        };
+
+        window.updateQuantityInput = function(productId) {
+            const input = document.getElementById(`qty-${productId}`);
+            const max = parseInt(input.getAttribute('max'));
+            let value = parseInt(input.value) || 0;
+            
+            if (value > max) value = max;
+            if (value < 0) value = 0;
+            
+            input.value = value;
+            updateBeautyOrderSummary();
+            updateSelectedProducts();
+        };
+
+        window.showImageZoom = function(imageSrc) {
+            document.getElementById('beauty-zoomed-image').src = imageSrc;
+            document.getElementById('beauty-image-modal').style.display = 'flex';
+        };
+
+        function updateSelectedProducts() {
+            const container = document.getElementById('beauty-selected-list');
+            const section = document.getElementById('beauty-selected-products');
+            
+            let html = '';
+            let hasProducts = false;
+            
+            beautyProducts.forEach(product => {
+                const quantity = parseInt(document.getElementById(`qty-${product.id}`).value) || 0;
+                if (quantity > 0) {
+                    hasProducts = true;
+                    const total = quantity * product.price;
+                    const totalEuro = Math.round(total * EXCHANGE_RATES.EUR * 100) / 100;
+                    const totalDollar = Math.round(total * EXCHANGE_RATES.USD * 100) / 100;
+                    
+                    html += `
+                        <div class="beauty-selected-item">
+                            <div>
+                                <div class="beauty-selected-name">${product.name}</div>
+                                <small style="color: #999;">${quantity} x ${product.price.toLocaleString()} FCFA</small>
+                            </div>
+                            <div class="beauty-selected-price">
+                                ${currentTotalCurrency === 'FCFA' ? total.toLocaleString() + ' FCFA' : 
+                                  currentTotalCurrency === 'EUR' ? '€' + totalEuro.toFixed(2) :
+                                  '$' + totalDollar.toFixed(2)}
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+            
+            container.innerHTML = html;
+            section.style.display = hasProducts ? 'block' : 'none';
+        }
+
+        function updateBeautyOrderSummary() {
+            let totalItems = 0;
+            let subtotal = 0;
+            
+            beautyProducts.forEach(product => {
+                const quantity = parseInt(document.getElementById(`qty-${product.id}`).value) || 0;
+                if (quantity > 0) {
+                    totalItems += quantity;
+                    subtotal += quantity * product.price;
+                }
+            });
+            
+            const deliveryFee = 2000;
+            const total = subtotal + deliveryFee;
+            
+            // Conversion devises
+            const subtotalEuro = Math.round(subtotal * EXCHANGE_RATES.EUR * 100) / 100;
+            const subtotalDollar = Math.round(subtotal * EXCHANGE_RATES.USD * 100) / 100;
+            const totalEuro = Math.round(total * EXCHANGE_RATES.EUR * 100) / 100;
+            const totalDollar = Math.round(total * EXCHANGE_RATES.USD * 100) / 100;
+            const deliveryEuro = Math.round(deliveryFee * EXCHANGE_RATES.EUR * 100) / 100;
+            const deliveryDollar = Math.round(deliveryFee * EXCHANGE_RATES.USD * 100) / 100;
+            
+            // Mettre à jour l'affichage
+            document.getElementById('beauty-articles-count').textContent = totalItems;
+            
+            if (currentTotalCurrency === 'FCFA') {
+                document.getElementById('beauty-subtotal').innerHTML = `${subtotal.toLocaleString()} <span class="beauty-currency">FCFA</span>`;
+                document.getElementById('beauty-delivery').innerHTML = `${deliveryFee.toLocaleString()} <span class="beauty-currency">FCFA</span>`;
+                document.getElementById('beauty-total').innerHTML = `${total.toLocaleString()} <span class="beauty-currency">FCFA</span>`;
+                document.getElementById('beauty-modal-amount').textContent = `${total.toLocaleString()} FCFA`;
+            } else if (currentTotalCurrency === 'EUR') {
+                document.getElementById('beauty-subtotal').innerHTML = `${subtotalEuro.toFixed(2)} <span class="beauty-currency">€</span>`;
+                document.getElementById('beauty-delivery').innerHTML = `${deliveryEuro.toFixed(2)} <span class="beauty-currency">€</span>`;
+                document.getElementById('beauty-total').innerHTML = `${totalEuro.toFixed(2)} <span class="beauty-currency">€</span>`;
+                document.getElementById('beauty-modal-amount').textContent = `${totalEuro.toFixed(2)} €`;
+            } else if (currentTotalCurrency === 'USD') {
+                document.getElementById('beauty-subtotal').innerHTML = `${subtotalDollar.toFixed(2)} <span class="beauty-currency">$</span>`;
+                document.getElementById('beauty-delivery').innerHTML = `${deliveryDollar.toFixed(2)} <span class="beauty-currency">$</span>`;
+                document.getElementById('beauty-total').innerHTML = `${totalDollar.toFixed(2)} <span class="beauty-currency">$</span>`;
+                document.getElementById('beauty-modal-amount').textContent = `${totalDollar.toFixed(2)} $`;
+            }
+            
+            // Afficher les conversions dans le modal
+            document.getElementById('modal-euro').textContent = `€${totalEuro.toFixed(2)}`;
+            document.getElementById('modal-dollar').textContent = `$${totalDollar.toFixed(2)}`;
+            
+            updateSelectedProducts();
+        }
+
+        function handleWhatsApp() {
+            if (!validateOrder()) return;
+            
+            const orderDetails = generateOrderDetails();
+            const whatsappNumber = "+22892871605";
+            const whatsappText = encodeURIComponent(orderDetails);
+            
+            window.open(`https://wa.me/${whatsappNumber}?text=${whatsappText}`, '_blank');
+        }
+
+        function handleEsodi() {
+            if (!validateOrder()) return;
+            document.getElementById('beauty-payment-modal').style.display = 'flex';
+        }
+
+        function validateOrder() {
+            const nom = document.getElementById('beauty-nom').value.trim();
+            const whatsapp = document.getElementById('beauty-whatsapp').value.trim();
+            const adresse = document.getElementById('beauty-adresse').value.trim();
+            const confirm = document.getElementById('beauty-confirm').checked;
+            
+            if (!nom || !whatsapp || !adresse) {
+                showNotification('Veuillez remplir tous les champs obligatoires', 'error');
+                return false;
+            }
+            
+            if (!confirm) {
+                showNotification('Veuillez confirmer les informations', 'error');
+                return false;
+            }
+            
+            const totalItems = parseInt(document.getElementById('beauty-articles-count').textContent);
+            if (totalItems === 0) {
+                showNotification('Sélectionnez au moins un produit', 'error');
+                return false;
+            }
+            
+            return true;
+        }
+
+        function generateOrderDetails() {
+            const nom = document.getElementById('beauty-nom').value;
+            const whatsapp = document.getElementById('beauty-whatsapp').value;
+            const adresse = document.getElementById('beauty-adresse').value;
+            
+            let orderText = `💄 *COMMANDE BEAUTÉ PRO* 💄\n\n`;
+            orderText += `👤 *Informations client:*\n`;
+            orderText += `📛 Nom: ${nom}\n`;
+            orderText += `📱 WhatsApp: ${whatsapp}\n`;
+            orderText += `🏠 Adresse: ${adresse}\n`;
+            
+            if (beautyUserCoordinates) {
+                orderText += `📍 Coordonnées GPS: ${beautyUserCoordinates.lat.toFixed(6)}, ${beautyUserCoordinates.lng.toFixed(6)}\n`;
+                orderText += `🗺️ Lien Google Maps: https://www.google.com/maps?q=${beautyUserCoordinates.lat},${beautyUserCoordinates.lng}\n`;
+            }
+            
+            if (beautyUserAddress) {
+                orderText += `🏡 Adresse détectée: ${beautyUserAddress}\n`;
+            }
+            
+            orderText += `\n🛍️ *Articles commandés:*\n`;
+            
+            let total = 0;
+            beautyProducts.forEach(product => {
+                const quantity = parseInt(document.getElementById(`qty-${product.id}`).value) || 0;
+                if (quantity > 0) {
+                    const itemTotal = quantity * product.price;
+                    const itemEuro = Math.round(itemTotal * EXCHANGE_RATES.EUR * 100) / 100;
+                    const itemDollar = Math.round(itemTotal * EXCHANGE_RATES.USD * 100) / 100;
+                    
+                    orderText += `• ${product.name} (${quantity} x ${product.price.toLocaleString()} FCFA)\n`;
+                    orderText += `  = ${itemTotal.toLocaleString()} FCFA (€${itemEuro.toFixed(2)} / $${itemDollar.toFixed(2)})\n`;
+                    total += itemTotal;
+                }
+            });
+            
+            const totalEuro = Math.round(total * EXCHANGE_RATES.EUR * 100) / 100;
+            const totalDollar = Math.round(total * EXCHANGE_RATES.USD * 100) / 100;
+            const deliveryFee = 2000;
+            const deliveryEuro = Math.round(deliveryFee * EXCHANGE_RATES.EUR * 100) / 100;
+            const deliveryDollar = Math.round(deliveryFee * EXCHANGE_RATES.USD * 100) / 100;
+            const grandTotal = total + deliveryFee;
+            const grandTotalEuro = Math.round(grandTotal * EXCHANGE_RATES.EUR * 100) / 100;
+            const grandTotalDollar = Math.round(grandTotal * EXCHANGE_RATES.USD * 100) / 100;
+            
+            orderText += `\n💰 *Récapitulatif:*\n`;
+            orderText += `📦 Sous-total: ${total.toLocaleString()} FCFA (€${totalEuro.toFixed(2)} / $${totalDollar.toFixed(2)})\n`;
+            orderText += `🚚 Frais de livraison: ${deliveryFee.toLocaleString()} FCFA (€${deliveryEuro.toFixed(2)} / $${deliveryDollar.toFixed(2)})\n`;
+            orderText += `💵 TOTAL: ${grandTotal.toLocaleString()} FCFA (€${grandTotalEuro.toFixed(2)} / $${grandTotalDollar.toFixed(2)})\n\n`;
+            
+            orderText += `⏰ *Date:* ${new Date().toLocaleDateString('fr-FR')} à ${new Date().toLocaleTimeString('fr-FR')}\n`;
+            orderText += `💳 *Méthode de paiement:* Carte ESODI\n\n`;
+            orderText += `Merci pour votre confiance ! 💕`;
+            
+            return orderText;
+        }
+
+        function showNotification(message, type) {
+            const notification = document.getElementById('beauty-notification');
+            notification.textContent = message;
+            notification.className = `beauty-notification ${type}`;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

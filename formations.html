@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#e91e63">
+    <title>Formations - Beauté Pro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #e91e63;
+            --primary-light: #f48fb1;
+            --primary-dark: #c2185b;
+            --secondary: #7b1fa2;
+            --live: #FF0000;
+            --whatsapp: #25D366;
+            --success: #4caf50;
+            --light-pink: #fce4ec;
+            --light-purple: #f3e5f5;
+            --border-radius-round: 25px;
+            --box-shadow-hover: 0 6px 20px rgba(233, 30, 99, 0.2);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #fce4ec 0%, #f3e5f5 100%);
+            color: #5d4037;
+            min-height: 100vh;
+            padding: 15px;
+        }
+        
+        .formations-container {
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(233, 30, 99, 0.15);
+            border: 1px solid #f8bbd9;
+        }
+        
+        .formations-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 20px 15px;
+            text-align: center;
+        }
+        
+        .formations-title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+        
+        .formations-title h1 {
+            font-size: 20px;
+            font-weight: 600;
+        }
+        
+        .formations-title i {
+            font-size: 22px;
+        }
+        
+        .formations-subtitle {
+            font-size: 13px;
+            opacity: 0.9;
+        }
+        
+        .formations-content {
+            padding: 25px 20px;
+        }
+        
+        /* Section Formations */
+        .formations-section {
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            color: var(--secondary);
+            margin-bottom: 15px;
+            font-size: 18px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .section-description {
+            color: #666;
+            font-size: 13px;
+            margin-bottom: 20px;
+            text-align: center;
+            line-height: 1.4;
+        }
+        
+        /* Boutons Principaux - COMPACTS */
+        .formations-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 20px 0;
+        }
+        
+        .formation-btn {
+            width: 100%;
+            padding: 14px 20px;
+            border: none;
+            border-radius: var(--border-radius-round);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 12px;
+            transition: var(--transition);
+            text-decoration: none;
+            color: white;
+            max-width: 320px;
+            margin: 0 auto;
+        }
+        
+        .formation-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--box-shadow-hover);
+        }
+        
+        .formation-btn:active {
+            transform: translateY(-1px);
+        }
+        
+        .formation-btn.live {
+            background: linear-gradient(135deg, var(--live), #CC0000);
+        }
+        
+        .formation-btn.reservation {
+            background: linear-gradient(135deg, var(--success), #2e7d32);
+        }
+        
+        .formation-btn i {
+            font-size: 18px;
+            width: 24px;
+            text-align: center;
+        }
+        
+        /* Modal Réservation */
+        .reservation-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(233, 30, 99, 0.95);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 25px;
+            border-radius: 18px;
+            width: 100%;
+            max-width: 400px;
+            max-height: 85vh;
+            overflow-y: auto;
+            animation: slideIn 0.3s ease;
+            border: 2px solid var(--primary-light);
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        .modal-header {
+            color: var(--secondary);
+            margin-bottom: 20px;
+            font-size: 20px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        /* Formulaire */
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: var(--secondary);
+            font-size: 13px;
+        }
+        
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #f0f0f0;
+            border-radius: 10px;
+            font-size: 14px;
+            transition: var(--transition);
+            background: #fafafa;
+        }
+        
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(233, 30, 99, 0.1);
+            outline: none;
+        }
+        
+        .form-textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .checkbox-group input {
+            width: auto;
+            transform: scale(1.1);
+        }
+        
+        .checkbox-group label {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        /* Boutons Modal */
+        .modal-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .modal-btn {
+            padding: 14px;
+            border: none;
+            border-radius: var(--border-radius-round);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: var(--transition);
+        }
+        
+        .modal-btn.whatsapp {
+            background: linear-gradient(135deg, var(--whatsapp), #128C7E);
+            color: white;
+        }
+        
+        .modal-btn.cancel {
+            background: var(--light-pink);
+            color: var(--primary-dark);
+        }
+        
+        .modal-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        /* Informations */
+        .info-section {
+            background: linear-gradient(135deg, #e8f4fc, #bbdefb);
+            padding: 15px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .info-title {
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .info-content {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.4;
+        }
+        
+        /* Contact */
+        .contact-section {
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            background: var(--light-pink);
+            border-radius: 12px;
+        }
+        
+        .contact-title {
+            color: var(--secondary);
+            margin-bottom: 10px;
+            font-size: 15px;
+        }
+        
+        .contact-info {
+            font-size: 14px;
+            color: var(--primary-dark);
+            font-weight: 600;
+        }
+        
+        /* Bouton retour */
+        .formations-retour {
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(233, 30, 99, 0.2);
+            color: var(--primary);
+            border: 2px solid rgba(233, 30, 99, 0.3);
+            cursor: pointer;
+            font-size: 15px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+        
+        .formations-retour:hover {
+            background: rgba(233, 30, 99, 0.3);
+            transform: translateY(-2px) scale(1.05);
+        }
+        
+        /* Footer */
+        .formations-footer {
+            text-align: center;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--secondary), var(--primary-dark));
+            color: white;
+            font-size: 12px;
+        }
+        
+        /* Version mobile */
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            .formations-container {
+                max-width: 100%;
+            }
+            
+            .formation-btn {
+                padding: 12px 18px;
+                font-size: 13px;
+                max-width: 300px;
+            }
+            
+            .formation-btn i {
+                font-size: 16px;
+                width: 22px;
+            }
+            
+            .formations-retour {
+                top: 10px;
+                left: 10px;
+                width: 36px;
+                height: 36px;
+                font-size: 14px;
+            }
+            
+            .modal-content {
+                padding: 20px;
+            }
+        }
+        
+        @media (max-width: 360px) {
+            .formation-btn {
+                padding: 10px 16px;
+                font-size: 12px;
+                max-width: 280px;
+                gap: 10px;
+            }
+            
+            .formation-btn i {
+                font-size: 15px;
+                width: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Bouton Retour -->
+    <button class="formations-retour" onclick="history.back()" title="Retour">
+        <i class="fas fa-arrow-left"></i>
+    </button>
+
+    <div class="formations-container">
+        <header class="formations-header">
+            <div class="formations-title">
+                <i class="fas fa-graduation-cap"></i>
+                <h1>Formations</h1>
+            </div>
+            <p class="formations-subtitle">Maquillage • Ongles Gel • Effets Spéciaux</p>
+        </header>
+        
+        <main class="formations-content">
+            <!-- Section Formations -->
+            <div class="formations-section">
+                <h2 class="section-title">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    Nos Formations
+                </h2>
+                <p class="section-description">
+                    Apprenez les techniques professionnelles avec notre maître formatrice
+                </p>
+                
+                <!-- Boutons Principaux -->
+                <div class="formations-buttons">
+                    <!-- Bouton Live -->
+                    <button class="formation-btn live" id="live-btn">
+                        <i class="fas fa-video"></i>
+                        Rejoindre le Live
+                    </button>
+                    
+                    <!-- Bouton Réservation -->
+                    <button class="formation-btn reservation" id="reservation-btn">
+                        <i class="fas fa-calendar-check"></i>
+                        Réserver une Formation
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Section Informations -->
+            <div class="info-section">
+                <h3 class="info-title">
+                    <i class="fas fa-info-circle"></i>
+                    Informations importantes
+                </h3>
+                <div class="info-content">
+                    • Sessions en direct via FreeConference<br>
+                    • Supports de cours inclus<br>
+                    • Certificat de formation<br>
+                    • Accès aux replays<br>
+                    • Support personnalisé
+                </div>
+            </div>
+            
+            <!-- Section Contact -->
+            <div class="contact-section">
+                <h3 class="contact-title">
+                    <i class="fas fa-headset"></i>
+                    Assistance
+                </h3>
+                <p class="contact-info">
+                    WhatsApp: 07 56 95 01 90<br>
+                    <small style="color: #666; font-weight: normal;">Réponse sous 24h</small>
+                </p>
+            </div>
+        </main>
+        
+        <footer class="formations-footer">
+            <p>© 2024 Beauté Pro - Formations Certifiantes</p>
+            <p style="margin-top: 5px; font-size: 11px; opacity: 0.8;">
+                <i class="fas fa-award"></i>
+                Excellence et Professionnalisme
+            </p>
+        </footer>
+    </div>
+    
+    <!-- Modal Réservation -->
+    <div class="reservation-modal" id="reservation-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <i class="fas fa-calendar-alt"></i>
+                Formulaire de Réservation
+            </div>
+            
+            <form id="reservation-form">
+                <div class="form-group">
+                    <label for="nom" class="form-label">Nom et Prénom *</label>
+                    <input type="text" id="nom" class="form-input" placeholder="Votre nom complet" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="telephone" class="form-label">Téléphone *</label>
+                    <input type="tel" id="telephone" class="form-input" placeholder="Votre numéro de téléphone" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" id="email" class="form-input" placeholder="Votre adresse email">
+                </div>
+                
+                <div class="form-group">
+                    <label for="formation" class="form-label">Type de Formation *</label>
+                    <select id="formation" class="form-select" required>
+                        <option value="">Sélectionnez une formation</option>
+                        <option value="maquillage">Maquillage Professionnel</option>
+                        <option value="ongles">Ongles Gel Complet</option>
+                        <option value="effets">Effets Spéciaux</option>
+                        <option value="combinee">Formation Combinée</option>
+                        <option value="personnalisee">Formation Personnalisée</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="date" class="form-label">Date souhaitée</label>
+                    <input type="date" id="date" class="form-input">
+                </div>
+                
+                <div class="form-group">
+                    <label for="message" class="form-label">Message additionnel</label>
+                    <textarea id="message" class="form-textarea" placeholder="Précisions, questions, besoins spécifiques..."></textarea>
+                </div>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" id="confirmation" required>
+                    <label for="confirmation">Je confirme mon intérêt pour cette formation</label>
+                </div>
+                
+                <div class="modal-buttons">
+                    <button type="button" class="modal-btn whatsapp" id="send-whatsapp">
+                        <i class="fab fa-whatsapp"></i>
+                        Envoyer par WhatsApp
+                    </button>
+                    
+                    <button type="button" class="modal-btn cancel" id="cancel-btn">
+                        <i class="fas fa-times"></i>
+                        Annuler
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Numéro WhatsApp pour les réservations
+        const WHATSAPP_NUMBER = "0756950190";
+        const LIVE_URL = "https://hello.freeconference.com/login";
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Bouton retour
+            document.querySelector('.formations-retour').addEventListener('click', function() {
+                history.back();
+            });
+
+            // Bouton Live
+            document.getElementById('live-btn').addEventListener('click', function() {
+                window.open(LIVE_URL, '_blank');
+                showMessage("Redirection vers la plateforme de live...", "success");
+            });
+
+            // Bouton Réservation - Ouvrir modal
+            document.getElementById('reservation-btn').addEventListener('click', function() {
+                document.getElementById('reservation-modal').style.display = 'flex';
+            });
+
+            // Annuler la réservation
+            document.getElementById('cancel-btn').addEventListener('click', function() {
+                document.getElementById('reservation-modal').style.display = 'none';
+                resetForm();
+            });
+
+            // Envoyer par WhatsApp
+            document.getElementById('send-whatsapp').addEventListener('click', function() {
+                if (validateForm()) {
+                    const message = generateReservationMessage();
+                    const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+                    
+                    window.open(whatsappUrl, '_blank');
+                    document.getElementById('reservation-modal').style.display = 'none';
+                    resetForm();
+                    showMessage("Formulaire envoyé !", "success");
+                }
+            });
+
+            // Fermer modal en cliquant à l'extérieur
+            document.getElementById('reservation-modal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.style.display = 'none';
+                    resetForm();
+                }
+            });
+
+            // Empêcher la soumission du formulaire par défaut
+            document.getElementById('reservation-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+            });
+        });
+
+        function validateForm() {
+            const nom = document.getElementById('nom').value.trim();
+            const telephone = document.getElementById('telephone').value.trim();
+            const formation = document.getElementById('formation').value;
+            const confirmation = document.getElementById('confirmation').checked;
+
+            if (!nom) {
+                showMessage("Veuillez entrer votre nom", "error");
+                return false;
+            }
+
+            if (!telephone) {
+                showMessage("Veuillez entrer votre numéro de téléphone", "error");
+                return false;
+            }
+
+            if (!formation) {
+                showMessage("Veuillez sélectionner une formation", "error");
+                return false;
+            }
+
+            if (!confirmation) {
+                showMessage("Veuillez confirmer votre intérêt", "error");
+                return false;
+            }
+
+            return true;
+        }
+
+        function generateReservationMessage() {
+            const nom = document.getElementById('nom').value;
+            const telephone = document.getElementById('telephone').value;
+            const email = document.getElementById('email').value;
+            const formation = document.getElementById('formation').value;
+            const date = document.getElementById('date').value;
+            const message = document.getElementById('message').value;
+
+            const formationNames = {
+                'maquillage': 'Maquillage Professionnel',
+                'ongles': 'Ongles Gel Complet',
+                'effets': 'Effets Spéciaux',
+                'combinee': 'Formation Combinée',
+                'personnalisee': 'Formation Personnalisée'
+            };
+
+            let reservationText = `📋 *NOUVELLE DEMANDE DE FORMATION* 📋\n\n`;
+            reservationText += `👤 *Informations du client:*\n`;
+            reservationText += `📛 Nom: ${nom}\n`;
+            reservationText += `📱 Téléphone: ${telephone}\n`;
+            if (email) reservationText += `📧 Email: ${email}\n`;
+            
+            reservationText += `\n🎓 *Formation souhaitée:*\n`;
+            reservationText += `📚 Type: ${formationNames[formation] || formation}\n`;
+            if (date) reservationText += `📅 Date souhaitée: ${formatDate(date)}\n`;
+            
+            if (message) {
+                reservationText += `\n💬 *Message additionnel:*\n`;
+                reservationText += `${message}\n`;
+            }
+            
+            reservationText += `\n⏰ *Date de la demande:* ${new Date().toLocaleDateString('fr-FR')} à ${new Date().toLocaleTimeString('fr-FR')}\n\n`;
+            reservationText += `Merci de me recontacter pour confirmer la réservation !`;
+
+            return reservationText;
+        }
+
+        function formatDate(dateString) {
+            if (!dateString) return '';
+            const date = new Date(dateString);
+            return date.toLocaleDateString('fr-FR');
+        }
+
+        function resetForm() {
+            document.getElementById('reservation-form').reset();
+        }
+
+        function showMessage(message, type) {
+            // Créer une notification temporaire
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                left: 20px;
+                padding: 15px;
+                border-radius: 12px;
+                color: white;
+                font-weight: 600;
+                text-align: center;
+                z-index: 2000;
+                animation: slideIn 0.3s ease;
+                background: ${type === 'success' ? '#4CAF50' : '#F44336'};
+                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            `;
+            
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+            
+            // Ajouter l'animation CSS
+            if (!document.querySelector('#notification-styles')) {
+                const style = document.createElement('style');
+                style.id = 'notification-styles';
+                style.textContent = `
+                    @keyframes slideIn {
+                        from { transform: translateX(100%); opacity: 0; }
+                        to { transform: translateX(0); opacity: 1; }
+                    }
+                    @keyframes slideOut {
+                        from { transform: translateX(0); opacity: 1; }
+                        to { transform: translateX(100%); opacity: 0; }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+        }
+    </script>
+</body>
+</html>
