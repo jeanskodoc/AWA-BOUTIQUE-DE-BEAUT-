@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#e91e63">
-    <title>Awally-Beauté Pro - Maquillage, Ongles Gel, Effets Spéciaux</title>
+    <title>Awally-Beauté Pro - Maquillage, Ongles Gel, Accessoires</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <style>
@@ -867,7 +867,7 @@
                 <i class="fas fa-spa"></i>
                 <h1>Awally-Beauté Pro Shop</h1>
             </div>
-            <p class="beauty-subtitle">Maquillage • Ongles Gel • Effets Spéciaux</p>
+            <p class="beauty-subtitle">Maquillage • Ongles Gel • Accessoires</p>
         </header>
         
         <div class="beauty-info-card">
@@ -901,7 +901,7 @@
                     <i class="fas fa-map-marker-alt"></i>
                     <div>
                         <strong>Salon:</strong><br>
-                        <small>4 rue mazagran Marseille 13001, France </small>
+                        <small>4 rue mazagran Marseille 13001, France</small>
                     </div>
                 </div>
             </div>
@@ -973,10 +973,8 @@
                 <div class="beauty-categories beauty-scrollable">
                     <button class="beauty-category-btn active" data-category="all">Tous</button>
                     <button class="beauty-category-btn" data-category="maquillage">Maquillage</button>
-                    <button class="beauty-category-btn" data-category="ongles">Ongles Gel</button>
-                    <button class="beauty-category-btn" data-category="effets">Effets Spéciaux</button>
-                    <button class="beauty-category-btn" data-category="soins">Soins Visage</button>
-                    <button class="beauty-category-btn" data-category="accessoires">Accessoires</button>
+                    <button class="beauty-category-btn" data-category="ongles Gel">Ongles Gel</button>
+                    <button class="beauty-category-btn" data-category="Accessoires">Accessoires</button>
                 </div>
                 
                 <div class="beauty-product-grid" id="beauty-product-grid">
@@ -984,7 +982,7 @@
                         <i class="fas fa-palette" style="font-size: 48px; color: var(--primary-light); margin-bottom: 15px;"></i>
                         <h3 style="color: var(--secondary); margin-bottom: 10px;">Aucun produit disponible</h3>
                         <p style="color: var(--primary-light);">Importez un catalogue pour voir nos produits beauté</p>
-                        <button class="beauty-btn beauty-btn-primary" onclick="document.getElementById('beauty-import-catalog').click()" style="margin-top: 15px; background: var(--primary); color: white; padding: 12px 24px; border-radius: 30px;">
+                        <button onclick="document.getElementById('beauty-import-catalog').click()" style="margin-top: 15px; background: var(--primary); color: white; padding: 12px 24px; border: none; border-radius: 30px; cursor: pointer;">
                             <i class="fas fa-upload"></i> Importer un catalogue
                         </button>
                     </div>
@@ -1126,19 +1124,395 @@
         let currentCurrency = 'FCFA';
         let currentTotalCurrency = 'FCFA';
 
+        // Catalogue complet avec 40 produits : 13 maquillage, 20 ongles Gel, 7 Accessoires
+        const COMPLETE_CATALOG = [
+            // MAQUILLAGE - 13 produits (id 1-13)
+            {
+                id: 1,
+                name: "Palette Maquillage Professionnelle",
+                price: 25000,
+                category: "maquillage",
+                stock: 15,
+                description: "Palette 48 couleurs pigmentées, longue tenue",
+                image: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=200"
+            },
+            {
+                id: 2,
+                name: "Foundation Haute Couvrance",
+                price: 18500,
+                category: "maquillage",
+                stock: 22,
+                description: "Teint parfait 16h de tenue",
+                image: "https://images.unsplash.com/photo-1631730365076-8e750f9f44d3?w=200"
+            },
+            {
+                id: 3,
+                name: "Rouge à Lèvres Mat",
+                price: 9500,
+                category: "maquillage",
+                stock: 30,
+                description: "Rouge intense, fini velouté",
+                image: "https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=200"
+            },
+            {
+                id: 4,
+                name: "Mascara Volume Extrême",
+                price: 12500,
+                category: "maquillage",
+                stock: 18,
+                description: "Volume spectaculaire, allonge les cils",
+                image: "https://images.unsplash.com/photo-1631214524020-3c1d9e5e2689?w=200"
+            },
+            {
+                id: 5,
+                name: "Highlighter Lumière Dorée",
+                price: 14500,
+                category: "maquillage",
+                stock: 14,
+                description: "Éclat lumineux et naturel",
+                image: "https://images.unsplash.com/photo-1617897903246-719242758050?w=200"
+            },
+            {
+                id: 6,
+                name: "Poudre Fixatrice Transparente",
+                price: 16500,
+                category: "maquillage",
+                stock: 20,
+                description: "Finition parfaite, maquillage longue tenue",
+                image: "https://images.unsplash.com/photo-1599315837537-3e019f6b5b4b?w=200"
+            },
+            {
+                id: 7,
+                name: "Palette Fards à Paupières Nude",
+                price: 22000,
+                category: "maquillage",
+                stock: 12,
+                description: "12 teintes nude ultra-pigmentées",
+                image: "https://images.unsplash.com/photo-1515560570411-6febe8977431?w=200"
+            },
+            {
+                id: 8,
+                name: "Eyeliner Noir Intense",
+                price: 10500,
+                category: "maquillage",
+                stock: 25,
+                description: "Trait précis, séchage rapide",
+                image: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=200"
+            },
+            {
+                id: 9,
+                name: "Blush Crème Rosé",
+                price: 13500,
+                category: "maquillage",
+                stock: 17,
+                description: "Effet bonne mine naturel",
+                image: "https://images.unsplash.com/photo-1611082234807-f26436c40575?w=200"
+            },
+            {
+                id: 10,
+                name: "Anti-cernes Haute Couvrance",
+                price: 15500,
+                category: "maquillage",
+                stock: 19,
+                description: "Cache parfaitement les imperfections",
+                image: "https://images.unsplash.com/photo-1631730318352-8faf2cc67ca1?w=200"
+            },
+            {
+                id: 11,
+                name: "Spray Fixateur Maquillage",
+                price: 14000,
+                category: "maquillage",
+                stock: 23,
+                description: "Maintien du maquillage 24h",
+                image: "https://images.unsplash.com/photo-1625772299848-3911661c08e0?w=200"
+            },
+            {
+                id: 12,
+                name: "Crayon Sourcils Précision",
+                price: 8500,
+                category: "maquillage",
+                stock: 28,
+                description: "Définition naturelle des sourcils",
+                image: "https://images.unsplash.com/photo-1602525961999-3683777ac114?w=200"
+            },
+            {
+                id: 13,
+                name: "Gloss Volume Brillant",
+                price: 11000,
+                category: "maquillage",
+                stock: 26,
+                description: "Brillance intense, effet repulpant",
+                image: "https://images.unsplash.com/photo-1599733594220-6ee4c68e2ccd?w=200"
+            },
+            
+            // ONGLES GEL - 20 produits (id 14-33)
+            {
+                id: 14,
+                name: "Kit Ongles Gel Complet",
+                price: 35000,
+                category: "ongles Gel",
+                stock: 10,
+                description: "Kit professionnel avec lampe UV/LED 48W",
+                image: "https://images.unsplash.com/photo-1604654894610-df63bc536371?w=200"
+            },
+            {
+                id: 15,
+                name: "Lampe UV/LED Professionnelle",
+                price: 28000,
+                category: "ongles Gel",
+                stock: 8,
+                description: "Lampe 96W, séchage rapide en 30s",
+                image: "https://images.unsplash.com/photo-1610992235669-1e960506e071?w=200"
+            },
+            {
+                id: 16,
+                name: "Vernis Semi-permanent Rouge Passion",
+                price: 7500,
+                category: "ongles Gel",
+                stock: 35,
+                description: "Tenue 3 semaines, couleur intense",
+                image: "https://images.unsplash.com/photo-1598620617447-62cf8fbc0b6b?w=200"
+            },
+            {
+                id: 17,
+                name: "Base Coat Ongles Gel",
+                price: 6500,
+                category: "ongles Gel",
+                stock: 30,
+                description: "Adhérence parfaite, protection",
+                image: "https://images.unsplash.com/photo-1610992220009-7e2d6e4f6b9a?w=200"
+            },
+            {
+                id: 18,
+                name: "Top Coat Brillant",
+                price: 6500,
+                category: "ongles Gel",
+                stock: 32,
+                description: "Finition miroir, protection UV",
+                image: "https://images.unsplash.com/photo-1631727366714-d9f69e424b85?w=200"
+            },
+            {
+                id: 19,
+                name: "Vernis Gel Nude",
+                price: 7500,
+                category: "ongles Gel",
+                stock: 28,
+                description: "Teinte naturelle élégante",
+                image: "https://images.unsplash.com/photo-1610992235805-8e9e8b7b5c3d?w=200"
+            },
+            {
+                id: 20,
+                name: "Dissolvant Spécial Gel",
+                price: 5500,
+                category: "ongles Gel",
+                stock: 25,
+                description: "Dissout le gel en 10 minutes",
+                image: "https://images.unsplash.com/photo-1610992235708-8b9a5d6b9c0f?w=200"
+            },
+            {
+                id: 21,
+                name: "Kit Nail Art Gel",
+                price: 12500,
+                category: "ongles Gel",
+                stock: 15,
+                description: "6 couleurs pour nail art",
+                image: "https://images.unsplash.com/photo-1610992235608-4b8b4d9b9c1e?w=200"
+            },
+            {
+                id: 22,
+                name: "Vernis Gel Bleu Cobalt",
+                price: 7500,
+                category: "ongles Gel",
+                stock: 22,
+                description: "Bleu profond intense",
+                image: "https://images.unsplash.com/photo-1610992235908-4b8b4d9b9c2f?w=200"
+            },
+            {
+                id: 23,
+                name: "Lime Électrique Professionnelle",
+                price: 22000,
+                category: "ongles Gel",
+                stock: 7,
+                description: "Vitesse variable, embouts inclus",
+                image: "https://images.unsplash.com/photo-1610992236008-4b8b4d9b9c3e?w=200"
+            },
+            {
+                id: 24,
+                name: "Vernis Gel Noir",
+                price: 7500,
+                category: "ongles Gel",
+                stock: 30,
+                description: "Noir intense, effet laqué",
+                image: "https://images.unsplash.com/photo-1610992236108-4b8b4d9b9c4d?w=200"
+            },
+            {
+                id: 25,
+                name: "Primer Ongles",
+                price: 4500,
+                category: "ongles Gel",
+                stock: 40,
+                description: "Prépare l'ongle, tenue prolongée",
+                image: "https://images.unsplash.com/photo-1610992236208-4b8b4d9b9c5c?w=200"
+            },
+            {
+                id: 26,
+                name: "Vernis Gel Rose Poudré",
+                price: 7500,
+                category: "ongles Gel",
+                stock: 26,
+                description: "Rose élégant et raffiné",
+                image: "https://images.unsplash.com/photo-1610992236308-4b8b4d9b9c6b?w=200"
+            },
+            {
+                id: 27,
+                name: "Pinceaux Nail Art",
+                price: 8500,
+                category: "ongles Gel",
+                stock: 20,
+                description: "Set de 5 pinceaux précision",
+                image: "https://images.unsplash.com/photo-1610992236408-4b8b4d9b9c7a?w=200"
+            },
+            {
+                id: 28,
+                name: "Vernis Gel Violet",
+                price: 7500,
+                category: "ongles Gel",
+                stock: 24,
+                description: "Violet tendance",
+                image: "https://images.unsplash.com/photo-1610992236508-4b8b4d9b9c89?w=200"
+            },
+            {
+                id: 29,
+                name: "Nettoyant Capillaire",
+                price: 5000,
+                category: "ongles Gel",
+                stock: 35,
+                description: "Nettoie la couche collante",
+                image: "https://images.unsplash.com/photo-1610992236608-4b8b4d9b9c98?w=200"
+            },
+            {
+                id: 30,
+                name: "Vernis Gel Blanc",
+                price: 7500,
+                category: "ongles Gel",
+                stock: 28,
+                description: "Blanc pur, parfait pour french",
+                image: "https://images.unsplash.com/photo-1610992236708-4b8b4d9b9d07?w=200"
+            },
+            {
+                id: 31,
+                name: "Chablon Pour Ongles",
+                price: 3500,
+                category: "ongles Gel",
+                stock: 50,
+                description: "Pour extension gel, lot de 100",
+                image: "https://images.unsplash.com/photo-1610992236808-4b8b4d9b9d16?w=200"
+            },
+            {
+                id: 32,
+                name: "Vernis Gel Corail",
+                price: 7500,
+                category: "ongles Gel",
+                stock: 22,
+                description: "Corail éclatant, parfait pour l'été",
+                image: "https://images.unsplash.com/photo-1610992236908-4b8b4d9b9d25?w=200"
+            },
+            {
+                id: 33,
+                name: "Huile à Cuticules",
+                price: 5500,
+                category: "ongles Gel",
+                stock: 30,
+                description: "Nourrit et assouplit les cuticules",
+                image: "https://images.unsplash.com/photo-1610992237008-4b8b4d9b9d34?w=200"
+            },
+            
+            // ACCESSOIRES - 7 produits (id 34-40)
+            {
+                id: 34,
+                name: "Pinceaux Maquillage Set Premium",
+                price: 18000,
+                category: "Accessoires",
+                stock: 18,
+                description: "Set de 12 pinceaux professionnels en poils synthétiques",
+                image: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=200"
+            },
+            {
+                id: 35,
+                name: "Éponge Beauté Blender",
+                price: 4500,
+                category: "Accessoires",
+                stock: 40,
+                description: "Application fond de teint sans traces",
+                image: "https://images.unsplash.com/photo-1522338242992-e1a54906a8da?w=200"
+            },
+            {
+                id: 36,
+                name: "Trousse de Maquillage",
+                price: 9500,
+                category: "Accessoires",
+                stock: 25,
+                description: "Trousse organisatrice imperméable",
+                image: "https://images.unsplash.com/photo-1592415486689-125cbbfcbee2?w=200"
+            },
+            {
+                id: 37,
+                name: "Miroir Grossissant Lumineux",
+                price: 12500,
+                category: "Accessoires",
+                stock: 15,
+                description: "Miroir x10 avec lumière LED",
+                image: "https://images.unsplash.com/photo-1617694002486-20f6b9fc6b1d?w=200"
+            },
+            {
+                id: 38,
+                name: "Porte Vernis Organiseur",
+                price: 6500,
+                category: "Accessoires",
+                stock: 22,
+                description: "Range jusqu'à 24 vernis",
+                image: "https://images.unsplash.com/photo-1610992237108-4b8b4d9b9d43?w=200"
+            },
+            {
+                id: 39,
+                name: "Nettoyant Pinceaux",
+                price: 5500,
+                category: "Accessoires",
+                stock: 30,
+                description: "Nettoyant liquide pour pinceaux",
+                image: "https://images.unsplash.com/photo-1585232351009-aa4b9e2f9c6d?w=200"
+            },
+            {
+                id: 40,
+                name: "Palette de Mélange",
+                price: 3500,
+                category: "Accessoires",
+                stock: 35,
+                description: "Palette inox pour mélanger les couleurs",
+                image: "https://images.unsplash.com/photo-1610992237208-4b8b4d9b9d52?w=200"
+            }
+        ];
+
         // Initialisation
         document.addEventListener('DOMContentLoaded', function() {
             initializeEventListeners();
             autoGeolocate();
-            loadProductsFromLocalStorage();
+            
+            // Chargement automatique du catalogue complet
+            setTimeout(function() {
+                loadCompleteCatalog();
+            }, 100);
         });
 
         // Initialisation des écouteurs d'événements
         function initializeEventListeners() {
-            document.querySelector('.beauty-retour').addEventListener('click', function(e) {
-                e.preventDefault();
-                history.back();
-            });
+            const retourBtn = document.querySelector('.beauty-retour');
+            if (retourBtn) {
+                retourBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    history.back();
+                });
+            }
 
             document.getElementById('beauty-import-btn').addEventListener('click', handleImport);
             document.getElementById('sample-catalog-btn').addEventListener('click', loadSampleCatalog);
@@ -1164,6 +1538,7 @@
             
             document.getElementById('beauty-whatsapp-btn').addEventListener('click', handleWhatsApp);
             document.getElementById('beauty-esodi-btn').addEventListener('click', handleEsodi);
+            
             document.getElementById('beauty-esodi-modal-btn').addEventListener('click', function() {
                 window.open('https://jeanskodoc.github.io/prestation-awally/', '_blank');
                 showNotification('Redirection vers le portail de paiement...', 'success');
@@ -1193,379 +1568,17 @@
             });
         }
 
-        // Chargement d'un catalogue exemple
-        function loadSampleCatalog() {
-            const sampleProducts = [
-                {
-        id: 1,
-        name: "M1",
-        price: 25000,
-        category: "maquillage",
-        stock: 15,
-        description: "Palette 48 couleurs pigmentées, longue tenue",
-        image: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=200"
-    },
-    {
-        id: 2,
-        name: "M2",
-        price: 18500,
-        category: "maquillage",
-        stock: 22,
-        description: "Teint parfait 16h de tenue",
-        image: "https://images.unsplash.com/photo-1631730365076-8e750f9f44d3?w=200"
-    },
-    {
-        id: 3,
-        name: "M3",
-        price: 9500,
-        category: "maquillage",
-        stock: 30,
-        description: "Rouge intense, fini velouté",
-        image: "https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=200"
-    },
-    {
-        id: 4,
-        name: "M4",
-        price: 12500,
-        category: "maquillage",
-        stock: 18,
-        description: "Volume spectaculaire, allonge les cils",
-        image: "https://images.unsplash.com/photo-1631214524020-3c1d9e5e2689?w=200"
-    },
-    {
-        id: 5,
-        name: "M5",
-        price: 14500,
-        category: "maquillage",
-        stock: 14,
-        description: "Éclat lumineux et naturel",
-        image: "https://images.unsplash.com/photo-1617897903246-719242758050?w=200"
-    },
-    {
-        id: 6,
-        name: "M6",
-        price: 16500,
-        category: "maquillage",
-        stock: 20,
-        description: "Finition parfaite, maquillage longue tenue",
-        image: "https://images.unsplash.com/photo-1599315837537-3e019f6b5b4b?w=200"
-    },
-    {
-        id: 7,
-        name: "M7",
-        price: 22000,
-        category: "maquillage",
-        stock: 12,
-        description: "12 teintes nude ultra-pigmentées",
-        image: "https://images.unsplash.com/photo-1515560570411-6febe8977431?w=200"
-    },
-    {
-        id: 8,
-        name: "M8",
-        price: 10500,
-        category: "maquillage",
-        stock: 25,
-        description: "Trait précis, séchage rapide",
-        image: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=200"
-    },
-    {
-        id: 9,
-        name: "M9",
-        price: 13500,
-        category: "maquillage",
-        stock: 17,
-        description: "Effet bonne mine naturel",
-        image: "https://images.unsplash.com/photo-1611082234807-f26436c40575?w=200"
-    },
-    {
-        id: 10,
-        name: "M10",
-        price: 15500,
-        category: "maquillage",
-        stock: 19,
-        description: "Cache parfaitement les imperfections",
-        image: "https://images.unsplash.com/photo-1631730318352-8faf2cc67ca1?w=200"
-    },
-    {
-        id: 11,
-        name: "M11",
-        price: 14000,
-        category: "maquillage",
-        stock: 23,
-        description: "Maintien du maquillage 24h",
-        image: "https://images.unsplash.com/photo-1625772299848-3911661c08e0?w=200"
-    },
-    {
-        id: 12,
-        name: "M12",
-        price: 8500,
-        category: "maquillage",
-        stock: 28,
-        description: "Définition naturelle des sourcils",
-        image: "https://images.unsplash.com/photo-1602525961999-3683777ac114?w=200"
-    },
-    {
-        id: 13,
-        name: "M13",
-        price: 11000,
-        category: "maquillage",
-        stock: 26,
-        description: "Brillance intense, effet repulpant",
-        image: "https://images.unsplash.com/photo-1599733594220-6ee4c68e2ccd?w=200"
-    },
-    
-    // ONGLES GEL - 20 produits (id 14-33)
-    {
-        id: 14,
-        name: "V1",
-        price: 35000,
-        category: "ongles Gel",
-        stock: 10,
-        description: "Kit professionnel avec lampe UV/LED 48W",
-        image: "https://images.unsplash.com/photo-1604654894610-df63bc536371?w=200"
-    },
-    {
-        id: 15,
-        name: "V2",
-        price: 28000,
-        category: "ongles Gel",
-        stock: 8,
-        description: "Lampe 96W, séchage rapide en 30s",
-        image: "https://images.unsplash.com/photo-1610992235669-1e960506e071?w=200"
-    },
-    {
-        id: 16,
-        name: "V3",
-        price: 7500,
-        category: "ongles Gel",
-        stock: 35,
-        description: "Tenue 3 semaines, couleur intense",
-        image: "https://images.unsplash.com/photo-1598620617447-62cf8fbc0b6b?w=200"
-    },
-    {
-        id: 17,
-        name: "V4",
-        price: 6500,
-        category: "ongles Gel",
-        stock: 30,
-        description: "Adhérence parfaite, protection",
-        image: "https://images.unsplash.com/photo-1610992220009-7e2d6e4f6b9a?w=200"
-    },
-    {
-        id: 18,
-        name: "V5",
-        price: 6500,
-        category: "ongles Gel",
-        stock: 32,
-        description: "Finition miroir, protection UV",
-        image: "https://images.unsplash.com/photo-1631727366714-d9f69e424b85?w=200"
-    },
-    {
-        id: 19,
-        name: "V6",
-        price: 7500,
-        category: "ongles Gel",
-        stock: 28,
-        description: "Teinte naturelle élégante",
-        image: "https://images.unsplash.com/photo-1610992235805-8e9e8b7b5c3d?w=200"
-    },
-    {
-        id: 20,
-        name: "V7",
-        price: 5500,
-        category: "ongles Gel",
-        stock: 25,
-        description: "Dissout le gel en 10 minutes",
-        image: "https://images.unsplash.com/photo-1610992235708-8b9a5d6b9c0f?w=200"
-    },
-    {
-        id: 21,
-        name: "V8",
-        price: 12500,
-        category: "ongles Gel",
-        stock: 15,
-        description: "6 couleurs pour nail art",
-        image: "https://images.unsplash.com/photo-1610992235608-4b8b4d9b9c1e?w=200"
-    },
-    {
-        id: 22,
-        name: "V9",
-        price: 7500,
-        category: "ongles Gel",
-        stock: 22,
-        description: "Bleu profond intense",
-        image: "https://images.unsplash.com/photo-1610992235908-4b8b4d9b9c2f?w=200"
-    },
-    {
-        id: 23,
-        name: "V10",
-        price: 22000,
-        category: "ongles Gel",
-        stock: 7,
-        description: "Vitesse variable, embouts inclus",
-        image: "https://images.unsplash.com/photo-1610992236008-4b8b4d9b9c3e?w=200"
-    },
-    {
-        id: 24,
-        name: "V11",
-        price: 7500,
-        category: "ongles Gel",
-        stock: 30,
-        description: "Noir intense, effet laqué",
-        image: "https://images.unsplash.com/photo-1610992236108-4b8b4d9b9c4d?w=200"
-    },
-    {
-        id: 25,
-        name: "V12",
-        price: 4500,
-        category: "ongles Gel",
-        stock: 40,
-        description: "Prépare l'ongle, tenue prolongée",
-        image: "https://images.unsplash.com/photo-1610992236208-4b8b4d9b9c5c?w=200"
-    },
-    {
-        id: 26,
-        name: "V13",
-        price: 7500,
-        category: "ongles Gel",
-        stock: 26,
-        description: "Rose élégant et raffiné",
-        image: "https://images.unsplash.com/photo-1610992236308-4b8b4d9b9c6b?w=200"
-    },
-    {
-        id: 27,
-        name: "V14",
-        price: 8500,
-        category: "ongles Gel",
-        stock: 20,
-        description: "Set de 5 pinceaux précision",
-        image: "https://images.unsplash.com/photo-1610992236408-4b8b4d9b9c7a?w=200"
-    },
-    {
-        id: 28,
-        name: "V15",
-        price: 7500,
-        category: "ongles Gel",
-        stock: 24,
-        description: "Violet tendance",
-        image: "https://images.unsplash.com/photo-1610992236508-4b8b4d9b9c89?w=200"
-    },
-    {
-        id: 29,
-        name: "V16",
-        price: 5000,
-        category: "ongles Gel",
-        stock: 35,
-        description: "Nettoie la couche collante",
-        image: "https://images.unsplash.com/photo-1610992236608-4b8b4d9b9c98?w=200"
-    },
-    {
-        id: 30,
-        name: "V17",
-        price: 7500,
-        category: "ongles Gel",
-        stock: 28,
-        description: "Blanc pur, parfait pour french",
-        image: "https://images.unsplash.com/photo-1610992236708-4b8b4d9b9d07?w=200"
-    },
-    {
-        id: 31,
-        name: "V18",
-        price: 3500,
-        category: "ongles Gel",
-        stock: 50,
-        description: "Pour extension gel, lot de 100",
-        image: "https://images.unsplash.com/photo-1610992236808-4b8b4d9b9d16?w=200"
-    },
-    {
-        id: 32,
-        name: "V19",
-        price: 7500,
-        category: "ongles Gel",
-        stock: 22,
-        description: "Corail éclatant, parfait pour l'été",
-        image: "https://images.unsplash.com/photo-1610992236908-4b8b4d9b9d25?w=200"
-    },
-    {
-        id: 33,
-        name: "V20",
-        price: 5500,
-        category: "ongles Gel",
-        stock: 30,
-        description: "Nourrit et assouplit les cuticules",
-        image: "https://images.unsplash.com/photo-1610992237008-4b8b4d9b9d34?w=200"
-    },
-    
-    // ACCESSOIRES - 7 produits (id 34-40)
-    {
-        id: 34,
-        name: "X1",
-        price: 18000,
-        category: "Accessoires",
-        stock: 18,
-        description: "Set de 12 pinceaux professionnels en poils synthétiques",
-        image: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=200"
-    },
-    {
-        id: 35,
-        name: "X2",
-        price: 4500,
-        category: "Accessoires",
-        stock: 40,
-        description: "Application fond de teint sans traces",
-        image: "https://images.unsplash.com/photo-1522338242992-e1a54906a8da?w=200"
-    },
-    {
-        id: 36,
-        name: "X3",
-        price: 9500,
-        category: "Accessoires",
-        stock: 25,
-        description: "Trousse organisatrice imperméable",
-        image: "https://images.unsplash.com/photo-1592415486689-125cbbfcbee2?w=200"
-    },
-    {
-        id: 37,
-        name: "X4,
-        price: 12500,
-        category: "Accessoires",
-        stock: 15,
-        description: "Miroir x10 avec lumière LED",
-        image: "https://images.unsplash.com/photo-1617694002486-20f6b9fc6b1d?w=200"
-    },
-    {
-        id: 38,
-        name: "X5",
-        price: 6500,
-        category: "Accessoires",
-        stock: 22,
-        description: "Range jusqu'à 24 vernis",
-        image: "https://images.unsplash.com/photo-1610992237108-4b8b4d9b9d43?w=200"
-    },
-    {
-        id: 39,
-        name: "X6",
-        price: 5500,
-        category: "Accessoires",
-        stock: 30,
-        description: "Nettoyant liquide pour pinceaux",
-        image: "https://images.unsplash.com/photo-1585232351009-aa4b9e2f9c6d?w=200"
-    },
-    {
-        id: 40,
-        name: "X7",
-        price: 3500,
-        category: "Accessoires",
-        stock: 35,
-        description: "Palette inox pour mélanger les couleurs",
-        image: "https://images.unsplash.com/photo-1610992237208-4b8b4d9b9d52?w=200"
-    }
-];
-            
-            beautyProducts = sampleProducts;
+        // Chargement du catalogue complet
+        function loadCompleteCatalog() {
+            beautyProducts = [...COMPLETE_CATALOG];
             localStorage.setItem('beautyProducts', JSON.stringify(beautyProducts));
             renderBeautyProducts();
-            showNotification('Catalogue exemple chargé avec succès!', 'success');
+            showNotification('Catalogue complet chargé avec succès!', 'success');
+        }
+
+        // Chargement d'un catalogue exemple
+        function loadSampleCatalog() {
+            loadCompleteCatalog();
             document.getElementById('beauty-import-catalog').value = '';
         }
 
@@ -1632,44 +1645,19 @@
             let productsArray = [];
             
             try {
-                // Format 1: Tableau simple de produits
                 if (Array.isArray(data)) {
                     productsArray = data;
                 }
-                // Format 2: Objet avec propriété 'products'
                 else if (data.products && Array.isArray(data.products)) {
                     productsArray = data.products;
                 }
-                // Format 3: Objet avec catégories
-                else if (data.categories && typeof data.categories === 'object') {
-                    Object.values(data.categories).forEach(categoryProducts => {
-                        if (Array.isArray(categoryProducts)) {
-                            productsArray = productsArray.concat(categoryProducts);
-                        }
-                    });
-                }
-                // Format 4: Objet avec propriété 'data' contenant les produits
                 else if (data.data && Array.isArray(data.data)) {
                     productsArray = data.data;
                 }
-                // Format 5: Objet avec propriété 'items'
                 else if (data.items && Array.isArray(data.items)) {
                     productsArray = data.items;
                 }
-                // Format 6: Recherche de tableaux dans l'objet
-                else {
-                    for (let key in data) {
-                        if (Array.isArray(data[key]) && data[key].length > 0) {
-                            const firstItem = data[key][0];
-                            if (firstItem && (firstItem.name || firstItem.nom || firstItem.product_name)) {
-                                productsArray = data[key];
-                                break;
-                            }
-                        }
-                    }
-                }
                 
-                // Validation et normalisation des produits
                 const validProducts = productsArray
                     .filter(product => product !== null && typeof product === 'object')
                     .map((product, index) => normalizeProduct(product, index + 1))
@@ -1686,7 +1674,6 @@
         // Normalisation d'un produit
         function normalizeProduct(product, defaultId) {
             try {
-                // Gestion des différents noms de propriétés possibles
                 const id = product.id || product.product_id || product.code || defaultId;
                 const name = product.name || product.nom || product.product_name || product.title || 'Produit sans nom';
                 const price = parseFloat(product.price || product.prix || product.cost || product.amount || 0);
@@ -1695,7 +1682,6 @@
                 const description = product.description || product.desc || product.details || product.notes || 'Description non disponible';
                 const image = product.image || product.img || product.picture || product.photo || '';
                 
-                // Validation
                 if (!id || !name || isNaN(price) || price <= 0) {
                     return null;
                 }
@@ -1704,7 +1690,7 @@
                     id: id.toString(),
                     name: name,
                     price: price,
-                    category: category.toLowerCase(),
+                    category: category,
                     stock: Math.max(0, stock),
                     description: description,
                     image: image
@@ -1724,7 +1710,6 @@
                     if (Array.isArray(parsed) && parsed.length > 0) {
                         beautyProducts = parsed;
                         renderBeautyProducts();
-                        showNotification('Catalogue chargé depuis la mémoire locale', 'info');
                     }
                 }
             } catch (error) {
@@ -1836,8 +1821,11 @@
                     imageContent = `<i class="fas fa-spa fa-3x" style="color: white;"></i>`;
                 }
                 
+                // Nettoyer la catégorie pour les classes CSS
+                const categoryClass = product.category.toLowerCase().replace(/ /g, '-');
+                
                 return `
-                    <div class="beauty-product-card category-${product.category}">
+                    <div class="beauty-product-card category-${categoryClass}" data-category="${product.category}">
                         <span class="beauty-product-badge">${categoryText}</span>
                         <div class="beauty-product-image" onclick="showImageZoom('${product.image || ''}')">
                             ${imageContent}
@@ -1853,11 +1841,11 @@
                             </div>
                             <p class="beauty-product-description">${product.description || 'Description non disponible'}</p>
                             <div class="beauty-quantity-control">
-                                <button class="beauty-quantity-btn" onclick="updateQuantity('${product.id}', -1)">-</button>
+                                <button class="beauty-quantity-btn" onclick="window.updateQuantity('${product.id}', -1)">-</button>
                                 <input type="number" class="beauty-quantity-input" id="qty-${product.id}" 
                                        value="0" min="0" max="${product.stock || 999}" 
-                                       onchange="updateQuantityInput('${product.id}')">
-                                <button class="beauty-quantity-btn" onclick="updateQuantity('${product.id}', 1)">+</button>
+                                       onchange="window.updateQuantityInput('${product.id}')">
+                                <button class="beauty-quantity-btn" onclick="window.updateQuantity('${product.id}', 1)">+</button>
                             </div>
                         </div>
                     </div>
@@ -1882,7 +1870,8 @@
             const category = this.getAttribute('data-category');
             
             document.querySelectorAll('.beauty-product-card').forEach(card => {
-                if (category === 'all' || card.classList.contains(`category-${category}`)) {
+                const cardCategory = card.getAttribute('data-category');
+                if (category === 'all' || cardCategory === category) {
                     card.style.display = 'block';
                 } else {
                     card.style.display = 'none';
@@ -1893,13 +1882,10 @@
         function getCategoryText(category) {
             const categories = {
                 'maquillage': 'Maquillage',
-                'ongles': 'Ongles Gel',
-                'effets': 'Effets Spéciaux',
-                'soins': 'Soins Visage',
-                'accessoires': 'Accessoires',
-                'formation': 'Formation'
+                'ongles Gel': 'Ongles Gel',
+                'Accessoires': 'Accessoires'
             };
-            return categories[category] || category.charAt(0).toUpperCase() + category.slice(1);
+            return categories[category] || category;
         }
 
         window.updateQuantity = function(productId, change) {
@@ -2167,9 +2153,7 @@
         // Exposer les fonctions nécessaires globalement
         window.loadSampleCatalog = loadSampleCatalog;
         window.handleImport = handleImport;
-        window.updateQuantity = updateQuantity;
-        window.updateQuantityInput = updateQuantityInput;
-        window.showImageZoom = showImageZoom;
+        window.loadCompleteCatalog = loadCompleteCatalog;
     </script>
 </body>
 </html>
