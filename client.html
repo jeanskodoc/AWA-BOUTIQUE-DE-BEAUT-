@@ -1197,51 +1197,370 @@
         function loadSampleCatalog() {
             const sampleProducts = [
                 {
-                    id: 1,
-                    name: "Palette Maquillage Professionnelle",
-                    price: 25000,
-                    category: "maquillage",
-                    stock: 15,
-                    description: "Palette 48 couleurs pigmentées, longue tenue",
-                    image: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=200"
-                },
-                {
-                    id: 2,
-                    name: "Kit Ongles Gel Complet",
-                    price: 35000,
-                    category: "ongles",
-                    stock: 10,
-                    description: "Kit professionnel avec lampe UV/LED",
-                    image: "https://images.unsplash.com/photo-1604654894610-df63bc536371?w=200"
-                },
-                {
-                    id: 3,
-                    name: "Faux-sang Effets Spéciaux",
-                    price: 5000,
-                    category: "effets",
-                    stock: 30,
-                    description: "Faux-sang réaliste pour effets spéciaux",
-                    image: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=200"
-                },
-                {
-                    id: 4,
-                    name: "Crème Hydratante Visage",
-                    price: 15000,
-                    category: "soins",
-                    stock: 20,
-                    description: "Hydratation intense 24h",
-                    image: "https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?w=200"
-                },
-                {
-                    id: 5,
-                    name: "Pinceaux Maquillage Set",
-                    price: 12000,
-                    category: "accessoires",
-                    stock: 25,
-                    description: "Set de 12 pinceaux professionnels",
-                    image: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=200"
-                }
-            ];
+        id: 1,
+        name: "M1",
+        price: 25000,
+        category: "maquillage",
+        stock: 15,
+        description: "Palette 48 couleurs pigmentées, longue tenue",
+        image: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=200"
+    },
+    {
+        id: 2,
+        name: "M2",
+        price: 18500,
+        category: "maquillage",
+        stock: 22,
+        description: "Teint parfait 16h de tenue",
+        image: "https://images.unsplash.com/photo-1631730365076-8e750f9f44d3?w=200"
+    },
+    {
+        id: 3,
+        name: "M3",
+        price: 9500,
+        category: "maquillage",
+        stock: 30,
+        description: "Rouge intense, fini velouté",
+        image: "https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=200"
+    },
+    {
+        id: 4,
+        name: "M4",
+        price: 12500,
+        category: "maquillage",
+        stock: 18,
+        description: "Volume spectaculaire, allonge les cils",
+        image: "https://images.unsplash.com/photo-1631214524020-3c1d9e5e2689?w=200"
+    },
+    {
+        id: 5,
+        name: "M5",
+        price: 14500,
+        category: "maquillage",
+        stock: 14,
+        description: "Éclat lumineux et naturel",
+        image: "https://images.unsplash.com/photo-1617897903246-719242758050?w=200"
+    },
+    {
+        id: 6,
+        name: "M6",
+        price: 16500,
+        category: "maquillage",
+        stock: 20,
+        description: "Finition parfaite, maquillage longue tenue",
+        image: "https://images.unsplash.com/photo-1599315837537-3e019f6b5b4b?w=200"
+    },
+    {
+        id: 7,
+        name: "M7",
+        price: 22000,
+        category: "maquillage",
+        stock: 12,
+        description: "12 teintes nude ultra-pigmentées",
+        image: "https://images.unsplash.com/photo-1515560570411-6febe8977431?w=200"
+    },
+    {
+        id: 8,
+        name: "M8",
+        price: 10500,
+        category: "maquillage",
+        stock: 25,
+        description: "Trait précis, séchage rapide",
+        image: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=200"
+    },
+    {
+        id: 9,
+        name: "M9",
+        price: 13500,
+        category: "maquillage",
+        stock: 17,
+        description: "Effet bonne mine naturel",
+        image: "https://images.unsplash.com/photo-1611082234807-f26436c40575?w=200"
+    },
+    {
+        id: 10,
+        name: "M10",
+        price: 15500,
+        category: "maquillage",
+        stock: 19,
+        description: "Cache parfaitement les imperfections",
+        image: "https://images.unsplash.com/photo-1631730318352-8faf2cc67ca1?w=200"
+    },
+    {
+        id: 11,
+        name: "M11",
+        price: 14000,
+        category: "maquillage",
+        stock: 23,
+        description: "Maintien du maquillage 24h",
+        image: "https://images.unsplash.com/photo-1625772299848-3911661c08e0?w=200"
+    },
+    {
+        id: 12,
+        name: "M12",
+        price: 8500,
+        category: "maquillage",
+        stock: 28,
+        description: "Définition naturelle des sourcils",
+        image: "https://images.unsplash.com/photo-1602525961999-3683777ac114?w=200"
+    },
+    {
+        id: 13,
+        name: "M13",
+        price: 11000,
+        category: "maquillage",
+        stock: 26,
+        description: "Brillance intense, effet repulpant",
+        image: "https://images.unsplash.com/photo-1599733594220-6ee4c68e2ccd?w=200"
+    },
+    
+    // ONGLES GEL - 20 produits (id 14-33)
+    {
+        id: 14,
+        name: "V1",
+        price: 35000,
+        category: "ongles Gel",
+        stock: 10,
+        description: "Kit professionnel avec lampe UV/LED 48W",
+        image: "https://images.unsplash.com/photo-1604654894610-df63bc536371?w=200"
+    },
+    {
+        id: 15,
+        name: "V2",
+        price: 28000,
+        category: "ongles Gel",
+        stock: 8,
+        description: "Lampe 96W, séchage rapide en 30s",
+        image: "https://images.unsplash.com/photo-1610992235669-1e960506e071?w=200"
+    },
+    {
+        id: 16,
+        name: "V3",
+        price: 7500,
+        category: "ongles Gel",
+        stock: 35,
+        description: "Tenue 3 semaines, couleur intense",
+        image: "https://images.unsplash.com/photo-1598620617447-62cf8fbc0b6b?w=200"
+    },
+    {
+        id: 17,
+        name: "V4",
+        price: 6500,
+        category: "ongles Gel",
+        stock: 30,
+        description: "Adhérence parfaite, protection",
+        image: "https://images.unsplash.com/photo-1610992220009-7e2d6e4f6b9a?w=200"
+    },
+    {
+        id: 18,
+        name: "V5",
+        price: 6500,
+        category: "ongles Gel",
+        stock: 32,
+        description: "Finition miroir, protection UV",
+        image: "https://images.unsplash.com/photo-1631727366714-d9f69e424b85?w=200"
+    },
+    {
+        id: 19,
+        name: "V6",
+        price: 7500,
+        category: "ongles Gel",
+        stock: 28,
+        description: "Teinte naturelle élégante",
+        image: "https://images.unsplash.com/photo-1610992235805-8e9e8b7b5c3d?w=200"
+    },
+    {
+        id: 20,
+        name: "V7",
+        price: 5500,
+        category: "ongles Gel",
+        stock: 25,
+        description: "Dissout le gel en 10 minutes",
+        image: "https://images.unsplash.com/photo-1610992235708-8b9a5d6b9c0f?w=200"
+    },
+    {
+        id: 21,
+        name: "V8",
+        price: 12500,
+        category: "ongles Gel",
+        stock: 15,
+        description: "6 couleurs pour nail art",
+        image: "https://images.unsplash.com/photo-1610992235608-4b8b4d9b9c1e?w=200"
+    },
+    {
+        id: 22,
+        name: "V9",
+        price: 7500,
+        category: "ongles Gel",
+        stock: 22,
+        description: "Bleu profond intense",
+        image: "https://images.unsplash.com/photo-1610992235908-4b8b4d9b9c2f?w=200"
+    },
+    {
+        id: 23,
+        name: "V10",
+        price: 22000,
+        category: "ongles Gel",
+        stock: 7,
+        description: "Vitesse variable, embouts inclus",
+        image: "https://images.unsplash.com/photo-1610992236008-4b8b4d9b9c3e?w=200"
+    },
+    {
+        id: 24,
+        name: "V11",
+        price: 7500,
+        category: "ongles Gel",
+        stock: 30,
+        description: "Noir intense, effet laqué",
+        image: "https://images.unsplash.com/photo-1610992236108-4b8b4d9b9c4d?w=200"
+    },
+    {
+        id: 25,
+        name: "V12",
+        price: 4500,
+        category: "ongles Gel",
+        stock: 40,
+        description: "Prépare l'ongle, tenue prolongée",
+        image: "https://images.unsplash.com/photo-1610992236208-4b8b4d9b9c5c?w=200"
+    },
+    {
+        id: 26,
+        name: "V13",
+        price: 7500,
+        category: "ongles Gel",
+        stock: 26,
+        description: "Rose élégant et raffiné",
+        image: "https://images.unsplash.com/photo-1610992236308-4b8b4d9b9c6b?w=200"
+    },
+    {
+        id: 27,
+        name: "V14",
+        price: 8500,
+        category: "ongles Gel",
+        stock: 20,
+        description: "Set de 5 pinceaux précision",
+        image: "https://images.unsplash.com/photo-1610992236408-4b8b4d9b9c7a?w=200"
+    },
+    {
+        id: 28,
+        name: "V15",
+        price: 7500,
+        category: "ongles Gel",
+        stock: 24,
+        description: "Violet tendance",
+        image: "https://images.unsplash.com/photo-1610992236508-4b8b4d9b9c89?w=200"
+    },
+    {
+        id: 29,
+        name: "V16",
+        price: 5000,
+        category: "ongles Gel",
+        stock: 35,
+        description: "Nettoie la couche collante",
+        image: "https://images.unsplash.com/photo-1610992236608-4b8b4d9b9c98?w=200"
+    },
+    {
+        id: 30,
+        name: "V17",
+        price: 7500,
+        category: "ongles Gel",
+        stock: 28,
+        description: "Blanc pur, parfait pour french",
+        image: "https://images.unsplash.com/photo-1610992236708-4b8b4d9b9d07?w=200"
+    },
+    {
+        id: 31,
+        name: "V18",
+        price: 3500,
+        category: "ongles Gel",
+        stock: 50,
+        description: "Pour extension gel, lot de 100",
+        image: "https://images.unsplash.com/photo-1610992236808-4b8b4d9b9d16?w=200"
+    },
+    {
+        id: 32,
+        name: "V19",
+        price: 7500,
+        category: "ongles Gel",
+        stock: 22,
+        description: "Corail éclatant, parfait pour l'été",
+        image: "https://images.unsplash.com/photo-1610992236908-4b8b4d9b9d25?w=200"
+    },
+    {
+        id: 33,
+        name: "V20",
+        price: 5500,
+        category: "ongles Gel",
+        stock: 30,
+        description: "Nourrit et assouplit les cuticules",
+        image: "https://images.unsplash.com/photo-1610992237008-4b8b4d9b9d34?w=200"
+    },
+    
+    // ACCESSOIRES - 7 produits (id 34-40)
+    {
+        id: 34,
+        name: "X1",
+        price: 18000,
+        category: "Accessoires",
+        stock: 18,
+        description: "Set de 12 pinceaux professionnels en poils synthétiques",
+        image: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=200"
+    },
+    {
+        id: 35,
+        name: "X2",
+        price: 4500,
+        category: "Accessoires",
+        stock: 40,
+        description: "Application fond de teint sans traces",
+        image: "https://images.unsplash.com/photo-1522338242992-e1a54906a8da?w=200"
+    },
+    {
+        id: 36,
+        name: "X3",
+        price: 9500,
+        category: "Accessoires",
+        stock: 25,
+        description: "Trousse organisatrice imperméable",
+        image: "https://images.unsplash.com/photo-1592415486689-125cbbfcbee2?w=200"
+    },
+    {
+        id: 37,
+        name: "X4,
+        price: 12500,
+        category: "Accessoires",
+        stock: 15,
+        description: "Miroir x10 avec lumière LED",
+        image: "https://images.unsplash.com/photo-1617694002486-20f6b9fc6b1d?w=200"
+    },
+    {
+        id: 38,
+        name: "X5",
+        price: 6500,
+        category: "Accessoires",
+        stock: 22,
+        description: "Range jusqu'à 24 vernis",
+        image: "https://images.unsplash.com/photo-1610992237108-4b8b4d9b9d43?w=200"
+    },
+    {
+        id: 39,
+        name: "X6",
+        price: 5500,
+        category: "Accessoires",
+        stock: 30,
+        description: "Nettoyant liquide pour pinceaux",
+        image: "https://images.unsplash.com/photo-1585232351009-aa4b9e2f9c6d?w=200"
+    },
+    {
+        id: 40,
+        name: "X7",
+        price: 3500,
+        category: "Accessoires",
+        stock: 35,
+        description: "Palette inox pour mélanger les couleurs",
+        image: "https://images.unsplash.com/photo-1610992237208-4b8b4d9b9d52?w=200"
+    }
+];
             
             beautyProducts = sampleProducts;
             localStorage.setItem('beautyProducts', JSON.stringify(beautyProducts));
