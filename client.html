@@ -735,29 +735,90 @@
             align-items: center;
             justify-content: center;
             padding: 15px;
+            backdrop-filter: blur(5px);
         }
         
         .beauty-image-content {
             max-width: 90%;
             max-height: 90%;
             position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         
         .beauty-image-close {
             position: absolute;
-            top: -35px;
+            top: -40px;
             right: 0;
             color: white;
-            font-size: 24px;
+            font-size: 30px;
             cursor: pointer;
             background: rgba(255,255,255,0.2);
-            width: 35px;
-            height: 35px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: var(--transition);
+            z-index: 3100;
+        }
+        
+        .beauty-image-close:hover {
+            background: rgba(255,255,255,0.3);
+            transform: rotate(90deg);
+        }
+        
+        .beauty-zoomed-image-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            background: white;
+            max-width: 100%;
+            max-height: 80vh;
+        }
+        
+        #beauty-zoomed-image {
+            display: block;
+            max-width: 100%;
+            max-height: 80vh;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+            cursor: zoom-in;
+        }
+        
+        #beauty-zoomed-image.zoomed {
+            transform: scale(1.5);
+            cursor: zoom-out;
+        }
+        
+        .beauty-zoom-controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            justify-content: center;
+        }
+        
+        .beauty-zoom-btn {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 18px;
+        }
+        
+        .beauty-zoom-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.1);
         }
         
         .beauty-footer {
@@ -1104,7 +1165,20 @@
     <div class="beauty-image-modal" id="beauty-image-modal">
         <div class="beauty-image-content">
             <span class="beauty-image-close" id="beauty-image-close">&times;</span>
-            <img id="beauty-zoomed-image" src="" alt="Produit beauté">
+            <div class="beauty-zoomed-image-container">
+                <img id="beauty-zoomed-image" src="" alt="Produit beauté" onclick="toggleImageZoom()">
+            </div>
+            <div class="beauty-zoom-controls">
+                <button class="beauty-zoom-btn" onclick="zoomImage('in')">
+                    <i class="fas fa-search-plus"></i>
+                </button>
+                <button class="beauty-zoom-btn" onclick="zoomImage('out')">
+                    <i class="fas fa-search-minus"></i>
+                </button>
+                <button class="beauty-zoom-btn" onclick="resetImageZoom()">
+                    <i class="fas fa-undo"></i>
+                </button>
+            </div>
         </div>
     </div>
 
@@ -1123,6 +1197,10 @@
         let beautyUserAddress = "";
         let currentCurrency = 'FCFA';
         let currentTotalCurrency = 'FCFA';
+        let currentZoomLevel = 1;
+        const ZOOM_STEP = 0.25;
+        const MAX_ZOOM = 3;
+        const MIN_ZOOM = 1;
 
         // Catalogue complet avec 40 produits : 13 maquillage, 20 ongles Gel, 7 Accessoires
         const COMPLETE_CATALOG = [
@@ -1134,7 +1212,7 @@
                 category: "maquillage",
                 stock: 15,
                 description: "Palette 48 couleurs pigmentées, longue tenue",
-                image: "https://image.noelshack.com/fichiers/2026/07/4/1770864731-m1.jpeg?w=200"
+                image: "https://image.noelshack.com/fichiers/2026/07/4/1770864731-m1.jpeg"
             },
             {
                 id: 2,
@@ -1549,7 +1627,7 @@
             });
             
             document.getElementById('beauty-image-close').addEventListener('click', function() {
-                document.getElementById('beauty-image-modal').style.display = 'none';
+                closeImageModal();
             });
             
             window.addEventListener('click', function(event) {
@@ -1557,13 +1635,24 @@
                     document.getElementById('beauty-payment-modal').style.display = 'none';
                 }
                 if (event.target === document.getElementById('beauty-image-modal')) {
-                    document.getElementById('beauty-image-modal').style.display = 'none';
+                    closeImageModal();
                 }
             });
             
             document.getElementById('beauty-import-catalog').addEventListener('change', function(e) {
                 if (e.target.files.length > 0) {
                     handleImport();
+                }
+            });
+            
+            // Ajout du support du zoom à la molette
+            const zoomedImage = document.getElementById('beauty-zoomed-image');
+            zoomedImage.addEventListener('wheel', function(e) {
+                e.preventDefault();
+                if (e.deltaY < 0) {
+                    zoomImage('in');
+                } else {
+                    zoomImage('out');
                 }
             });
         }
@@ -1919,16 +2008,59 @@
             updateBeautyOrderSummary();
         };
 
+        // Fonctions de zoom pour l'image
         window.showImageZoom = function(imageSrc) {
             if (!imageSrc) {
                 showNotification('Image non disponible', 'info');
                 return;
             }
             
+            resetImageZoom();
             const modal = document.getElementById('beauty-image-modal');
             const zoomedImage = document.getElementById('beauty-zoomed-image');
             zoomedImage.src = imageSrc;
             modal.style.display = 'flex';
+        };
+
+        window.toggleImageZoom = function() {
+            const zoomedImage = document.getElementById('beauty-zoomed-image');
+            if (currentZoomLevel > 1) {
+                resetImageZoom();
+            } else {
+                zoomImage('in');
+            }
+        };
+
+        window.zoomImage = function(direction) {
+            const zoomedImage = document.getElementById('beauty-zoomed-image');
+            
+            if (direction === 'in' && currentZoomLevel < MAX_ZOOM) {
+                currentZoomLevel += ZOOM_STEP;
+            } else if (direction === 'out' && currentZoomLevel > MIN_ZOOM) {
+                currentZoomLevel -= ZOOM_STEP;
+            }
+            
+            currentZoomLevel = Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, currentZoomLevel));
+            zoomedImage.style.transform = `scale(${currentZoomLevel})`;
+            
+            if (currentZoomLevel > 1) {
+                zoomedImage.style.cursor = 'zoom-out';
+            } else {
+                zoomedImage.style.cursor = 'zoom-in';
+            }
+        };
+
+        window.resetImageZoom = function() {
+            currentZoomLevel = 1;
+            const zoomedImage = document.getElementById('beauty-zoomed-image');
+            zoomedImage.style.transform = 'scale(1)';
+            zoomedImage.style.cursor = 'zoom-in';
+        };
+
+        window.closeImageModal = function() {
+            const modal = document.getElementById('beauty-image-modal');
+            modal.style.display = 'none';
+            resetImageZoom();
         };
 
         function updateBeautyOrderSummary() {
