@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <style>
+        /* Styles identiques à l'original */
         :root {
             --primary: #e91e63;
             --primary-light: #f48fb1;
@@ -223,7 +224,6 @@
             outline: none;
         }
         
-        /* Catégories beauté */
         .beauty-categories {
             display: flex;
             flex-wrap: nowrap;
@@ -260,7 +260,6 @@
             box-shadow: var(--box-shadow);
         }
         
-        /* Grille de produits beauté */
         .beauty-product-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
@@ -307,6 +306,8 @@
             cursor: pointer;
             position: relative;
             overflow: hidden;
+            background: linear-gradient(45deg, #f48fb1, #e91e63);
+            color: white;
         }
         
         .beauty-product-image img {
@@ -371,7 +372,6 @@
             -webkit-box-orient: vertical;
         }
         
-        /* Contrôle quantité */
         .beauty-quantity-control {
             display: flex;
             align-items: center;
@@ -402,9 +402,9 @@
         }
         
         .beauty-quantity-input {
-            width: 40px;
+            width: 50px;
             text-align: center;
-            margin: 0 8px;
+            margin: 0 5px;
             font-weight: bold;
             padding: 6px;
             border: 1px solid #f0f0f0;
@@ -413,7 +413,6 @@
             font-size: 14px;
         }
         
-        /* Section produits sélectionnés */
         .beauty-selected-products {
             background: linear-gradient(135deg, #fce4ec, #f8bbd9);
             padding: 20px;
@@ -450,7 +449,6 @@
             color: var(--primary);
         }
         
-        /* Récapitulatif */
         .beauty-summary {
             background: white;
             padding: 20px;
@@ -480,7 +478,6 @@
             border-top: 2px solid #f0f0f0;
         }
         
-        /* Informations de paiement */
         .beauty-payment-info {
             background: #fff8e1;
             padding: 15px;
@@ -490,7 +487,6 @@
             font-size: 13px;
         }
         
-        /* Boutons d'action */
         .beauty-action-buttons {
             display: flex;
             flex-direction: column;
@@ -555,7 +551,6 @@
             box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
         }
         
-        /* Section localisation */
         .beauty-location-section {
             margin-top: 15px;
             padding: 15px;
@@ -586,7 +581,6 @@
             animation: beautySpin 1s linear infinite;
         }
         
-        /* Modal de paiement ESODI */
         .beauty-payment-modal {
             display: none;
             position: fixed;
@@ -673,7 +667,6 @@
             color: var(--primary-dark);
         }
         
-        /* Étapes de paiement */
         .beauty-payment-steps {
             text-align: left;
             margin-top: 15px;
@@ -683,7 +676,6 @@
             font-size: 13px;
         }
         
-        /* Section importation */
         .beauty-import-section {
             margin-top: 15px;
             padding: 15px;
@@ -709,7 +701,6 @@
             transition: var(--transition);
         }
         
-        /* Notification */
         .beauty-notification {
             position: fixed;
             top: 15px;
@@ -732,7 +723,6 @@
             transform: translateY(0);
         }
         
-        /* Modal de zoom d'image */
         .beauty-image-modal {
             display: none;
             position: fixed;
@@ -770,7 +760,6 @@
             transition: var(--transition);
         }
         
-        /* Footer */
         .beauty-footer {
             text-align: center;
             padding: 20px;
@@ -779,7 +768,6 @@
             font-size: 13px;
         }
         
-        /* Checkbox */
         .beauty-checkbox-container {
             display: flex;
             align-items: center;
@@ -792,18 +780,15 @@
             transform: scale(1.2);
         }
         
-        /* Loading spinner */
         @keyframes beautySpin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
         
-        /* Scrollable */
         .beauty-scrollable {
             -webkit-overflow-scrolling: touch;
         }
         
-        /* Responsive */
         @media (min-width: 768px) {
             .beauty-product-grid {
                 grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -822,7 +807,6 @@
             }
         }
         
-        /* Taux de change */
         .currency-selector {
             display: flex;
             gap: 10px;
@@ -853,6 +837,23 @@
             font-size: 12px;
             color: #666;
         }
+        
+        .sample-import-btn {
+            padding: 8px 15px;
+            border: 2px dashed var(--primary);
+            border-radius: var(--border-radius-round);
+            background: white;
+            color: var(--primary);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 12px;
+            margin-left: 10px;
+        }
+        
+        .sample-import-btn:hover {
+            background: var(--light-pink);
+        }
     </style>
 </head>
 <body>
@@ -869,7 +870,6 @@
             <p class="beauty-subtitle">Maquillage • Ongles Gel • Effets Spéciaux</p>
         </header>
         
-        <!-- Informations de la gérante -->
         <div class="beauty-info-card">
             <div class="beauty-info-header">
                 <i class="fas fa-user-shield"></i>
@@ -908,19 +908,22 @@
         </div>
         
         <main class="beauty-content">
-            <!-- Section d'importation -->
             <div class="beauty-import-section">
-                <h3 class="beauty-section-title"><i class="fas fa-file-import"></i> Catalogue Beauté</h3>
+                <h3 class="beauty-section-title">
+                    <i class="fas fa-file-import"></i> Catalogue Beauté
+                    <button id="sample-catalog-btn" class="sample-import-btn">
+                        <i class="fas fa-magic"></i> Charger exemple
+                    </button>
+                </h3>
                 <p>Importez un fichier catalogue (.json) pour voir nos produits disponibles.</p>
-                <div class="beauty-form-group">
-                    <input type="file" id="beauty-import-catalog" accept=".json" class="beauty-input">
+                <div class="beauty-form-group" style="display: flex; gap: 10px;">
+                    <input type="file" id="beauty-import-catalog" accept=".json,application/json" class="beauty-input" style="flex: 1;">
                 </div>
                 <button class="beauty-import-btn" id="beauty-import-btn">
                     <i class="fas fa-upload"></i> Importer Catalogue
                 </button>
             </div>
             
-            <!-- Informations client -->
             <div class="beauty-section">
                 <h2 class="beauty-section-title"><i class="fas fa-user"></i> Vos Informations</h2>
                 <div class="beauty-form-group">
@@ -938,7 +941,6 @@
                     <textarea id="beauty-adresse" class="beauty-textarea" rows="2" placeholder="Votre adresse pour la livraison" required></textarea>
                 </div>
                 
-                <!-- Localisation -->
                 <div class="beauty-location-section">
                     <h3 class="beauty-section-title"><i class="fas fa-map-marker-alt"></i> Localisation</h3>
                     <p>Pour une livraison précise, géolocalisez-vous automatiquement</p>
@@ -957,11 +959,9 @@
                 </div>
             </div>
             
-            <!-- Sélection des produits -->
             <div class="beauty-section">
                 <h2 class="beauty-section-title"><i class="fas fa-palette"></i> Produits Beauté</h2>
                 
-                <!-- Sélecteur de devise -->
                 <div class="currency-selector">
                     <button class="currency-btn active" data-currency="FCFA">FCFA</button>
                     <button class="currency-btn" data-currency="EUR">€ Euro</button>
@@ -980,23 +980,25 @@
                 </div>
                 
                 <div class="beauty-product-grid" id="beauty-product-grid">
-                    <!-- Produits chargés dynamiquement -->
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 30px;">
+                        <i class="fas fa-palette" style="font-size: 48px; color: var(--primary-light); margin-bottom: 15px;"></i>
+                        <h3 style="color: var(--secondary); margin-bottom: 10px;">Aucun produit disponible</h3>
+                        <p style="color: var(--primary-light);">Importez un catalogue pour voir nos produits beauté</p>
+                        <button class="beauty-btn beauty-btn-primary" onclick="document.getElementById('beauty-import-catalog').click()" style="margin-top: 15px; background: var(--primary); color: white; padding: 12px 24px; border-radius: 30px;">
+                            <i class="fas fa-upload"></i> Importer un catalogue
+                        </button>
+                    </div>
                 </div>
             </div>
             
-            <!-- Produits sélectionnés -->
             <div class="beauty-selected-products" id="beauty-selected-products">
                 <h3 class="beauty-section-title"><i class="fas fa-check-circle"></i> Votre Sélection</h3>
-                <div id="beauty-selected-list" class="beauty-selected-list">
-                    <!-- Produits sélectionnés -->
-                </div>
+                <div id="beauty-selected-list" class="beauty-selected-list"></div>
             </div>
             
-            <!-- Récapitulatif -->
             <div class="beauty-section">
                 <h2 class="beauty-section-title"><i class="fas fa-file-invoice"></i> Récapitulatif</h2>
                 
-                <!-- Sélecteur de devise pour le total -->
                 <div class="currency-selector" style="margin-bottom: 20px;">
                     <button class="currency-btn active" data-total-currency="FCFA">Voir total en FCFA</button>
                     <button class="currency-btn" data-total-currency="EUR">Voir total en €</button>
@@ -1031,7 +1033,6 @@
                 </div>
             </div>
             
-            <!-- Envoi commande -->
             <div class="beauty-section">
                 <h2 class="beauty-section-title"><i class="fas fa-paper-plane"></i> Finaliser Commande</h2>
                 <div class="beauty-checkbox-container">
@@ -1064,11 +1065,10 @@
         </footer>
     </div>
 
-    <!-- Modal de Paiement ESODI -->
     <div class="beauty-payment-modal" id="beauty-payment-modal">
         <div class="beauty-modal-content">
             <div class="beauty-modal-header">
-                <i class="fas fa-gem"></i> Paiement par PayPal-me
+                <i class="fas fa-gem"></i> Paiement par PayPal
             </div>
             
             <p style="font-size: 18px; margin: 15px 0;">
@@ -1103,7 +1103,6 @@
         </div>
     </div>
 
-    <!-- Modal de zoom d'image -->
     <div class="beauty-image-modal" id="beauty-image-modal">
         <div class="beauty-image-content">
             <span class="beauty-image-close" id="beauty-image-close">&times;</span>
@@ -1111,14 +1110,13 @@
         </div>
     </div>
 
-    <!-- Notification -->
     <div id="beauty-notification" class="beauty-notification"></div>
 
     <script>
-        // Taux de change approximatifs (à mettre à jour régulièrement)
+        // Taux de change
         const EXCHANGE_RATES = {
-            EUR: 0.00152, // 1 FCFA = 0.00152 EUR
-            USD: 0.00165  // 1 FCFA = 0.00165 USD
+            EUR: 0.00152,
+            USD: 0.00165
         };
 
         // Variables globales
@@ -1132,42 +1130,20 @@
         document.addEventListener('DOMContentLoaded', function() {
             initializeEventListeners();
             autoGeolocate();
-            
-            // Vérifier si des données sont déjà en local storage
             loadProductsFromLocalStorage();
-            
-            // Écouter les changements de fichier
-            document.getElementById('beauty-import-catalog').addEventListener('change', function(e) {
-                if (e.target.files.length > 0) {
-                    handleImport();
-                }
-            });
         });
 
-        function loadProductsFromLocalStorage() {
-            const savedProducts = JSON.parse(localStorage.getItem('beautyProducts'));
-            if (savedProducts && savedProducts.length > 0) {
-                beautyProducts = savedProducts;
-                renderBeautyProducts();
-                showNotification('Catalogue chargé depuis la mémoire locale', 'success');
-            } else {
-                showNotification('Importez un catalogue pour voir les produits', 'info');
-            }
-        }
-
+        // Initialisation des écouteurs d'événements
         function initializeEventListeners() {
-            // Bouton retour
-            document.querySelector('.beauty-retour').addEventListener('click', function() {
+            document.querySelector('.beauty-retour').addEventListener('click', function(e) {
+                e.preventDefault();
                 history.back();
             });
 
-            // Importation catalogue
             document.getElementById('beauty-import-btn').addEventListener('click', handleImport);
-            
-            // Géolocalisation
+            document.getElementById('sample-catalog-btn').addEventListener('click', loadSampleCatalog);
             document.getElementById('beauty-get-location').addEventListener('click', handleGeolocation);
             
-            // Boutons devise produit
             document.querySelectorAll('.currency-btn[data-currency]').forEach(btn => {
                 btn.addEventListener('click', function() {
                     document.querySelectorAll('.currency-btn[data-currency]').forEach(b => b.classList.remove('active'));
@@ -1177,7 +1153,6 @@
                 });
             });
             
-            // Boutons devise total
             document.querySelectorAll('.currency-btn[data-total-currency]').forEach(btn => {
                 btn.addEventListener('click', function() {
                     document.querySelectorAll('.currency-btn[data-total-currency]').forEach(b => b.classList.remove('active'));
@@ -1187,11 +1162,8 @@
                 });
             });
             
-            // Boutons d'action
             document.getElementById('beauty-whatsapp-btn').addEventListener('click', handleWhatsApp);
             document.getElementById('beauty-esodi-btn').addEventListener('click', handleEsodi);
-            
-            // Boutons modal
             document.getElementById('beauty-esodi-modal-btn').addEventListener('click', function() {
                 window.open('https://jeanskodoc.github.io/prestation-awally/', '_blank');
                 showNotification('Redirection vers le portail de paiement...', 'success');
@@ -1201,7 +1173,6 @@
                 document.getElementById('beauty-payment-modal').style.display = 'none';
             });
             
-            // Fermeture modals
             document.getElementById('beauty-image-close').addEventListener('click', function() {
                 document.getElementById('beauty-image-modal').style.display = 'none';
             });
@@ -1214,8 +1185,72 @@
                     document.getElementById('beauty-image-modal').style.display = 'none';
                 }
             });
+            
+            document.getElementById('beauty-import-catalog').addEventListener('change', function(e) {
+                if (e.target.files.length > 0) {
+                    handleImport();
+                }
+            });
         }
 
+        // Chargement d'un catalogue exemple
+        function loadSampleCatalog() {
+            const sampleProducts = [
+                {
+                    id: 1,
+                    name: "Palette Maquillage Professionnelle",
+                    price: 25000,
+                    category: "maquillage",
+                    stock: 15,
+                    description: "Palette 48 couleurs pigmentées, longue tenue",
+                    image: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=200"
+                },
+                {
+                    id: 2,
+                    name: "Kit Ongles Gel Complet",
+                    price: 35000,
+                    category: "ongles",
+                    stock: 10,
+                    description: "Kit professionnel avec lampe UV/LED",
+                    image: "https://images.unsplash.com/photo-1604654894610-df63bc536371?w=200"
+                },
+                {
+                    id: 3,
+                    name: "Faux-sang Effets Spéciaux",
+                    price: 5000,
+                    category: "effets",
+                    stock: 30,
+                    description: "Faux-sang réaliste pour effets spéciaux",
+                    image: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=200"
+                },
+                {
+                    id: 4,
+                    name: "Crème Hydratante Visage",
+                    price: 15000,
+                    category: "soins",
+                    stock: 20,
+                    description: "Hydratation intense 24h",
+                    image: "https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?w=200"
+                },
+                {
+                    id: 5,
+                    name: "Pinceaux Maquillage Set",
+                    price: 12000,
+                    category: "accessoires",
+                    stock: 25,
+                    description: "Set de 12 pinceaux professionnels",
+                    image: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=200"
+                }
+            ];
+            
+            beautyProducts = sampleProducts;
+            localStorage.setItem('beautyProducts', JSON.stringify(beautyProducts));
+            renderBeautyProducts();
+            showNotification('Catalogue exemple chargé avec succès!', 'success');
+            document.getElementById('beauty-import-catalog').value = '';
+        }
+
+        // Gestion de l'importation
         function handleImport() {
             const fileInput = document.getElementById('beauty-import-catalog');
             const file = fileInput.files[0];
@@ -1225,87 +1260,171 @@
                 return;
             }
             
+            if (!file.name.toLowerCase().endsWith('.json')) {
+                showNotification('Le fichier doit être au format JSON', 'error');
+                fileInput.value = '';
+                return;
+            }
+            
             const reader = new FileReader();
+            
             reader.onload = function(e) {
                 try {
-                    const importedData = JSON.parse(e.target.result);
-                    let productsArray = [];
-                    
-                    // Gérer les différents formats du fichier exporté depuis l'admin
-                    if (Array.isArray(importedData)) {
-                        // Format simple: tableau de produits
-                        productsArray = importedData;
-                    } else if (importedData.products && Array.isArray(importedData.products)) {
-                        // Format avec métadonnées
-                        productsArray = importedData.products;
-                    } else if (importedData.categories && typeof importedData.categories === 'object') {
-                        // Format par catégories
-                        Object.values(importedData.categories).forEach(categoryProducts => {
-                            if (Array.isArray(categoryProducts)) {
-                                productsArray = productsArray.concat(categoryProducts);
-                            }
-                        });
-                    } else {
-                        throw new Error('Format de fichier non reconnu');
-                    }
-                    
-                    // Valider les produits
-                    const validatedProducts = productsArray.filter(product => {
-                        return product && 
-                               product.id && 
-                               product.name && 
-                               product.price && 
-                               product.category && 
-                               product.stock !== undefined;
-                    });
-                    
-                    if (validatedProducts.length === 0) {
-                        showNotification('Aucun produit valide trouvé dans le fichier', 'error');
+                    let parsedData;
+                    try {
+                        parsedData = JSON.parse(e.target.result);
+                    } catch (jsonError) {
+                        showNotification('Le fichier JSON est invalide', 'error');
+                        fileInput.value = '';
                         return;
                     }
                     
-                    beautyProducts = validatedProducts;
+                    const products = extractProductsFromJSON(parsedData);
+                    
+                    if (products.length === 0) {
+                        showNotification('Aucun produit valide trouvé dans le fichier', 'error');
+                        fileInput.value = '';
+                        return;
+                    }
+                    
+                    beautyProducts = products;
                     localStorage.setItem('beautyProducts', JSON.stringify(beautyProducts));
-                    
                     renderBeautyProducts();
-                    showNotification(`${validatedProducts.length} produits importés avec succès!`, 'success');
-                    
-                    // Réinitialiser le champ fichier
+                    showNotification(`${products.length} produits importés avec succès!`, 'success');
                     fileInput.value = '';
+                    
                 } catch (error) {
                     console.error('Erreur d\'importation:', error);
-                    showNotification('Erreur d\'importation: ' + error.message, 'error');
+                    showNotification('Erreur lors de l\'importation du fichier', 'error');
+                    fileInput.value = '';
                 }
             };
             
             reader.onerror = function() {
                 showNotification('Erreur de lecture du fichier', 'error');
+                fileInput.value = '';
             };
             
             reader.readAsText(file);
         }
 
+        // Extraction des produits du JSON
+        function extractProductsFromJSON(data) {
+            let productsArray = [];
+            
+            try {
+                // Format 1: Tableau simple de produits
+                if (Array.isArray(data)) {
+                    productsArray = data;
+                }
+                // Format 2: Objet avec propriété 'products'
+                else if (data.products && Array.isArray(data.products)) {
+                    productsArray = data.products;
+                }
+                // Format 3: Objet avec catégories
+                else if (data.categories && typeof data.categories === 'object') {
+                    Object.values(data.categories).forEach(categoryProducts => {
+                        if (Array.isArray(categoryProducts)) {
+                            productsArray = productsArray.concat(categoryProducts);
+                        }
+                    });
+                }
+                // Format 4: Objet avec propriété 'data' contenant les produits
+                else if (data.data && Array.isArray(data.data)) {
+                    productsArray = data.data;
+                }
+                // Format 5: Objet avec propriété 'items'
+                else if (data.items && Array.isArray(data.items)) {
+                    productsArray = data.items;
+                }
+                // Format 6: Recherche de tableaux dans l'objet
+                else {
+                    for (let key in data) {
+                        if (Array.isArray(data[key]) && data[key].length > 0) {
+                            const firstItem = data[key][0];
+                            if (firstItem && (firstItem.name || firstItem.nom || firstItem.product_name)) {
+                                productsArray = data[key];
+                                break;
+                            }
+                        }
+                    }
+                }
+                
+                // Validation et normalisation des produits
+                const validProducts = productsArray
+                    .filter(product => product !== null && typeof product === 'object')
+                    .map((product, index) => normalizeProduct(product, index + 1))
+                    .filter(product => product !== null);
+                
+                return validProducts;
+                
+            } catch (error) {
+                console.error('Erreur extraction produits:', error);
+                return [];
+            }
+        }
+
+        // Normalisation d'un produit
+        function normalizeProduct(product, defaultId) {
+            try {
+                // Gestion des différents noms de propriétés possibles
+                const id = product.id || product.product_id || product.code || defaultId;
+                const name = product.name || product.nom || product.product_name || product.title || 'Produit sans nom';
+                const price = parseFloat(product.price || product.prix || product.cost || product.amount || 0);
+                const category = product.category || product.categorie || product.type || 'maquillage';
+                const stock = parseInt(product.stock || product.quantity || product.inventory || product.quantite || 10);
+                const description = product.description || product.desc || product.details || product.notes || 'Description non disponible';
+                const image = product.image || product.img || product.picture || product.photo || '';
+                
+                // Validation
+                if (!id || !name || isNaN(price) || price <= 0) {
+                    return null;
+                }
+                
+                return {
+                    id: id.toString(),
+                    name: name,
+                    price: price,
+                    category: category.toLowerCase(),
+                    stock: Math.max(0, stock),
+                    description: description,
+                    image: image
+                };
+                
+            } catch (error) {
+                console.error('Erreur normalisation produit:', error);
+                return null;
+            }
+        }
+
+        function loadProductsFromLocalStorage() {
+            try {
+                const savedProducts = localStorage.getItem('beautyProducts');
+                if (savedProducts) {
+                    const parsed = JSON.parse(savedProducts);
+                    if (Array.isArray(parsed) && parsed.length > 0) {
+                        beautyProducts = parsed;
+                        renderBeautyProducts();
+                        showNotification('Catalogue chargé depuis la mémoire locale', 'info');
+                    }
+                }
+            } catch (error) {
+                console.error('Erreur chargement localStorage:', error);
+                localStorage.removeItem('beautyProducts');
+            }
+        }
+
         function autoGeolocate() {
             if (navigator.geolocation) {
-                document.getElementById('beauty-location-loading').style.display = 'flex';
-                
                 navigator.geolocation.getCurrentPosition(
                     function(position) {
                         const lat = position.coords.latitude;
                         const lng = position.coords.longitude;
-                        
                         beautyUserCoordinates = { lat, lng };
                         updateAddressFromCoordinates(lat, lng);
-                        
-                        document.getElementById('beauty-location-details').style.display = 'block';
-                        document.getElementById('beauty-location-loading').style.display = 'none';
-                        
-                        document.getElementById('beauty-coordinates').textContent = 
-                            `${lat.toFixed(6)}, ${lng.toFixed(6)}`;
                     },
                     function(error) {
-                        document.getElementById('beauty-location-loading').style.display = 'none';
-                        console.log('Géolocalisation automatique échouée:', error.message);
+                        console.log('Géolocalisation automatique échouée');
                     },
                     { enableHighAccuracy: true, timeout: 10000 }
                 );
@@ -1330,10 +1449,7 @@
                     
                     document.getElementById('beauty-location-details').style.display = 'block';
                     document.getElementById('beauty-location-loading').style.display = 'none';
-                    
-                    document.getElementById('beauty-coordinates').textContent = 
-                        `${lat.toFixed(6)}, ${lng.toFixed(6)}`;
-                    
+                    document.getElementById('beauty-coordinates').textContent = `${lat.toFixed(6)}, ${lng.toFixed(6)}`;
                     showNotification('Position obtenue avec succès!', 'success');
                 },
                 function(error) {
@@ -1352,7 +1468,6 @@
                         beautyUserAddress = data.display_name;
                         document.getElementById('beauty-detected-address').textContent = beautyUserAddress;
                         
-                        // Remplir automatiquement le champ adresse
                         const addressField = document.getElementById('beauty-adresse');
                         if (addressField && !addressField.value.trim()) {
                             addressField.value = beautyUserAddress;
@@ -1367,13 +1482,13 @@
         function renderBeautyProducts() {
             const grid = document.getElementById('beauty-product-grid');
             
-            if (beautyProducts.length === 0) {
+            if (!beautyProducts || beautyProducts.length === 0) {
                 grid.innerHTML = `
                     <div style="grid-column: 1 / -1; text-align: center; padding: 30px;">
                         <i class="fas fa-palette" style="font-size: 48px; color: var(--primary-light); margin-bottom: 15px;"></i>
                         <h3 style="color: var(--secondary); margin-bottom: 10px;">Aucun produit disponible</h3>
                         <p style="color: var(--primary-light);">Importez un catalogue pour voir nos produits beauté</p>
-                        <button class="beauty-btn beauty-btn-primary" onclick="document.getElementById('beauty-import-catalog').click()" style="margin-top: 15px;">
+                        <button onclick="document.getElementById('beauty-import-catalog').click()" style="margin-top: 15px; background: var(--primary); color: white; padding: 12px 24px; border: none; border-radius: 30px; cursor: pointer;">
                             <i class="fas fa-upload"></i> Importer un catalogue
                         </button>
                     </div>
@@ -1383,75 +1498,77 @@
             
             grid.innerHTML = beautyProducts.map(product => {
                 const categoryText = getCategoryText(product.category);
-                const categoryBadgeClass = `category-${product.category}-badge`;
+                const priceEuro = (product.price * EXCHANGE_RATES.EUR).toFixed(2);
+                const priceDollar = (product.price * EXCHANGE_RATES.USD).toFixed(2);
                 
-                // Conversion devise
-                const priceEuro = Math.round(product.price * EXCHANGE_RATES.EUR * 100) / 100;
-                const priceDollar = Math.round(product.price * EXCHANGE_RATES.USD * 100) / 100;
+                let displayPrice = '';
+                if (currentCurrency === 'FCFA') {
+                    displayPrice = product.price.toLocaleString() + ' FCFA';
+                } else if (currentCurrency === 'EUR') {
+                    displayPrice = '€' + priceEuro;
+                } else {
+                    displayPrice = '$' + priceDollar;
+                }
                 
-                // Image par défaut si non disponible
                 let imageContent = '';
                 if (product.image) {
-                    imageContent = `<img src="${product.image}" alt="${product.name}" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'140\'><rect width=\'200\' height=\'140\' fill=\'%23fce4ec\'/><text x=\'100\' y=\'70\' font-family=\'Arial\' font-size=\'14\' fill=\'%23e91e63\' text-anchor=\'middle\'>${product.name}</text></svg>'">`;
+                    imageContent = `<img src="${product.image}" alt="${product.name}" onerror="this.style.display='none'; this.parentElement.innerHTML='<i class=\\'fas fa-spa fa-3x\\' style=\\'color: white;\\'></i>';">`;
                 } else {
-                    imageContent = `
-                        <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: linear-gradient(45deg, #f48fb1, #e91e63);">
-                            <i class="fas fa-spa fa-2x" style="color: white;"></i>
-                        </div>
-                    `;
+                    imageContent = `<i class="fas fa-spa fa-3x" style="color: white;"></i>`;
                 }
                 
                 return `
                     <div class="beauty-product-card category-${product.category}">
-                        <span class="beauty-product-badge ${categoryBadgeClass}">${categoryText}</span>
+                        <span class="beauty-product-badge">${categoryText}</span>
                         <div class="beauty-product-image" onclick="showImageZoom('${product.image || ''}')">
                             ${imageContent}
                         </div>
                         <div class="beauty-product-info">
                             <h3 class="beauty-product-title">${product.name}</h3>
                             <div class="beauty-product-price">
-                                <span class="price-fcfa">
-                                    ${currentCurrency === 'FCFA' ? product.price.toLocaleString() + ' FCFA' : 
-                                      currentCurrency === 'EUR' ? '€' + priceEuro.toFixed(2) :
-                                      '$' + priceDollar.toFixed(2)}
-                                </span>
+                                <span class="price-fcfa">${displayPrice}</span>
                                 <div class="price-other">
-                                    <span class="price-euro">€${priceEuro.toFixed(2)}</span>
-                                    <span class="price-dollar">$${priceDollar.toFixed(2)}</span>
+                                    <span class="price-euro">€${priceEuro}</span>
+                                    <span class="price-dollar">$${priceDollar}</span>
                                 </div>
                             </div>
                             <p class="beauty-product-description">${product.description || 'Description non disponible'}</p>
                             <div class="beauty-quantity-control">
-                                <button class="beauty-quantity-btn minus" onclick="updateQuantity(${product.id}, -1)">-</button>
+                                <button class="beauty-quantity-btn" onclick="updateQuantity('${product.id}', -1)">-</button>
                                 <input type="number" class="beauty-quantity-input" id="qty-${product.id}" 
-                                       value="0" min="0" max="${product.stock || 0}" 
-                                       onchange="updateQuantityInput(${product.id})">
-                                <button class="beauty-quantity-btn plus" onclick="updateQuantity(${product.id}, 1)">+</button>
+                                       value="0" min="0" max="${product.stock || 999}" 
+                                       onchange="updateQuantityInput('${product.id}')">
+                                <button class="beauty-quantity-btn" onclick="updateQuantity('${product.id}', 1)">+</button>
                             </div>
                         </div>
                     </div>
                 `;
             }).join('');
             
-            // Filtrer par catégorie
-            document.querySelectorAll('.beauty-category-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    document.querySelectorAll('.beauty-category-btn').forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    const category = this.getAttribute('data-category');
-                    
-                    document.querySelectorAll('.beauty-product-card').forEach(card => {
-                        if (category === 'all' || card.classList.contains(`category-${category}`)) {
-                            card.style.display = 'block';
-                        } else {
-                            card.style.display = 'none';
-                        }
-                    });
-                });
-            });
-            
+            initializeCategoryFilters();
             updateBeautyOrderSummary();
+        }
+
+        function initializeCategoryFilters() {
+            document.querySelectorAll('.beauty-category-btn').forEach(btn => {
+                btn.removeEventListener('click', handleCategoryFilter);
+                btn.addEventListener('click', handleCategoryFilter);
+            });
+        }
+
+        function handleCategoryFilter() {
+            document.querySelectorAll('.beauty-category-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            
+            const category = this.getAttribute('data-category');
+            
+            document.querySelectorAll('.beauty-product-card').forEach(card => {
+                if (category === 'all' || card.classList.contains(`category-${category}`)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
         }
 
         function getCategoryText(category) {
@@ -1463,16 +1580,17 @@
                 'accessoires': 'Accessoires',
                 'formation': 'Formation'
             };
-            return categories[category] || category;
+            return categories[category] || category.charAt(0).toUpperCase() + category.slice(1);
         }
 
-        // Fonctions globales pour les boutons
         window.updateQuantity = function(productId, change) {
             const input = document.getElementById(`qty-${productId}`);
+            if (!input) return;
+            
             let value = parseInt(input.value) || 0;
+            const max = parseInt(input.getAttribute('max')) || 0;
             
             if (change > 0) {
-                const max = parseInt(input.getAttribute('max')) || 0;
                 if (value < max) value++;
             } else if (change < 0) {
                 if (value > 0) value--;
@@ -1480,11 +1598,12 @@
             
             input.value = value;
             updateBeautyOrderSummary();
-            updateSelectedProducts();
         };
 
         window.updateQuantityInput = function(productId) {
             const input = document.getElementById(`qty-${productId}`);
+            if (!input) return;
+            
             const max = parseInt(input.getAttribute('max')) || 0;
             let value = parseInt(input.value) || 0;
             
@@ -1493,7 +1612,6 @@
             
             input.value = value;
             updateBeautyOrderSummary();
-            updateSelectedProducts();
         };
 
         window.showImageZoom = function(imageSrc) {
@@ -1502,9 +1620,59 @@
                 return;
             }
             
-            document.getElementById('beauty-zoomed-image').src = imageSrc;
-            document.getElementById('beauty-image-modal').style.display = 'flex';
+            const modal = document.getElementById('beauty-image-modal');
+            const zoomedImage = document.getElementById('beauty-zoomed-image');
+            zoomedImage.src = imageSrc;
+            modal.style.display = 'flex';
         };
+
+        function updateBeautyOrderSummary() {
+            let totalItems = 0;
+            let subtotal = 0;
+            
+            beautyProducts.forEach(product => {
+                const input = document.getElementById(`qty-${product.id}`);
+                if (input) {
+                    const quantity = parseInt(input.value) || 0;
+                    totalItems += quantity;
+                    subtotal += quantity * product.price;
+                }
+            });
+            
+            const deliveryFee = 2000;
+            const total = subtotal + deliveryFee;
+            
+            const subtotalEuro = (subtotal * EXCHANGE_RATES.EUR).toFixed(2);
+            const subtotalDollar = (subtotal * EXCHANGE_RATES.USD).toFixed(2);
+            const totalEuro = (total * EXCHANGE_RATES.EUR).toFixed(2);
+            const totalDollar = (total * EXCHANGE_RATES.USD).toFixed(2);
+            const deliveryEuro = (deliveryFee * EXCHANGE_RATES.EUR).toFixed(2);
+            const deliveryDollar = (deliveryFee * EXCHANGE_RATES.USD).toFixed(2);
+            
+            document.getElementById('beauty-articles-count').textContent = totalItems;
+            
+            if (currentTotalCurrency === 'FCFA') {
+                document.getElementById('beauty-subtotal').innerHTML = `${subtotal.toLocaleString()} <span class="beauty-currency">FCFA</span>`;
+                document.getElementById('beauty-delivery').innerHTML = `${deliveryFee.toLocaleString()} <span class="beauty-currency">FCFA</span>`;
+                document.getElementById('beauty-total').innerHTML = `${total.toLocaleString()} <span class="beauty-currency">FCFA</span>`;
+                document.getElementById('beauty-modal-amount').textContent = `${total.toLocaleString()} FCFA`;
+            } else if (currentTotalCurrency === 'EUR') {
+                document.getElementById('beauty-subtotal').innerHTML = `${subtotalEuro} <span class="beauty-currency">€</span>`;
+                document.getElementById('beauty-delivery').innerHTML = `${deliveryEuro} <span class="beauty-currency">€</span>`;
+                document.getElementById('beauty-total').innerHTML = `${totalEuro} <span class="beauty-currency">€</span>`;
+                document.getElementById('beauty-modal-amount').textContent = `${totalEuro} €`;
+            } else {
+                document.getElementById('beauty-subtotal').innerHTML = `${subtotalDollar} <span class="beauty-currency">$</span>`;
+                document.getElementById('beauty-delivery').innerHTML = `${deliveryDollar} <span class="beauty-currency">$</span>`;
+                document.getElementById('beauty-total').innerHTML = `${totalDollar} <span class="beauty-currency">$</span>`;
+                document.getElementById('beauty-modal-amount').textContent = `${totalDollar} $`;
+            }
+            
+            document.getElementById('modal-euro').textContent = `€${totalEuro}`;
+            document.getElementById('modal-dollar').textContent = `$${totalDollar}`;
+            
+            updateSelectedProducts();
+        }
 
         function updateSelectedProducts() {
             const container = document.getElementById('beauty-selected-list');
@@ -1514,26 +1682,34 @@
             let hasProducts = false;
             
             beautyProducts.forEach(product => {
-                const quantity = parseInt(document.getElementById(`qty-${product.id}`)?.value) || 0;
-                if (quantity > 0) {
-                    hasProducts = true;
-                    const total = quantity * product.price;
-                    const totalEuro = Math.round(total * EXCHANGE_RATES.EUR * 100) / 100;
-                    const totalDollar = Math.round(total * EXCHANGE_RATES.USD * 100) / 100;
-                    
-                    html += `
-                        <div class="beauty-selected-item">
-                            <div>
-                                <div class="beauty-selected-name">${product.name}</div>
-                                <small style="color: #999;">${quantity} x ${product.price.toLocaleString()} FCFA</small>
+                const input = document.getElementById(`qty-${product.id}`);
+                if (input) {
+                    const quantity = parseInt(input.value) || 0;
+                    if (quantity > 0) {
+                        hasProducts = true;
+                        const total = quantity * product.price;
+                        const totalEuro = (total * EXCHANGE_RATES.EUR).toFixed(2);
+                        const totalDollar = (total * EXCHANGE_RATES.USD).toFixed(2);
+                        
+                        let displayTotal = '';
+                        if (currentTotalCurrency === 'FCFA') {
+                            displayTotal = total.toLocaleString() + ' FCFA';
+                        } else if (currentTotalCurrency === 'EUR') {
+                            displayTotal = '€' + totalEuro;
+                        } else {
+                            displayTotal = '$' + totalDollar;
+                        }
+                        
+                        html += `
+                            <div class="beauty-selected-item">
+                                <div>
+                                    <div class="beauty-selected-name">${product.name}</div>
+                                    <small style="color: #999;">${quantity} x ${product.price.toLocaleString()} FCFA</small>
+                                </div>
+                                <div class="beauty-selected-price">${displayTotal}</div>
                             </div>
-                            <div class="beauty-selected-price">
-                                ${currentTotalCurrency === 'FCFA' ? total.toLocaleString() + ' FCFA' : 
-                                  currentTotalCurrency === 'EUR' ? '€' + totalEuro.toFixed(2) :
-                                  '$' + totalDollar.toFixed(2)}
-                            </div>
-                        </div>
-                    `;
+                        `;
+                    }
                 }
             });
             
@@ -1541,64 +1717,15 @@
             section.style.display = hasProducts ? 'block' : 'none';
         }
 
-        function updateBeautyOrderSummary() {
-            let totalItems = 0;
-            let subtotal = 0;
-            
-            beautyProducts.forEach(product => {
-                const quantity = parseInt(document.getElementById(`qty-${product.id}`)?.value) || 0;
-                if (quantity > 0) {
-                    totalItems += quantity;
-                    subtotal += quantity * product.price;
-                }
-            });
-            
-            const deliveryFee = 2000;
-            const total = subtotal + deliveryFee;
-            
-            // Conversion devises
-            const subtotalEuro = Math.round(subtotal * EXCHANGE_RATES.EUR * 100) / 100;
-            const subtotalDollar = Math.round(subtotal * EXCHANGE_RATES.USD * 100) / 100;
-            const totalEuro = Math.round(total * EXCHANGE_RATES.EUR * 100) / 100;
-            const totalDollar = Math.round(total * EXCHANGE_RATES.USD * 100) / 100;
-            const deliveryEuro = Math.round(deliveryFee * EXCHANGE_RATES.EUR * 100) / 100;
-            const deliveryDollar = Math.round(deliveryFee * EXCHANGE_RATES.USD * 100) / 100;
-            
-            // Mettre à jour l'affichage
-            document.getElementById('beauty-articles-count').textContent = totalItems;
-            
-            if (currentTotalCurrency === 'FCFA') {
-                document.getElementById('beauty-subtotal').innerHTML = `${subtotal.toLocaleString()} <span class="beauty-currency">FCFA</span>`;
-                document.getElementById('beauty-delivery').innerHTML = `${deliveryFee.toLocaleString()} <span class="beauty-currency">FCFA</span>`;
-                document.getElementById('beauty-total').innerHTML = `${total.toLocaleString()} <span class="beauty-currency">FCFA</span>`;
-                document.getElementById('beauty-modal-amount').textContent = `${total.toLocaleString()} FCFA`;
-            } else if (currentTotalCurrency === 'EUR') {
-                document.getElementById('beauty-subtotal').innerHTML = `${subtotalEuro.toFixed(2)} <span class="beauty-currency">€</span>`;
-                document.getElementById('beauty-delivery').innerHTML = `${deliveryEuro.toFixed(2)} <span class="beauty-currency">€</span>`;
-                document.getElementById('beauty-total').innerHTML = `${totalEuro.toFixed(2)} <span class="beauty-currency">€</span>`;
-                document.getElementById('beauty-modal-amount').textContent = `${totalEuro.toFixed(2)} €`;
-            } else if (currentTotalCurrency === 'USD') {
-                document.getElementById('beauty-subtotal').innerHTML = `${subtotalDollar.toFixed(2)} <span class="beauty-currency">$</span>`;
-                document.getElementById('beauty-delivery').innerHTML = `${deliveryDollar.toFixed(2)} <span class="beauty-currency">$</span>`;
-                document.getElementById('beauty-total').innerHTML = `${totalDollar.toFixed(2)} <span class="beauty-currency">$</span>`;
-                document.getElementById('beauty-modal-amount').textContent = `${totalDollar.toFixed(2)} $`;
-            }
-            
-            // Afficher les conversions dans le modal
-            document.getElementById('modal-euro').textContent = `€${totalEuro.toFixed(2)}`;
-            document.getElementById('modal-dollar').textContent = `$${totalDollar.toFixed(2)}`;
-            
-            updateSelectedProducts();
-        }
-
         function handleWhatsApp() {
             if (!validateOrder()) return;
             
             const orderDetails = generateOrderDetails();
-            const whatsappNumber = "+33756950190";
+            const whatsappNumber = "33756950190";
             const whatsappText = encodeURIComponent(orderDetails);
             
             window.open(`https://wa.me/${whatsappNumber}?text=${whatsappText}`, '_blank');
+            showNotification('Redirection vers WhatsApp...', 'success');
         }
 
         function handleEsodi() {
@@ -1612,8 +1739,18 @@
             const adresse = document.getElementById('beauty-adresse').value.trim();
             const confirm = document.getElementById('beauty-confirm').checked;
             
-            if (!nom || !whatsapp || !adresse) {
-                showNotification('Veuillez remplir tous les champs obligatoires', 'error');
+            if (!nom) {
+                showNotification('Veuillez saisir votre nom', 'error');
+                return false;
+            }
+            
+            if (!whatsapp) {
+                showNotification('Veuillez saisir votre numéro WhatsApp', 'error');
+                return false;
+            }
+            
+            if (!adresse) {
+                showNotification('Veuillez saisir votre adresse', 'error');
                 return false;
             }
             
@@ -1655,61 +1792,65 @@
             
             let total = 0;
             beautyProducts.forEach(product => {
-                const quantity = parseInt(document.getElementById(`qty-${product.id}`)?.value) || 0;
-                if (quantity > 0) {
-                    const itemTotal = quantity * product.price;
-                    const itemEuro = Math.round(itemTotal * EXCHANGE_RATES.EUR * 100) / 100;
-                    const itemDollar = Math.round(itemTotal * EXCHANGE_RATES.USD * 100) / 100;
-                    
-                    orderText += `• ${product.name} (${quantity} x ${product.price.toLocaleString()} FCFA)\n`;
-                    orderText += `  = ${itemTotal.toLocaleString()} FCFA (€${itemEuro.toFixed(2)} / $${itemDollar.toFixed(2)})\n`;
-                    total += itemTotal;
+                const input = document.getElementById(`qty-${product.id}`);
+                if (input) {
+                    const quantity = parseInt(input.value) || 0;
+                    if (quantity > 0) {
+                        const itemTotal = quantity * product.price;
+                        const itemEuro = (itemTotal * EXCHANGE_RATES.EUR).toFixed(2);
+                        const itemDollar = (itemTotal * EXCHANGE_RATES.USD).toFixed(2);
+                        
+                        orderText += `• ${product.name} (${quantity} x ${product.price.toLocaleString()} FCFA)\n`;
+                        orderText += `  = ${itemTotal.toLocaleString()} FCFA (€${itemEuro} / $${itemDollar})\n`;
+                        total += itemTotal;
+                    }
                 }
             });
             
-            const totalEuro = Math.round(total * EXCHANGE_RATES.EUR * 100) / 100;
-            const totalDollar = Math.round(total * EXCHANGE_RATES.USD * 100) / 100;
+            const totalEuro = (total * EXCHANGE_RATES.EUR).toFixed(2);
+            const totalDollar = (total * EXCHANGE_RATES.USD).toFixed(2);
             const deliveryFee = 2000;
-            const deliveryEuro = Math.round(deliveryFee * EXCHANGE_RATES.EUR * 100) / 100;
-            const deliveryDollar = Math.round(deliveryFee * EXCHANGE_RATES.USD * 100) / 100;
+            const deliveryEuro = (deliveryFee * EXCHANGE_RATES.EUR).toFixed(2);
+            const deliveryDollar = (deliveryFee * EXCHANGE_RATES.USD).toFixed(2);
             const grandTotal = total + deliveryFee;
-            const grandTotalEuro = Math.round(grandTotal * EXCHANGE_RATES.EUR * 100) / 100;
-            const grandTotalDollar = Math.round(grandTotal * EXCHANGE_RATES.USD * 100) / 100;
+            const grandTotalEuro = (grandTotal * EXCHANGE_RATES.EUR).toFixed(2);
+            const grandTotalDollar = (grandTotal * EXCHANGE_RATES.USD).toFixed(2);
             
             orderText += `\n💰 *Récapitulatif:*\n`;
-            orderText += `📦 Sous-total: ${total.toLocaleString()} FCFA (€${totalEuro.toFixed(2)} / $${totalDollar.toFixed(2)})\n`;
-            orderText += `🚚 Frais de livraison: ${deliveryFee.toLocaleString()} FCFA (€${deliveryEuro.toFixed(2)} / $${deliveryDollar.toFixed(2)})\n`;
-            orderText += `💵 TOTAL: ${grandTotal.toLocaleString()} FCFA (€${grandTotalEuro.toFixed(2)} / $${grandTotalDollar.toFixed(2)})\n\n`;
+            orderText += `📦 Sous-total: ${total.toLocaleString()} FCFA (€${totalEuro} / $${totalDollar})\n`;
+            orderText += `🚚 Frais de livraison: ${deliveryFee.toLocaleString()} FCFA (€${deliveryEuro} / $${deliveryDollar})\n`;
+            orderText += `💵 TOTAL: ${grandTotal.toLocaleString()} FCFA (€${grandTotalEuro} / $${grandTotalDollar})\n\n`;
             
-            orderText += `⏰ *Date:* ${new Date().toLocaleDateString('fr-FR')} à ${new Date().toLocaleTimeString('fr-FR')}\n`;
-            orderText += `💳 *Méthode de paiement:* Carte ESODI\n\n`;
+            const now = new Date();
+            orderText += `⏰ *Date:* ${now.toLocaleDateString('fr-FR')} à ${now.toLocaleTimeString('fr-FR')}\n`;
+            orderText += `💳 *Méthode de paiement:* PayPal\n\n`;
             orderText += `Merci pour votre confiance ! 💕`;
             
             return orderText;
         }
 
-        function showNotification(message, type) {
+        function showNotification(message, type = 'info') {
             const notification = document.getElementById('beauty-notification');
             notification.textContent = message;
             
-            // Définir la couleur en fonction du type
-            if (type === 'success') {
-                notification.style.background = 'linear-gradient(135deg, var(--success), #2e7d32)';
-            } else if (type === 'error') {
-                notification.style.background = 'linear-gradient(135deg, var(--danger), #d32f2f)';
-            } else if (type === 'info') {
-                notification.style.background = 'linear-gradient(135deg, var(--primary), var(--secondary))';
-            } else {
-                notification.style.background = 'linear-gradient(135deg, var(--warning), #f57c00)';
-            }
+            notification.style.background = 
+                type === 'success' ? 'linear-gradient(135deg, #4caf50, #2e7d32)' :
+                type === 'error' ? 'linear-gradient(135deg, #f44336, #d32f2f)' :
+                'linear-gradient(135deg, #e91e63, #7b1fa2)';
             
-            notification.className = `beauty-notification ${type}`;
             notification.classList.add('show');
             
             setTimeout(() => {
                 notification.classList.remove('show');
             }, 3000);
         }
+
+        // Exposer les fonctions nécessaires globalement
+        window.loadSampleCatalog = loadSampleCatalog;
+        window.handleImport = handleImport;
+        window.updateQuantity = updateQuantity;
+        window.updateQuantityInput = updateQuantityInput;
+        window.showImageZoom = showImageZoom;
     </script>
 </body>
 </html>
